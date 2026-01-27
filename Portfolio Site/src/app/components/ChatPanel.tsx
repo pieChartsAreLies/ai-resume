@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ChatPanelProps {
@@ -7,6 +7,9 @@ interface ChatPanelProps {
 }
 
 export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [iframeError, setIframeError] = useState(false);
+
   // Close on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -15,6 +18,18 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
+
+  // Reset states when panel opens
+  useEffect(() => {
+    if (isOpen) {
+      setIframeLoaded(false);
+      setIframeError(false);
+    }
+  }, [isOpen]);
+
+  const handleIframeLoad = () => {
+    setIframeLoaded(true);
+  };
 
   return (
     <AnimatePresence>
@@ -35,7 +50,7 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full md:w-[700px] bg-white shadow-2xl z-[999]"
+            className="fixed right-0 top-0 h-full w-full md:w-[700px] bg-white shadow-2xl z-[999] flex flex-col"
           >
             {/* Close Button */}
             <button
@@ -46,7 +61,7 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
             </button>
 
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white p-6 text-center">
+            <div className="bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white p-6 text-center shrink-0">
               <h2 className="font-['Montserrat',sans-serif] font-semibold text-lg">
                 Ask My AI Assistant
               </h2>
@@ -55,12 +70,27 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
               </p>
             </div>
 
-            {/* Chat iframe */}
-            <iframe
-              src="http://192.168.2.234:8001"
-              className="w-full h-[calc(100%-100px)] border-none"
-              title="AI Chat Assistant"
-            />
+            {/* Chat iframe container */}
+            <div className="flex-1 relative">
+              {/* Loading state */}
+              {!iframeLoaded && !iframeError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#667eea] mx-auto mb-4"></div>
+                    <p className="text-gray-600 font-['Montserrat',sans-serif]">Loading AI Assistant...</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Iframe */}
+              <iframe
+                src="http://192.168.2.234:8001"
+                className="w-full h-full border-none"
+                title="AI Chat Assistant"
+                onLoad={handleIframeLoad}
+                allow="microphone"
+              />
+            </div>
           </motion.div>
         </>
       )}
