@@ -1,3 +1,6 @@
+# Knowledge base - NEVER commit (contains personal/professional details for RAG)
+knowledge/
+
 # Environment variables
 .env
 .env.local
