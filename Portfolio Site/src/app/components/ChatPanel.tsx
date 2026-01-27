@@ -84,7 +84,7 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
 
               {/* Iframe */}
               <iframe
-                src="http://192.168.2.68:8001"
+                src={import.meta.env.VITE_CHAINLIT_URL || "http://192.168.2.68:8000"}
                 className="w-full h-full border-none"
                 title="AI Chat Assistant"
                 onLoad={handleIframeLoad}
