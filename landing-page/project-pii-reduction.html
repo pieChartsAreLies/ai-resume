@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PII Reduction Initiative - Chewy | Michael Gerstl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .project-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .project-company {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .project-tagline {
+            font-size: 20px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .metrics-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .main-content {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .chat-embed {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            height: 600px;
+        }
+
+        .chat-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 30px 0 15px;
+            color: #1a1a1a;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+
+        li {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .chat-embed {
+                height: 500px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .container {
+                padding: 40px 24px;
+            }
+
+            .main-content {
+                padding: 30px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Main Page</a>
+            <a href="#ask-ai" class="back-link">Ask AI Assistant</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="project-header">
+            <div class="project-icon">🔒</div>
+            <div class="project-company">Chewy</div>
+            <h1>PII Reduction Initiative</h1>
+            <p class="project-tagline">
+                Reducing PII exposure by 97% across all data systems to enable IPO readiness
+            </p>
+            <div class="metrics-bar">
+                <div class="metric">
+                    <div class="metric-value">97%</div>
+                    <div class="metric-label">PII Reduction</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">30+</div>
+                    <div class="metric-label">Engineering Teams</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">6 Months</div>
+                    <div class="metric-label">Timeline</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">IPO</div>
+                    <div class="metric-label">Critical</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <h2>The Challenge</h2>
+                <p>
+                    Legacy data pipelines at Chewy had accumulated Personally Identifiable Information (PII) across multiple systems—data warehouse, data lake, event logging, and system logs—without consistent controls. This created significant compliance risk under CCPA and potential GDPR regulations.
+                </p>
+                <p>
+                    As Chewy prepared for its June 2019 IPO, this PII exposure became a critical blocker. Auditors and regulators needed confidence that customer data was protected. More importantly, it was simply the right thing to do—customer trust demands responsible data stewardship.
+                </p>
+
+                <div class="highlight-box">
+                    <h3>The Scope of the Problem</h3>
+                    <p>
+                        PII had leaked into logging systems that retained data for years. Customer names, addresses, email addresses, and phone numbers appeared in debug logs, error messages, and application traces across 30+ engineering teams' systems. Nobody had intentionally put it there—it happened through organic, uncoordinated growth.
+                    </p>
+                </div>
+
+                <h2>The Approach</h2>
+                <p>
+                    I led a cross-functional initiative establishing comprehensive PII management processes across the entire data ecosystem. This wasn't just a technical cleanup—it required changing how 30+ engineering teams thought about data privacy.
+                </p>
+
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Automated Data Classification:</strong> Built systems to identify PII across all data stores—scanning logs, database tables, data lake files, and event streams for patterns matching PII</li>
+                    <li><strong>Retention Policies with Automated Purging:</strong> Implemented lifecycle management automatically removing aged sensitive data, reducing long-term exposure risk</li>
+                    <li><strong>Access Controls:</strong> Restricted PII visibility to need-to-know basis through role-based permissions and audit logging</li>
+                    <li><strong>Data Masking and Anonymization:</strong> Deployed techniques ensuring analytics and test environments used synthetic or masked data rather than real customer information</li>
+                    <li><strong>Privacy by Design Culture:</strong> Worked with engineering teams to embed privacy considerations into development workflows</li>
+                </ul>
+
+                <h3>Cross-Departmental Collaboration</h3>
+                <p>
+                    This initiative required deep partnerships across Legal, Product Engineering, Infrastructure, and Security teams. I served as the translator between regulatory requirements and technical implementations, ensuring pipelines aligned with privacy regulations while maintaining business functionality.
+                </p>
+
+                <h2>The Outcome</h2>
+                <p>
+                    Over a 6-month intensive effort, we reduced instances of errant PII by 97% across all data systems. This dramatic reduction moved Chewy from compliance risk to compliance confidence.
+                </p>
+
+                <h3>Quantifiable Impact</h3>
+                <ul>
+                    <li><strong>PII Reduction:</strong> 97% decrease in PII exposure across data warehouse, data lake, event logs, and system logs</li>
+                    <li><strong>IPO Readiness:</strong> Enabled successful June 2019 IPO by addressing critical compliance gap</li>
+                    <li><strong>Regulatory Compliance:</strong> Established CCPA compliance posture and GDPR readiness</li>
+                    <li><strong>Customer Trust:</strong> Protected customer data privacy at scale (millions of customers, billions of transactions)</li>
+                </ul>
+
+                <h3>Strategic Impact</h3>
+                <p>
+                    The PII reduction initiative became the foundation for Chewy's ongoing data governance program. The automated classification systems, retention policies, and privacy-by-design principles I established continued operating long after the initial project completed.
+                </p>
+                <p>
+                    More importantly, it shifted organizational culture. Engineering teams started asking "does this log need PII?" before implementing features, rather than cleaning it up retroactively. That cultural change multiplied the initiative's long-term impact.
+                </p>
+
+                <h2>Technical Deep Dive</h2>
+                <h3>Automated PII Detection</h3>
+                <p>
+                    We built scanning systems using regular expressions, machine learning models, and schema analysis to identify PII patterns. The scanners ran continuously, flagging new PII exposures before they accumulated. This proactive approach prevented regression.
+                </p>
+
+                <h3>Log Aggregation Governance</h3>
+                <p>
+                    Splunk infrastructure (scaled from 2TB to 8TB daily ingest) became a focal point. I established governance processes ensuring logs were automatically scrubbed of PII before ingestion, protecting customer data while maintaining operational observability.
+                </p>
+
+                <h2>Key Lessons</h2>
+                <p>
+                    <strong>Privacy is a System Problem, Not a Data Problem:</strong> You can't fix PII exposure by just cleaning databases. You have to fix the systems that generate the exposure—the logging frameworks, error handling, and debugging practices across engineering teams.
+                </p>
+                <p>
+                    <strong>Automation is Non-Negotiable:</strong> Manual PII audits don't scale. The only sustainable approach is automated detection with alerts, ensuring new PII exposures are caught immediately.
+                </p>
+                <p>
+                    <strong>Compliance Enables Business:</strong> This wasn't "overhead"—it directly enabled Chewy's IPO and subsequent growth. Companies that treat privacy as a checkbox exercise rather than foundational practice will eventually pay the price.
+                </p>
+
+                <h2>Technologies Used</h2>
+                <div class="tech-stack">
+                    <span class="tech-tag">Splunk</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">Data Classification Tools</span>
+                    <span class="tech-tag">OneTrust</span>
+                    <span class="tech-tag">Custom Scanning Tools</span>
+                </div>
+
+                <h2>Related Projects</h2>
+                <p>
+                    This PII reduction work was part of Chewy's broader governance transformation:
+                </p>
+                <ul>
+                    <li><strong>Enterprise Data Governance:</strong> The comprehensive GRC program supporting SOX and regulatory compliance</li>
+                    <li><strong>IPO Readiness:</strong> Data governance frameworks enabling public company operations</li>
+                </ul>
+            </div>
+
+            <div class="sidebar" id="ask-ai">
+                <div class="chat-embed">
+                    <div class="chat-header">Ask AI About This Project</div>
+                    <iframe src="http://192.168.2.68:8001"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

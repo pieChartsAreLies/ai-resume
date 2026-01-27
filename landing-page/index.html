@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Gerstl - Data Leader & AI Evangelist</title>
+    <meta name="description" content="Building and scaling data organizations for high-growth platforms.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .profile-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        h1 {
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .intro-text {
+            font-size: 20px;
+            line-height: 1.7;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Section Headers */
+        .section {
+            margin: 100px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 3px solid #fafafa;
+        }
+
+        .timeline-year {
+            font-size: 14px;
+            font-weight: 700;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-role {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .timeline-company {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .timeline-description {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: #667eea;
+        }
+
+        .project-card:visited {
+            color: inherit;
+        }
+
+        .project-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .project-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .project-company {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-description {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-metric {
+            font-size: 14px;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* About Section */
+        .about-content {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .about-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* CTA Section */
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px;
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+            margin: 80px 0;
+        }
+
+        .cta-box h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-box p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        /* Links Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .footer a {
+            display: inline-block;
+            margin: 0 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #764ba2;
+        }
+
+        /* Chat Panel */
+        .chat-toggle {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px 16px;
+            writing-mode: vertical-rl;
+            cursor: pointer;
+            border-radius: 8px 0 0 8px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 2px;
+            box-shadow: -2px 0 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle:hover {
+            padding-right: 22px;
+        }
+
+        .chat-panel {
+            position: fixed;
+            right: -700px;
+            top: 0;
+            width: 700px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 30px rgba(0,0,0,0.2);
+            transition: right 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: 999;
+        }
+
+        .chat-panel.open {
+            right: 0;
+        }
+
+        .chat-panel iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .chat-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(0,0,0,0.05);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            transition: all 0.2s;
+            color: #666;
+        }
+
+        .chat-close:hover {
+            background: rgba(0,0,0,0.1);
+            transform: rotate(90deg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 24px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .tagline {
+                font-size: 20px;
+            }
+
+            .intro-text {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-panel {
+                width: 100%;
+                right: -100%;
+            }
+
+            .cta-box {
+                padding: 40px 24px;
+            }
+
+            .about-content {
+                padding: 30px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="container">
+        <div class="hero">
+            <div class="profile-image">MG</div>
+            <h1>Michael Gerstl</h1>
+            <p class="tagline">Data Leader & AI Evangelist</p>
+            <p class="intro-text">
+                I build and scale data organizations that actually work. Over the past decade, I've taken teams from startup chaos to Fortune 500 scale—building trusted infrastructure, defining metrics that matter, and partnering with teams who need data to win.
+            </p>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="section">
+            <h2 class="section-title">A Brief History</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024 - 2025</div>
+                    <div class="timeline-role">Director of Business Intelligence and Data Engineering</div>
+                    <div class="timeline-company">Babylist</div>
+                    <div class="timeline-description">
+                        Led data platform strategy for registry and e-commerce platform. Modernized Snowflake architecture achieving 30% cost reduction and 50% query performance improvement. Implemented metric trees as core measurement framework and established PHI governance for health data partnerships.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2022 - 2023</div>
+                    <div class="timeline-role">Director of Software Engineering — Analytic Platforms</div>
+                    <div class="timeline-company">Chewy</div>
+                    <div class="timeline-description">
+                        Owned platform engineering for Fortune 500 analytics infrastructure. Led enterprise data instrumentation audit influencing C-suite mobile architecture consolidation. Architected real-time event pipeline replacing Segment, saving $35K annually.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2020 - 2022</div>
+                    <div class="timeline-role">Director, Business Intelligence</div>
+                    <div class="timeline-company">Chewy</div>
+                    <div class="timeline-description">
+                        Scaled team from 14 to 30 people across distributed locations. Established enterprise data governance program supporting SOX compliance. Scaled Tableau from 100 to 3,500+ users. Reduced PII exposure by 97% across all data systems.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2017 - 2020</div>
+                    <div class="timeline-role">Associate Director, Business Intelligence</div>
+                    <div class="timeline-company">Chewy</div>
+                    <div class="timeline-description">
+                        First BI hire. Built analytics function from 0 to 14 people supporting IPO readiness. Architected lakehouse data platform on AWS. Launched data governance program and established hub-and-spoke analytics model. Founded company data conference.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="section">
+            <h2 class="section-title">My Work</h2>
+            <div class="projects-grid">
+                <a href="project-tableau-scale.html" class="project-card">
+                    <div class="project-icon">📊</div>
+                    <div class="project-company">Chewy</div>
+                    <div class="project-title">Tableau @ Scale</div>
+                    <div class="project-description">
+                        Scaled enterprise BI platform from 100 to 3,500 users, supporting IPO readiness with SOX-compliant path-to-production processes and 8-node cluster architecture.
+                    </div>
+                    <div class="project-metric">3,400% user growth | 8-node cluster | SOX-compliant</div>
+                </a>
+
+                <a href="project-pii-reduction.html" class="project-card">
+                    <div class="project-icon">🔒</div>
+                    <div class="project-company">Chewy</div>
+                    <div class="project-title">PII Reduction Initiative</div>
+                    <div class="project-description">
+                        Led cross-functional initiative to reduce PII in system logs by 97%, enabling IPO readiness through log aggregation governance and automated detection.
+                    </div>
+                    <div class="project-metric">97% PII reduction | 30+ engineering teams | IPO-critical</div>
+                </a>
+
+                <a href="project-vendor-analytics.html" class="project-card">
+                    <div class="project-icon">🎯</div>
+                    <div class="project-company">Chewy</div>
+                    <div class="project-title">Vendor Analytics Platform</div>
+                    <div class="project-description">
+                        Built external analytics platform used by 200+ vendors generating $10M+ annual revenue. Scaled from vet services to 3 business units with self-service capabilities.
+                    </div>
+                    <div class="project-metric">$10M+ revenue | 200+ vendors | 3 business units</div>
+                </a>
+
+                <a href="project-data-culture.html" class="project-card">
+                    <div class="project-icon">🎓</div>
+                    <div class="project-company">Chewy</div>
+                    <div class="project-title">Data Culture Conferences</div>
+                    <div class="project-description">
+                        Launched Data Summit and Data Basecamp conferences, training 1,200+ employees with 200+ recorded sessions, building organization-wide data literacy.
+                    </div>
+                    <div class="project-metric">1,200+ trained | 200+ sessions | Company-wide impact</div>
+                </a>
+
+                <a href="project-metric-trees.html" class="project-card">
+                    <div class="project-icon">🎪</div>
+                    <div class="project-company">Babylist</div>
+                    <div class="project-title">Metric Trees Framework</div>
+                    <div class="project-description">
+                        Implemented metric trees as core measurement framework, giving business units clean metrics aligned to company objectives and providing clear prioritization for analytics work.
+                    </div>
+                    <div class="project-metric">Company-wide alignment | Clear prioritization | OKR integration</div>
+                </a>
+
+                <a href="project-modern-data-stack.html" class="project-card">
+                    <div class="project-icon">🤖</div>
+                    <div class="project-company">Homelab</div>
+                    <div class="project-title">Modern Data Stack</div>
+                    <div class="project-description">
+                        Personal infrastructure running Airflow, dbt, Qdrant vector DB, and LLM inference. Experimenting with RAG, semantic search, and AI-driven analytics to stay sharp on emerging tech.
+                    </div>
+                    <div class="project-metric">Airflow | dbt | Qdrant | LM Studio | Always learning</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <h2>Want to Learn More?</h2>
+            <p>Ask my AI assistant about these projects, my technical expertise, leadership philosophy, or anything else you'd like to know.</p>
+            <button class="btn" onclick="openChat()">Start a Conversation</button>
+        </div>
+
+        <!-- About Section -->
+        <div class="section">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>
+                    <strong>My approach is simple:</strong> Build things people trust, make them scale without constant maintenance, and work alongside the teams who use the data. When things get chaotic—which they always do—that trust is what keeps everything from falling apart.
+                </p>
+                <p>
+                    I'm a strong believer in "go slow to go fast." Building scalable processes and implementation methodologies supports rapid growth. Whether it's CCPA compliance, SOX audits, or ML deployment pipelines, I focus on foundations that last.
+                </p>
+                <p>
+                    Outside of work, I run a homelab where I experiment with Airflow, dbt, vector databases, and LLMs. It keeps me sharp on modern data engineering and lets me play with emerging AI technologies. I'm also a dad who enjoys quiet mornings when the kids are back in school.
+                </p>
+                <p>
+                    <strong>Currently:</strong> I'm selective about what's next—looking for VP/Director roles where I can build and scale data organizations at companies with strong product-market fit and growth trajectory. Healthcare tech, AI-driven products, and high-growth consumer platforms are particularly interesting.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <a href="https://linkedin.com/in/michael-gerstl" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="#" onclick="openChat(); return false;">Ask My AI</a>
+        </div>
+    </div>
+
+    <!-- Chat Toggle -->
+    <div class="chat-toggle" onclick="openChat()">ASK MY AI ASSISTANT</div>
+
+    <!-- Chat Panel -->
+    <div class="chat-panel" id="chatPanel">
+        <button class="chat-close" onclick="closeChat()">&times;</button>
+        <iframe src="http://192.168.2.68:8001" id="chatFrame"></iframe>
+    </div>
+
+    <script>
+        function openChat() {
+            document.getElementById('chatPanel').classList.add('open');
+        }
+
+        function closeChat() {
+            document.getElementById('chatPanel').classList.remove('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const chatPanel = document.getElementById('chatPanel');
+            const chatToggle = document.querySelector('.chat-toggle');
+
+            if (chatPanel.classList.contains('open') &&
+                !chatPanel.contains(event.target) &&
+                event.target !== chatToggle &&
+                !event.target.closest('.btn') &&
+                !event.target.closest('.project-card')) {
+                closeChat();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeChat();
+            }
+        });
+    </script>
+</body>
+</html>

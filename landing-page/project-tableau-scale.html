@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau @ Scale - Chewy | Michael Gerstl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .project-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .project-company {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .project-tagline {
+            font-size: 20px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .metrics-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .main-content {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .chat-embed {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            height: 600px;
+        }
+
+        .chat-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 30px 0 15px;
+            color: #1a1a1a;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+
+        li {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .chat-embed {
+                height: 500px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .container {
+                padding: 40px 24px;
+            }
+
+            .main-content {
+                padding: 30px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Main Page</a>
+            <a href="#ask-ai" class="back-link">Ask AI Assistant</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="project-header">
+            <div class="project-icon">📊</div>
+            <div class="project-company">Chewy</div>
+            <h1>Tableau @ Scale</h1>
+            <p class="project-tagline">
+                Scaling enterprise BI from 100 to 3,500 users through IPO with SOX-compliant governance
+            </p>
+            <div class="metrics-bar">
+                <div class="metric">
+                    <div class="metric-value">35x</div>
+                    <div class="metric-label">User Growth</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">8-Node</div>
+                    <div class="metric-label">Cluster</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">SOX</div>
+                    <div class="metric-label">Compliant</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">60%</div>
+                    <div class="metric-label">Request Reduction</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <h2>The Challenge</h2>
+                <p>
+                    When I joined Chewy in 2017, Tableau adoption had grown organically to around 100 users but lacked governance, standards, or compliance controls necessary for SOX requirements. Executive leadership wanted to democratize analytics across the organization but needed confidence in data integrity and access controls.
+                </p>
+                <p>
+                    The company was rapidly scaling toward its June 2019 IPO, which meant we needed to support exponential user growth while simultaneously establishing the governance frameworks required for public company operations.
+                </p>
+
+                <h2>The Approach</h2>
+                <p>
+                    I architected a comprehensive SOX-compliant Tableau Server environment that balanced governance rigor with user accessibility. Too much control would kill adoption; too little would create compliance risk.
+                </p>
+
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Dev/Prod Separation:</strong> Implemented environment segregation ensuring content was tested before production deployment, preventing untested dashboards from affecting business decisions</li>
+                    <li><strong>Role-Based Access Controls:</strong> Designed granular permissions system with audit logging for compliance, ensuring users could only access data appropriate to their role</li>
+                    <li><strong>Governance Frameworks:</strong> Established content certification processes, data source standards, and publishing workflows that maintained quality without creating bottlenecks</li>
+                    <li><strong>8-Node Cluster Architecture:</strong> Scaled infrastructure to support 3,500+ concurrent users with high availability and performance</li>
+                    <li><strong>Enablement Programs:</strong> Created comprehensive training, office hours, and tiered support to ensure users could be self-sufficient</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h3>SOX Compliance Strategy</h3>
+                    <p>
+                        The SOX-compliant path-to-production process I designed became the blueprint for how Chewy deployed analytics content. Every dashboard followed a consistent lifecycle: development → peer review → testing → certification → production deployment. This process satisfied auditors while maintaining developer velocity.
+                    </p>
+                </div>
+
+                <h2>The Outcome</h2>
+                <p>
+                    The platform successfully scaled from 100 to 3,500+ users (35x growth) while maintaining SOX compliance through multiple audit cycles. This growth happened during Chewy's transformation from pre-IPO startup to Fortune 500 public company.
+                </p>
+
+                <h3>Quantifiable Impact</h3>
+                <ul>
+                    <li><strong>User Growth:</strong> 3,400% increase in active Tableau users</li>
+                    <li><strong>Request Reduction:</strong> 60% decrease in ad-hoc data requests as users became self-sufficient</li>
+                    <li><strong>Compliance:</strong> Zero material findings in SOX audits related to analytics infrastructure</li>
+                    <li><strong>Decision Speed:</strong> Business teams could answer their own questions in minutes rather than waiting days for analyst support</li>
+                </ul>
+
+                <h3>Strategic Impact</h3>
+                <p>
+                    Self-service analytics became a competitive advantage at Chewy, enabling faster decision-making across all business functions without proportional growth in analytics headcount. Marketing could optimize campaigns in real-time, Operations could identify fulfillment bottlenecks immediately, and Product teams could validate feature success within hours of launch.
+                </p>
+
+                <h2>Key Lessons</h2>
+                <p>
+                    <strong>Governance Enables Scale:</strong> The counterintuitive lesson was that stronger governance actually accelerated adoption. When users trust the data and know where to find certified content, they engage more confidently. Weak governance creates chaos that ultimately slows everything down.
+                </p>
+                <p>
+                    <strong>Enablement is Infrastructure:</strong> The training programs and office hours weren't "nice to have"—they were critical infrastructure. Without them, self-service would have failed. You can't democratize analytics without democratizing knowledge.
+                </p>
+                <p>
+                    <strong>IPO Readiness is a Mindset:</strong> The discipline we built preparing for IPO—audit trails, change control, documentation—became the cultural foundation that sustained Chewy's analytics operations at Fortune 500 scale.
+                </p>
+
+                <h2>Technologies Used</h2>
+                <div class="tech-stack">
+                    <span class="tech-tag">Tableau Server</span>
+                    <span class="tech-tag">Amazon Redshift</span>
+                    <span class="tech-tag">Snowflake</span>
+                    <span class="tech-tag">dbt</span>
+                    <span class="tech-tag">Apache Airflow</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">AWS</span>
+                </div>
+
+                <h2>Related Projects</h2>
+                <p>
+                    This Tableau scaling work was part of Chewy's broader analytics transformation. See also:
+                </p>
+                <ul>
+                    <li><strong>Data Governance for IPO:</strong> The compliance frameworks that enabled SOX-compliant operations</li>
+                    <li><strong>Hub-and-Spoke Model:</strong> The organizational transformation that supported self-service analytics</li>
+                    <li><strong>Data Culture Conferences:</strong> The training programs that built organization-wide data literacy</li>
+                </ul>
+            </div>
+
+            <div class="sidebar" id="ask-ai">
+                <div class="chat-embed">
+                    <div class="chat-header">Ask AI About This Project</div>
+                    <iframe src="http://192.168.2.68:8001"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

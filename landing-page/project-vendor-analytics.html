@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Analytics Platform - Chewy | Michael Gerstl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .project-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .project-company {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .project-tagline {
+            font-size: 20px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .metrics-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .main-content {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .chat-embed {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            height: 600px;
+        }
+
+        .chat-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 40px 0 20px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 30px 0 15px;
+            color: #1a1a1a;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+
+        li {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .chat-embed {
+                height: 500px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .container {
+                padding: 40px 24px;
+            }
+
+            .main-content {
+                padding: 30px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Main Page</a>
+            <a href="#ask-ai" class="back-link">Ask AI Assistant</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="project-header">
+            <div class="project-icon">🎯</div>
+            <div class="project-company">Chewy</div>
+            <h1>Vendor Analytics Platform</h1>
+            <p class="project-tagline">
+                External analytics platform generating $10M+ annual revenue used by 200+ vendor partners
+            </p>
+            <div class="metrics-bar">
+                <div class="metric">
+                    <div class="metric-value">$10M+</div>
+                    <div class="metric-label">Annual Revenue</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">200+</div>
+                    <div class="metric-label">Vendors</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Business Units</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">Self-Service</div>
+                    <div class="metric-label">Platform</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <h2>The Challenge</h2>
+                <p>
+                    Chewy's vet services business partnered with hundreds of veterinary clinics across the United States. These vendors needed visibility into their performance metrics, appointment volumes, customer satisfaction, and revenue—but Chewy had no infrastructure to provide external partners with self-service analytics.
+                </p>
+                <p>
+                    The alternative was manual reporting: analysts would receive ad-hoc requests from vendors, run queries, generate reports, and email them back. This approach didn't scale and created frustration on both sides.
+                </p>
+
+                <h2>The Approach</h2>
+                <p>
+                    I designed and built an external-facing analytics platform that allowed vendor partners to log in and access their own performance data through self-service dashboards. The platform needed to balance accessibility with security—vendors should see their data but never competitor data.
+                </p>
+
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Multi-Tenant Architecture:</strong> Implemented row-level security ensuring each vendor could only access their own data, with ironclad segregation preventing data leakage</li>
+                    <li><strong>Self-Service Dashboards:</strong> Built pre-configured analytics showing appointment trends, customer demographics, satisfaction scores, and revenue metrics</li>
+                    <li><strong>Scalable Platform Design:</strong> Architected the system to support expansion from vet services to additional business units (pharmacy, retail partners)</li>
+                    <li><strong>Performance Optimization:</strong> Designed data models and caching strategies supporting 200+ concurrent vendor users without performance degradation</li>
+                    <li><strong>Automated Onboarding:</strong> Created workflows allowing new vendors to be provisioned automatically without manual IT intervention</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h3>Revenue Model</h3>
+                    <p>
+                        The platform became a revenue-generating product. Vendors valued the analytics insights so highly that Chewy could monetize access through subscription fees and tiered service offerings. This transformed what could have been a cost center (manual reporting) into a profit center generating $10M+ annually.
+                    </p>
+                </div>
+
+                <h2>The Outcome</h2>
+                <p>
+                    The Vendor Analytics Platform became mission-critical infrastructure supporting Chewy's B2B partnerships. What started with vet services expanded to pharmacy and retail business units, demonstrating the platform's versatility and value.
+                </p>
+
+                <h3>Quantifiable Impact</h3>
+                <ul>
+                    <li><strong>Revenue Generation:</strong> $10M+ in annual platform subscription revenue</li>
+                    <li><strong>Vendor Adoption:</strong> 200+ active vendor users across three business units</li>
+                    <li><strong>Request Reduction:</strong> Eliminated thousands of ad-hoc reporting requests, freeing analytics team for strategic work</li>
+                    <li><strong>Vendor Satisfaction:</strong> Partners reported higher satisfaction scores, citing data transparency as key relationship strength</li>
+                </ul>
+
+                <h3>Strategic Impact</h3>
+                <p>
+                    The platform strengthened Chewy's vendor relationships by providing transparency and empowering partners with self-service data. Vendors could optimize their operations based on real-time insights rather than waiting for monthly reports.
+                </p>
+                <p>
+                    Additionally, the platform created competitive moat—vendors invested in integrating the analytics into their workflows, increasing switching costs and deepening partnerships.
+                </p>
+
+                <h2>Technical Deep Dive</h2>
+                <h3>Row-Level Security</h3>
+                <p>
+                    The most critical technical challenge was ensuring absolute data segregation. A vendor logging in should see only their data—no queries, no matter how cleverly constructed, could expose competitor information.
+                </p>
+                <p>
+                    I implemented row-level security (RLS) using Tableau's user filter capabilities combined with database-level views that enforced vendor isolation. Every query was automatically scoped to the authenticated user's vendor ID, with multiple validation layers preventing bypass attempts.
+                </p>
+
+                <h3>Scalability Architecture</h3>
+                <p>
+                    Supporting 200+ external users required different performance characteristics than internal analytics. I designed aggregate tables and materialized views pre-computing common metrics, ensuring dashboard load times remained under 3 seconds even during peak usage.
+                </p>
+
+                <h2>Key Lessons</h2>
+                <p>
+                    <strong>External Analytics is a Product:</strong> Building analytics for external users requires product thinking, not just engineering. User experience, onboarding flows, and support infrastructure matter as much as the data itself.
+                </p>
+                <p>
+                    <strong>Security Cannot Be Retrofitted:</strong> Row-level security must be foundational architecture, not an afterthought. Trying to add multi-tenancy to an existing platform is exponentially harder than building it correctly from the start.
+                </p>
+                <p>
+                    <strong>Self-Service Scales, Manual Reporting Doesn't:</strong> The investment in building self-service infrastructure paid for itself within months through eliminated manual work and new revenue generation.
+                </p>
+
+                <h2>Technologies Used</h2>
+                <div class="tech-stack">
+                    <span class="tech-tag">Tableau Server</span>
+                    <span class="tech-tag">Amazon Redshift</span>
+                    <span class="tech-tag">Row-Level Security</span>
+                    <span class="tech-tag">SQL</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">REST APIs</span>
+                </div>
+
+                <h2>Platform Evolution</h2>
+                <p>
+                    The platform's success with vet services led to expansion into pharmacy and retail partnerships. Each business unit brought unique requirements:
+                </p>
+                <ul>
+                    <li><strong>Pharmacy:</strong> Prescription volume trends, medication adherence, refill patterns</li>
+                    <li><strong>Retail:</strong> Product sales velocity, inventory recommendations, seasonal trends</li>
+                    <li><strong>Vet Services:</strong> Appointment volumes, customer satisfaction, service utilization</li>
+                </ul>
+                <p>
+                    The modular platform design allowed rapid expansion to new use cases without architectural rework.
+                </p>
+            </div>
+
+            <div class="sidebar" id="ask-ai">
+                <div class="chat-embed">
+                    <div class="chat-header">Ask AI About This Project</div>
+                    <iframe src="http://192.168.2.68:8001"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

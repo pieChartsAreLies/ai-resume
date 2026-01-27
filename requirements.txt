@@ -1,0 +1,23 @@
+# Core RAG Framework
+llama-index>=0.9.0
+langchain>=0.1.0
+
+# Vector Database
+qdrant-client>=1.7.0
+
+# Database
+psycopg2-binary>=2.9.9
+
+# Web UI
+chainlit>=1.0.0
+
+# Environment Variables
+python-dotenv>=1.0.0
+
+# Google Gemini API
+google-generativeai>=0.3.0
+llama-index-llms-gemini>=0.1.0
+llama-index-embeddings-gemini>=0.1.0
+
+# Utilities
+pyyaml>=6.0

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Culture Conferences - Chewy | Michael Gerstl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.6; }
+        .header { background: white; border-bottom: 1px solid #eee; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .back-link { color: #667eea; text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
+        .back-link:hover { color: #764ba2; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 40px; }
+        .project-header { text-align: center; margin-bottom: 60px; }
+        .project-icon { font-size: 64px; margin-bottom: 20px; }
+        .project-company { font-size: 14px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; color: #1a1a1a; }
+        .project-tagline { font-size: 20px; color: #666; max-width: 700px; margin: 0 auto 30px; }
+        .metrics-bar { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
+        .metric { text-align: center; }
+        .metric-value { font-size: 32px; font-weight: 700; color: #667eea; }
+        .metric-label { font-size: 14px; color: #666; margin-top: 8px; }
+        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 60px; }
+        .main-content { background: white; padding: 50px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .chat-embed { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); height: 600px; }
+        .chat-embed iframe { width: 100%; height: 100%; border: none; }
+        .chat-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; font-weight: 600; }
+        h2 { font-size: 28px; font-weight: 700; margin: 40px 0 20px; color: #1a1a1a; }
+        h3 { font-size: 22px; font-weight: 600; margin: 30px 0 15px; color: #1a1a1a; }
+        p { font-size: 17px; line-height: 1.8; color: #333; margin-bottom: 20px; }
+        ul { margin: 20px 0 20px 30px; }
+        li { font-size: 17px; line-height: 1.8; color: #333; margin-bottom: 10px; }
+        .highlight-box { background: #f8f9ff; border-left: 4px solid #667eea; padding: 25px; margin: 30px 0; border-radius: 8px; }
+        @media (max-width: 968px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .chat-embed { height: 500px; }
+            h1 { font-size: 36px; }
+            .container { padding: 40px 24px; }
+            .main-content { padding: 30px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Main Page</a>
+            <a href="#ask-ai" class="back-link">Ask AI Assistant</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="project-header">
+            <div class="project-icon">🎓</div>
+            <div class="project-company">Chewy</div>
+            <h1>Data Culture Conferences</h1>
+            <p class="project-tagline">Building organization-wide data literacy through Data Summit and Data Basecamp</p>
+            <div class="metrics-bar">
+                <div class="metric"><div class="metric-value">1,200+</div><div class="metric-label">Employees Trained</div></div>
+                <div class="metric"><div class="metric-value">200+</div><div class="metric-label">Recorded Sessions</div></div>
+                <div class="metric"><div class="metric-value">4-Day</div><div class="metric-label">Annual Event</div></div>
+                <div class="metric"><div class="metric-value">Company-Wide</div><div class="metric-label">Impact</div></div>
+            </div>
+        </div>
+        <div class="content-grid">
+            <div class="main-content">
+                <h2>The Challenge</h2>
+                <p>When I joined Chewy in 2017, data literacy was low across the organization. Teams didn't understand what was possible with analytics, BI tools sat underutilized, and there was no shared vocabulary around data concepts.</p>
+                <p>More fundamentally, there was no community. Analysts working in different business units didn't know each other, had no way to share learnings, and were reinventing solutions to problems others had already solved.</p>
+                
+                <h2>The Approach</h2>
+                <p>I founded Chewy's Data Conference as a grassroots initiative—starting as a small 10-person internal demo day where analysts could showcase interesting projects. The positive response convinced me this could become something bigger.</p>
+                
+                <h3>Evolution of the Conference</h3>
+                <ul>
+                    <li><strong>Year 1:</strong> Internal demo day with 10 presenters, single day, informal format</li>
+                    <li><strong>Year 2:</strong> Expanded to 2-day event with 30 sessions, vendor workshops, and executive participation</li>
+                    <li><strong>Year 3:</strong> Full 4-day conference with 75 sessions, keynote speakers, hands-on workshops, and recorded content library</li>
+                    <li><strong>Data Summits:</strong> Launched companion event series with focused vendor workshops and technical deep-dives</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h3>Content Philosophy</h3>
+                    <p>The conference wasn't just technical training—it combined three elements: (1) Technical sessions teaching analytics techniques and tools, (2) Business case studies showing real data-driven wins at Chewy, and (3) Vendor workshops introducing emerging technologies. This mix ensured relevance for both technical and business audiences.</p>
+                </div>
+                
+                <h2>The Outcome</h2>
+                <p>The Data Conference became an institutional program that outlived my tenure at Chewy. It transformed from a grassroots experiment into a permanent fixture of Chewy's culture, continuing to run years after I departed.</p>
+                
+                <h3>Quantifiable Impact</h3>
+                <ul>
+                    <li><strong>Reach:</strong> 1,200+ employees trained through conference sessions</li>
+                    <li><strong>Content Library:</strong> 200+ recorded sessions available on-demand</li>
+                    <li><strong>Engagement:</strong> Consistently sold-out sessions with waiting lists for popular workshops</li>
+                    <li><strong>Retention:</strong> Became annual tradition eagerly anticipated across the organization</li>
+                </ul>
+                
+                <h3>Cultural Impact</h3>
+                <p>The conference built community. Analysts from different departments met, shared war stories, and formed networks that improved collaboration long after the event ended. Product teams learned what Marketing was doing with data; Finance discovered capabilities they didn't know existed.</p>
+                <p>More importantly, it established Chewy's reputation as a company that invests in learning and experimentation—a cultural signal that attracted talent and shaped how employees thought about professional development.</p>
+                
+                <h2>Key Components</h2>
+                <h3>Session Types</h3>
+                <ul>
+                    <li><strong>Technical Deep-Dives:</strong> SQL optimization, dashboard design, statistical methods</li>
+                    <li><strong>Business Case Studies:</strong> How data drove specific product launches, marketing campaigns, or operational improvements</li>
+                    <li><strong>Tool Workshops:</strong> Hands-on training with Tableau, Python, dbt, and emerging platforms</li>
+                    <li><strong>Vendor Showcases:</strong> Emerging technologies and platform demonstrations</li>
+                    <li><strong>Executive Panels:</strong> Leadership discussing data strategy and vision</li>
+                </ul>
+                
+                <h2>Personal Pride</h2>
+                <p>This grassroots initiative—starting as a small demo day—became an institutional program that thrived years after my departure. It demonstrated the power of community building in organizational transformation.</p>
+                <p>The fact that it continued without me proves it wasn't about my personal involvement—it was about creating something valuable that the organization embraced and sustained.</p>
+                
+                <h2>Key Lessons</h2>
+                <p><strong>Start Small, Prove Value:</strong> I didn't ask for budget to launch a major conference. I started with a demo day, proved people wanted it, then scaled based on demand. Grassroots initiatives earn credibility through results, not proposals.</p>
+                <p><strong>Community Creates Culture:</strong> You can't mandate data literacy—you have to build community where people want to learn and share. The conference created social proof that caring about data was valued and rewarded.</p>
+                <p><strong>Institutional Programs Outlive Individuals:</strong> The best initiatives become self-sustaining. When something continues thriving after its founder leaves, that's the ultimate success metric.</p>
+            </div>
+            <div class="sidebar" id="ask-ai">
+                <div class="chat-embed">
+                    <div class="chat-header">Ask AI About This Project</div>
+                    <iframe src="http://192.168.2.68:8001"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Data Stack - Homelab | Michael Gerstl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.6; }
+        .header { background: white; border-bottom: 1px solid #eee; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .back-link { color: #667eea; text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
+        .back-link:hover { color: #764ba2; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 40px; }
+        .project-header { text-align: center; margin-bottom: 60px; }
+        .project-icon { font-size: 64px; margin-bottom: 20px; }
+        .project-company { font-size: 14px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; color: #1a1a1a; }
+        .project-tagline { font-size: 20px; color: #666; max-width: 700px; margin: 0 auto 30px; }
+        .metrics-bar { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
+        .metric { text-align: center; }
+        .metric-value { font-size: 32px; font-weight: 700; color: #667eea; }
+        .metric-label { font-size: 14px; color: #666; margin-top: 8px; }
+        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 60px; }
+        .main-content { background: white; padding: 50px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .chat-embed { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); height: 600px; }
+        .chat-embed iframe { width: 100%; height: 100%; border: none; }
+        .chat-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; font-weight: 600; }
+        h2 { font-size: 28px; font-weight: 700; margin: 40px 0 20px; color: #1a1a1a; }
+        h3 { font-size: 22px; font-weight: 600; margin: 30px 0 15px; color: #1a1a1a; }
+        p { font-size: 17px; line-height: 1.8; color: #333; margin-bottom: 20px; }
+        ul { margin: 20px 0 20px 30px; }
+        li { font-size: 17px; line-height: 1.8; color: #333; margin-bottom: 10px; }
+        .highlight-box { background: #f8f9ff; border-left: 4px solid #667eea; padding: 25px; margin: 30px 0; border-radius: 8px; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+        .tech-tag { background: #667eea; color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; }
+        @media (max-width: 968px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .chat-embed { height: 500px; }
+            h1 { font-size: 36px; }
+            .container { padding: 40px 24px; }
+            .main-content { padding: 30px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Main Page</a>
+            <a href="#ask-ai" class="back-link">Ask AI Assistant</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="project-header">
+            <div class="project-icon">🤖</div>
+            <div class="project-company">Homelab</div>
+            <h1>Modern Data Stack</h1>
+            <p class="project-tagline">Personal infrastructure for experimenting with RAG, semantic search, and AI-driven analytics</p>
+            <div class="metrics-bar">
+                <div class="metric"><div class="metric-value">Airflow</div><div class="metric-label">Orchestration</div></div>
+                <div class="metric"><div class="metric-value">dbt</div><div class="metric-label">Transformations</div></div>
+                <div class="metric"><div class="metric-value">Qdrant</div><div class="metric-label">Vector DB</div></div>
+                <div class="metric"><div class="metric-value">LM Studio</div><div class="metric-label">LLM Inference</div></div>
+            </div>
+        </div>
+        <div class="content-grid">
+            <div class="main-content">
+                <h2>The Purpose</h2>
+                <p>My homelab serves two purposes: staying sharp on modern data engineering technologies and experimenting with AI applications that enterprise environments move too slowly to explore.</p>
+                <p>The infrastructure runs Airflow for orchestration, dbt for transformations, Qdrant vector database for semantic search, and LM Studio for local LLM inference. It's a production-grade modern data stack—just at personal scale.</p>
+                
+                <h2>The Architecture</h2>
+                <p>The homelab infrastructure mirrors enterprise-grade patterns, allowing me to prototype solutions that translate directly to professional contexts.</p>
+                
+                <h3>Core Components</h3>
+                <ul>
+                    <li><strong>Apache Airflow:</strong> Orchestrates data pipelines, handles scheduling, and manages dependencies between tasks</li>
+                    <li><strong>dbt (data build tool):</strong> Transforms raw data into analytics-ready models with built-in testing and documentation</li>
+                    <li><strong>Qdrant Vector Database:</strong> Stores embeddings for semantic search, enabling RAG (Retrieval-Augmented Generation) applications</li>
+                    <li><strong>LM Studio:</strong> Runs local LLM inference (Llama, Mistral models) for experimentation without cloud API dependencies</li>
+                    <li><strong>PostgreSQL:</strong> Relational database for structured data and metadata storage</li>
+                    <li><strong>Chainlit:</strong> User interface framework for building conversational AI applications</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h3>This Website's AI Assistant</h3>
+                    <p>The AI assistant you're talking to right now? It runs on this homelab infrastructure. It uses RAG to search through 20+ markdown files (~77,000 words) of career documentation, retrieves relevant context using Qdrant vector similarity, and generates responses using a locally-hosted LLM.</p>
+                </div>
+                
+                <h2>Current Experiments</h2>
+                <h3>RAG (Retrieval-Augmented Generation)</h3>
+                <p>Building systems that combine semantic search with LLM generation. The pattern: embed documents into vectors, search for relevant chunks based on user questions, then augment LLM prompts with retrieved context for more accurate responses.</p>
+                <p>This website's AI assistant demonstrates production RAG implementation—not a proof-of-concept, but a functioning system handling real queries.</p>
+                
+                <h3>Semantic Search</h3>
+                <p>Exploring how vector databases enable "meaning-based" search rather than keyword matching. Ask about "leadership philosophy" and the system understands to retrieve content about team building, organizational transformation, and servant leadership—even if those exact phrases aren't used.</p>
+                
+                <h3>AI-Driven Analytics</h3>
+                <p>Experimenting with LLMs as interfaces to data. Natural language queries like "Show me trends in customer acquisition costs" could translate to SQL, execute against data warehouses, and generate narrative explanations of insights.</p>
+                
+                <h2>Why a Homelab?</h2>
+                <p><strong>Learning by Doing:</strong> Reading documentation teaches concepts. Operating infrastructure teaches reality—debugging Airflow task failures at 2am, optimizing vector search performance, tuning LLM prompts until they work reliably.</p>
+                <p><strong>No Cloud Bills:</strong> Running LLMs locally means no per-token API costs. I can experiment freely without worrying about runaway bills from poorly-optimized prompts.</p>
+                <p><strong>Privacy & Control:</strong> Sensitive experimentation (like career documentation for this website) stays local rather than flowing through third-party APIs.</p>
+                <p><strong>Staying Current:</strong> Enterprise adoption of new technologies lags bleeding-edge by years. The homelab lets me stay ahead of the curve, understanding what's coming before it becomes enterprise-standard.</p>
+                
+                <h2>Technologies Used</h2>
+                <div class="tech-stack">
+                    <span class="tech-tag">Apache Airflow</span>
+                    <span class="tech-tag">dbt</span>
+                    <span class="tech-tag">Qdrant</span>
+                    <span class="tech-tag">LM Studio</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Chainlit</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Ollama</span>
+                    <span class="tech-tag">Llama 3.1</span>
+                    <span class="tech-tag">Mistral</span>
+                </div>
+                
+                <h2>Professional Application</h2>
+                <p>The homelab experiments directly inform professional work. Understanding RAG architecture means I can advise clients on AI implementation strategies. Experience with vector databases translates to designing semantic search features for products. Debugging Airflow locally makes me better at troubleshooting enterprise data pipelines.</p>
+                <p>This isn't hobby tinkering divorced from career—it's deliberate skill-building that keeps me effective as data platforms evolve toward AI integration.</p>
+                
+                <h2>Future Directions</h2>
+                <ul>
+                    <li><strong>Multi-Agent Systems:</strong> Experimenting with AI agents that collaborate to solve complex analytical tasks</li>
+                    <li><strong>Fine-Tuning:</strong> Training specialized models on domain-specific data for improved accuracy</li>
+                    <li><strong>Real-Time Streaming:</strong> Adding Kafka/event streaming capabilities for real-time analytics pipelines</li>
+                    <li><strong>ML Model Deployment:</strong> Building MLOps patterns for deploying and monitoring machine learning models</li>
+                </ul>
+            </div>
+            <div class="sidebar" id="ask-ai">
+                <div class="chat-embed">
+                    <div class="chat-header">Ask AI About This Project</div>
+                    <iframe src="http://192.168.2.68:8001"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

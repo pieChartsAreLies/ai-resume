@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metric Trees Framework - Babylist | Michael Gerstl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.6; }
+        .header { background: white; border-bottom: 1px solid #eee; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .back-link { color: #667eea; text-decoration: none; font-weight: 600; font-size: 14px; transition: color 0.2s; }
+        .back-link:hover { color: #764ba2; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 40px; }
+        .project-header { text-align: center; margin-bottom: 60px; }
+        .project-icon { font-size: 64px; margin-bottom: 20px; }
+        .project-company { font-size: 14px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; color: #1a1a1a; }
+        .project-tagline { font-size: 20px; color: #666; max-width: 700px; margin: 0 auto 30px; }
+        .metrics-bar { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
+        .metric { text-align: center; }
+        .metric-value { font-size: 32px; font-weight: 700; color: #667eea; }
+        .metric-label { font-size: 14px; color: #666; margin-top: 8px; }
+        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 60px; }
+        .main-content { background: white; padding: 50px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .chat-embed { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); height: 600px; }
+        .chat-embed iframe { width: 100%; height: 100%; border: none; }
+        .chat-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; font-weight: 600; }
+        h2 { font-size: 28px; font-weight: 700; margin: 40px 0 20px; color: #1a1a1a; }
+        h3 { font-size: 22px; font-weight: 600; margin: 30px 0 15px; color: #1a1a1a; }
+        p { font-size: 17px; line-height: 1.8; color: #333; margin-bottom: 20px; }
+        ul { margin: 20px 0 20px 30px; }
+        li { font-size: 17px; line-height: 1.8; color: #333; margin-bottom: 10px; }
+        .highlight-box { background: #f8f9ff; border-left: 4px solid #667eea; padding: 25px; margin: 30px 0; border-radius: 8px; }
+        @media (max-width: 968px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .chat-embed { height: 500px; }
+            h1 { font-size: 36px; }
+            .container { padding: 40px 24px; }
+            .main-content { padding: 30px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Main Page</a>
+            <a href="#ask-ai" class="back-link">Ask AI Assistant</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="project-header">
+            <div class="project-icon">🎪</div>
+            <div class="project-company">Babylist</div>
+            <h1>Metric Trees Framework</h1>
+            <p class="project-tagline">Implementing metric trees as core measurement framework for company-wide alignment</p>
+            <div class="metrics-bar">
+                <div class="metric"><div class="metric-value">85%</div><div class="metric-label">Consistency Improvement</div></div>
+                <div class="metric"><div class="metric-value">Company-Wide</div><div class="metric-label">Alignment</div></div>
+                <div class="metric"><div class="metric-value">Single</div><div class="metric-label">Source of Truth</div></div>
+                <div class="metric"><div class="metric-value">OKR</div><div class="metric-label">Integration</div></div>
+            </div>
+        </div>
+        <div class="content-grid">
+            <div class="main-content">
+                <h2>The Challenge</h2>
+                <p>When I joined Babylist, different business units (Marketing, Finance, Supply Chain, Product) were calculating core metrics differently. This led to "data arguments" in executive meetings where teams debated numbers rather than making decisions.</p>
+                <p>The lack of unified semantic layer meant every analyst was reinventing metric definitions. Marketing's "customer acquisition cost" didn't match Finance's calculation. Product's "active users" differed from Operations' definition. Trust in analytics was eroding.</p>
+                
+                <h2>The Approach</h2>
+                <p>I designed a Common Data Model with standardized KPI metric trees that unified business definitions across all functions. This wasn't just a technical exercise—it required significant stakeholder negotiation.</p>
+                
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Metric Trees:</strong> Hierarchical structure showing how company OKRs decompose into team-level KPIs and operational metrics</li>
+                    <li><strong>Common Data Model:</strong> Semantic layer providing "single source of truth" exposed through Snowflake APIs for downstream consumption</li>
+                    <li><strong>Cross-Functional Alignment:</strong> Getting Marketing and Finance to agree on "customer acquisition cost" required documenting edge cases, business rules, and calculation logic</li>
+                    <li><strong>Data Mart Architecture:</strong> Built analytics platform with data marts pulling from central semantic layer, delivering flattened, performance-optimized structures</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h3>The Hard Part: Stakeholder Alignment</h3>
+                    <p>The technical implementation was straightforward. The challenging work was facilitating conversations where teams had to agree on THE definition rather than THEIR definition. This required diplomacy, documenting edge cases, and sometimes escalating to executive leadership for tie-breaking decisions.</p>
+                </div>
+                
+                <h2>The Outcome</h2>
+                <p>The metric trees framework eliminated 85% of reporting inconsistencies based on stakeholder feedback. More importantly, it restored executive trust in data—meetings shifted from debating numbers to making decisions.</p>
+                
+                <h3>Quantifiable Impact</h3>
+                <ul>
+                    <li><strong>Consistency:</strong> 85% reduction in metric disagreements across business units</li>
+                    <li><strong>Development Velocity:</strong> Accelerated dashboard development by providing pre-built, tested metric calculations</li>
+                    <li><strong>Executive Trust:</strong> Leadership meetings shifted from "what's the right number?" to "what does this mean for our strategy?"</li>
+                    <li><strong>Analytics Efficiency:</strong> Analysts stopped reinventing metrics and focused on insights</li>
+                </ul>
+                
+                <h3>Strategic Impact</h3>
+                <p>The framework gave business units clean metrics aligned to company objectives and provided clear prioritization for analytics work. When everyone agreed on definitions, product launches became easier to measure and OKR tracking became meaningful rather than contentious.</p>
+                
+                <h2>Technical Implementation</h2>
+                <h3>Semantic Layer Design</h3>
+                <p>The semantic layer was built in Snowflake using views and stored procedures that enforced consistent calculation logic. All downstream tools (Hex, Sigma, custom applications) consumed metrics through this layer rather than calculating directly from raw tables.</p>
+                <p>This "single source of truth" architecture ensured that whether someone queried via SQL, built a dashboard, or consumed through API, they got the same answer.</p>
+                
+                <h3>Metric Tree Structure</h3>
+                <p>Each metric tree started with company-level OKRs and decomposed into contributing factors:</p>
+                <ul>
+                    <li><strong>Level 1:</strong> Company OKRs (e.g., "Grow Active Users")</li>
+                    <li><strong>Level 2:</strong> Departmental KPIs (e.g., "Acquisition", "Retention", "Engagement")</li>
+                    <li><strong>Level 3:</strong> Operational Metrics (e.g., "Sign-up Rate", "Onboarding Completion", "Feature Adoption")</li>
+                </ul>
+                <p>This hierarchy provided clarity on which operational levers influenced strategic goals.</p>
+                
+                <h2>Key Lessons</h2>
+                <p><strong>Common Data Model First:</strong> Investing significant upfront effort in metric standardization before scaling self-service analytics paid massive dividends. Teams that skip this step end up with chaos—hundreds of dashboards calculating the same metric differently.</p>
+                <p><strong>Alignment is Organizational, Not Technical:</strong> Building the semantic layer was easy. Getting cross-functional teams to agree on definitions was hard. The real work was change management, not engineering.</p>
+                <p><strong>Attribution Matters:</strong> The analytics engineering team executed the technical implementation. I enabled their work by facilitating stakeholder alignment, documenting requirements, and prioritizing foundational work over feature requests.</p>
+                
+                <h2>Pattern to Replicate</h2>
+                <p>The pain of cross-functional alignment early is worth it. You can mandate metric definitions through documentation, but teams won't trust or adopt them unless they participated in creating them. The stakeholder engagement—though time-consuming—was what made this succeed.</p>
+            </div>
+            <div class="sidebar" id="ask-ai">
+                <div class="chat-embed">
+                    <div class="chat-header">Ask AI About This Project</div>
+                    <iframe src="http://192.168.2.68:8001"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
