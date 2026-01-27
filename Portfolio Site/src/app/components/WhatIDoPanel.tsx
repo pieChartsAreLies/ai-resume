@@ -13,32 +13,54 @@ interface WhatIDoPanelProps {
 export function WhatIDoPanel({ type, onClose, onNavigateToWork, onNavigateToResume }: WhatIDoPanelProps) {
   const content = {
     strategy: {
-      title: 'Design Strategy',
-      intro: 'Listed below are a couple of tools that I use as part of a design and product delivery strategy. The underlying principle is that the most effective product teams seek to solve problems for their customers and clients and don’t use feature delivery as the driving force for roadmapping nor a metric of success.',
+      title: 'Data Platforms',
+      intro: 'I architect and scale data platforms that organizations can trust. The goal is always the same: make data accessible, reliable, and fast enough that teams stop asking "is this right?" and start asking "what should we do?"',
       sections: [
         {
-          heading: '3-in-a-box',
-          text: 'This is a principle simple in concept, but sometimes difficult in practice. The three disciplines of product, design, and engineering should be involved in each stage of the product development lifecycle...from ideation to delivery.\n\nThis shortens time to market by limiting the disconnects that often happen in handoffs, and minimizing surprises that can happen then one discipline isn’t full informed by the others.'
+          heading: 'Modern Data Stack',
+          text: 'I build on proven patterns: lakehouse architectures on AWS/Snowflake, transformation layers with dbt, orchestration through Airflow, and visualization through Tableau or modern BI tools.\n\nThe stack matters less than the principles: single source of truth, version-controlled transformations, and clear data contracts between producers and consumers.'
         },
         {
-          heading: 'POMA',
-          text: 'POMA is a basic framework used to define a problem space and set the scope of the solution.',
+          heading: 'Platform Philosophy',
+          text: 'Data platforms should be treated as products, not projects.',
           list: [
-            { label: 'Problem', detail: 'Define the problem to be solved for the client or end user.' },
-            { label: 'Outcome', detail: 'What is practical benefit it we solve the defined problem?' },
-            { label: 'Measurement', detail: 'Set a predefined measurement that can be used to define success once the solution is delivered.' },
-            { label: 'Alignment', detail: 'What is the business goal or objective that this solution helps achieve?' }
+            { label: 'Self-Service', detail: 'Enable business users to answer their own questions without waiting for analysts.' },
+            { label: 'Trust', detail: 'Governance and quality frameworks that give confidence in every metric.' },
+            { label: 'Scale', detail: 'Architecture that handles 10x growth without redesign.' },
+            { label: 'Speed', detail: 'From question to answer in minutes, not days.' }
           ]
         }
       ]
     },
     leadership: {
       title: 'Team Leadership',
-      intro: 'My management style is really quite simple.\n\nI strive to treat people like professionals and as fellow humans, with all of the complexity and nuance needed to dealing with other.\n\nWhen we’ve done our jobs well, we have hired the best people for the job and as such they need to be given the respect and autonomy to do their work with authority and independence.\n\nI seek to respect my team members for their work, their ambitions, and their humanity. By taking the time to understand another person, their needs, desires, and goals, it is possible to guide them on the path to personal and collective success.'
+      intro: 'I practice servant leadership—the job of a leader is to remove obstacles and create the conditions for talented people to do their best work.\n\nI\'ve scaled teams from 0 to 30+ across distributed locations, through IPO, and into Fortune 500 operations. The approach is consistent: hire for potential, invest in growth, and build a culture where people want to stay.\n\nThe hub-and-spoke model I developed at Chewy embedded analysts in business units while maintaining central standards and community. This gave us both business context and technical excellence.',
+      sections: [
+        {
+          heading: 'Leadership Principles',
+          text: '',
+          list: [
+            { label: 'Go Slow to Go Fast', detail: 'Building scalable processes upfront enables rapid growth later.' },
+            { label: 'Trust Through Transparency', detail: 'When teams understand the "why," they make better autonomous decisions.' },
+            { label: 'Data Culture', detail: 'Training, office hours, and conferences that build organization-wide data literacy.' }
+          ]
+        }
+      ]
     },
     solutioning: {
-      title: 'Solutioning',
-      intro: 'I’ve been working in technology, software development, and product design for the past 15 years. In that time I’ve been fortunate to see how organizations fail and how they succeed.\n\nWhen product and engineering teams are enabled to do their best work, to use their massive skill sets to solve the clients biggest and most challenging problems, you end up with a winning product.\n\nHaving a world class product that solves real-world problems is the foundation for enabling success at all levels of the organization from sales to support to marketing.'
+      title: 'Governance & Compliance',
+      intro: 'Governance isn\'t about saying no—it\'s about building trust. When stakeholders know the data is accurate, compliant, and secure, they use it more confidently.\n\nI\'ve led data governance through SOX compliance, CCPA requirements, and IPO readiness. The pattern is consistent: clear ownership, automated enforcement where possible, and education everywhere else.',
+      sections: [
+        {
+          heading: 'Key Initiatives',
+          text: '',
+          list: [
+            { label: 'PII Reduction', detail: 'Led cross-functional initiative reducing PII in logs by 97% across 30+ engineering teams.' },
+            { label: 'SOX Compliance', detail: 'Built path-to-production processes that satisfied auditors without killing developer velocity.' },
+            { label: 'Data Quality', detail: 'Certification frameworks and automated testing that catch issues before they reach dashboards.' }
+          ]
+        }
+      ]
     }
   };
 

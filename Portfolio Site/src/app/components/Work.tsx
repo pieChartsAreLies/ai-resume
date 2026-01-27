@@ -7,19 +7,46 @@ export function Work() {
 
   const projects = [
     {
-      id: 'power-quality' as ProjectType,
-      title: "Electrical System Power Quality Management",
-      description: "New product feature to monitor power quality in an industrial electrical system.",
+      id: 'tableau-scale' as ProjectType,
+      title: "Tableau @ Scale",
+      description: "Scaled enterprise BI platform from 100 to 3,500 users through IPO with SOX-compliant governance.",
+      company: "Chewy",
+      metrics: "35x user growth | 8-node cluster | SOX-compliant"
     },
     {
-      id: 'case-study' as ProjectType,
-      title: "Case Study: Manufacturing Admin Dashboard",
-      description: "A brief case study of the design and development of an AI powered manufacturing facility administrator dashboard.",
+      id: 'pii-reduction' as ProjectType,
+      title: "PII Reduction Initiative",
+      description: "Led cross-functional initiative to reduce PII in system logs by 97%, enabling IPO readiness.",
+      company: "Chewy",
+      metrics: "97% PII reduction | 30+ teams | IPO-critical"
     },
     {
-      id: 'demand-response' as ProjectType,
-      title: "Utility Response Program Dashboard",
-      description: "A dashboard for monitoring the performance of various utility scale peak shaving programs.",
+      id: 'vendor-analytics' as ProjectType,
+      title: "Vendor Analytics Platform",
+      description: "Built external analytics platform used by 200+ vendors generating $10M+ annual revenue.",
+      company: "Chewy",
+      metrics: "$10M+ revenue | 200+ vendors | 3 business units"
+    },
+    {
+      id: 'data-culture' as ProjectType,
+      title: "Data Culture Conferences",
+      description: "Launched Data Summit and Data Basecamp conferences, training 1,200+ employees.",
+      company: "Chewy",
+      metrics: "1,200+ trained | 200+ sessions | Company-wide"
+    },
+    {
+      id: 'metric-trees' as ProjectType,
+      title: "Metric Trees Framework",
+      description: "Implemented metric trees as core measurement framework aligning business units to company objectives.",
+      company: "Babylist",
+      metrics: "Company-wide alignment | Clear prioritization"
+    },
+    {
+      id: 'modern-stack' as ProjectType,
+      title: "Modern Data Stack Homelab",
+      description: "Personal infrastructure running Airflow, dbt, Qdrant, and LLM inference for continuous learning.",
+      company: "Homelab",
+      metrics: "Airflow | dbt | Qdrant | LM Studio"
     },
   ];
 
@@ -40,18 +67,24 @@ export function Work() {
           transition={{ delay: index * 0.1 }}
           className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-8 md:p-12 max-w-[800px] w-full"
         >
+          <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#87b7ff] mb-2 uppercase tracking-wide">
+            {project.company}
+          </p>
           <h3 className="font-['Montserrat',sans-serif] font-medium text-[20px] md:text-[23px] text-white mb-4 leading-tight">
             {project.title}
           </h3>
-          <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-8 leading-relaxed">
+          <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-4 leading-relaxed">
             {project.description}
           </p>
+          <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#999] mb-8 italic">
+            {project.metrics}
+          </p>
           <div className="flex justify-end">
-            <button 
+            <button
               onClick={() => setActiveProject(project.id)}
               className="w-full md:w-[257px] h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[16px] hover:bg-white/5 transition-colors cursor-pointer"
             >
-              View Work
+              View Details
             </button>
           </div>
         </motion.div>

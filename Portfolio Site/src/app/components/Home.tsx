@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import svgPaths from '@/imports/svg-dre28hzu2m';
 import { WhatIDoPanel } from '@/app/components/WhatIDoPanel';
 import { downloadResumeAsPdf } from '@/app/utils/downloadResume';
 
@@ -21,10 +20,10 @@ export function Home({ onNavigateToWork, onNavigateToResume }: HomeProps) {
         className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-8 md:p-12 max-w-[800px] w-full"
       >
         <h2 className="font-['Montserrat',sans-serif] font-medium text-[28px] md:text-[31px] text-white mb-6 leading-tight">
-          Creating Design Clarity from Chaos and Complexity.
+          Building and Scaling Data Organizations That Actually Work.
         </h2>
         <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-10 leading-relaxed">
-          UX Leader with a track record of guiding and growing teams, simplifying systems, and creating useful and profitable designs for enterprise and industrial clients.
+          Over the past decade, I've taken teams from startup chaos to Fortune 500 scale—building trusted infrastructure, defining metrics that matter, and partnering with teams who need data to win.
         </p>
         
         <div className="flex flex-col md:flex-row gap-6">
@@ -54,22 +53,20 @@ export function Home({ onNavigateToWork, onNavigateToResume }: HomeProps) {
           What I Do...
         </h2>
         <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-12 leading-relaxed">
-          I help SaaS and industrial tech teams create better products by aligning UX strategy with the real-world complexity of user and business needs.
+          I build data platforms, scale analytics teams, and create the governance frameworks that let organizations trust their data at enterprise scale.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-stretch">
-          {/* Design Strategy */}
+          {/* Data Platform Strategy */}
           <div className="flex flex-col items-center text-center">
-            <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Design Strategy</h3>
+            <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Data Platforms</h3>
             <div className="bg-[#4a4a4a] rounded-[8px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.25),-2px_-2px_10px_3px_rgba(204,204,204,0.25)] w-[42px] h-[42px] flex items-center justify-center mb-6">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                <path d={svgPaths.p6338880} fill="white" />
-              </svg>
+              <span className="text-xl">📊</span>
             </div>
             <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] mb-6 flex-grow">
-              3-in-a-box, POMA, and close collaboration deliver results
+              Lakehouse architecture, Snowflake, dbt, and enterprise BI at scale
             </p>
-            <button 
+            <button
               onClick={() => setActivePanel('strategy')}
               className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer mt-auto"
             >
@@ -81,14 +78,12 @@ export function Home({ onNavigateToWork, onNavigateToResume }: HomeProps) {
           <div className="flex flex-col items-center text-center">
             <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Team Leadership</h3>
             <div className="bg-[#4a4a4a] rounded-[8px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.25),-2px_-2px_10px_3px_rgba(204,204,204,0.25)] w-[42px] h-[42px] flex items-center justify-center mb-6">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                <path d={svgPaths.p38ec8380} fill="white" />
-              </svg>
+              <span className="text-xl">👥</span>
             </div>
             <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] mb-6 flex-grow">
-              Enablement, coaching, development, and purpose drive motivation
+              Servant leadership, hub-and-spoke models, and scaling teams 0→30
             </p>
-            <button 
+            <button
               onClick={() => setActivePanel('leadership')}
               className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer mt-auto"
             >
@@ -96,19 +91,16 @@ export function Home({ onNavigateToWork, onNavigateToResume }: HomeProps) {
             </button>
           </div>
 
-          {/* Solutioning */}
+          {/* Governance & Compliance */}
           <div className="flex flex-col items-center text-center">
-            <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Solutioning</h3>
+            <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Governance</h3>
             <div className="bg-[#4a4a4a] rounded-[8px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.25),-2px_-2px_10px_3px_rgba(204,204,204,0.25)] w-[42px] h-[42px] flex items-center justify-center mb-6">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                <path d={svgPaths.p2f78fd00} fill="white" />
-                <path d={svgPaths.p21dbc80} fill="white" />
-              </svg>
+              <span className="text-xl">🔒</span>
             </div>
             <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] mb-6 flex-grow">
-              Enablement, coaching, development, and purpose drive motivation
+              SOX compliance, PII reduction, and data trust frameworks
             </p>
-            <button 
+            <button
               onClick={() => setActivePanel('solutioning')}
               className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer mt-auto"
             >

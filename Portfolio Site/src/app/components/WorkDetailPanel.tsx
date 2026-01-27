@@ -1,34 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
-import svgPaths from '@/imports/svg-6anrar6boh';
-import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import React, { useRef } from 'react';
+import { motion, useScroll, useSpring } from 'motion/react';
 
-// Project 1 Images
-import imgPowerQuality21 from "figma:asset/3e8ffe93bf6ea7d5d128b84169f9fca795318f04.png";
-import imgPowerQuality11 from "figma:asset/46436a880e59d1983c65575980b30c3501c30d19.png";
-
-// Project 2 Images
-import imgResponseDashboard21 from "figma:asset/f1665a531d9140b1a9311b972bdcfbdea41d04ba.png";
-import imgResponseDashboard11 from "figma:asset/a32d1ee4e55004126758cc18e732132207447af5.png";
-
-// Project 3 Images
-import imgCaseStudy001 from "figma:asset/0a3612b0ebd9324cd769d12831eb4cee15812e4b.png";
-import imgCaseStudy002 from "figma:asset/a31e234ab5b4b09d86b23a38813661346776c45e.png";
-import imgCaseStudy003 from "figma:asset/671585c4eebad88b63d890f0f4b92d8d2b73daf7.png";
-import imgCaseStudy004 from "figma:asset/fd37f189550250c89a119eccb46ef68923f0e6fb.png";
-import imgCaseStudy005 from "figma:asset/909a10ae6afd1d2c40480c93f9df4b8fa9eb98cd.png";
-import imgCaseStudy006 from "figma:asset/a35d27b6f3336edec5dd91fee2c48e62970fbe1c.png";
-import imgCaseStudy007 from "figma:asset/d2e8bdef90657d2de7276544f8d3f6dca61e701c.png";
-import imgCaseStudy008 from "figma:asset/19f0ce715c7e44e916be30b4b81051545eb0e660.png";
-import imgCaseStudy009 from "figma:asset/4e48e19c03e7aded0687222db09cd6b04a8bdc92.png";
-import imgCaseStudy010 from "figma:asset/049d9c12e999ff0c3c3410e7898fb0f6b7cbda07.png";
-import imgCaseStudy011 from "figma:asset/a5de8d756c8fc28c85a25505eb849dc7f0d47268.png";
-import imgCaseStudy012 from "figma:asset/dfd9a0f93f29ea3fc6ab184982181017fae09cb5.png";
-import imgCaseStudy013 from "figma:asset/ca6b54f74bbedda533151d6026a8b0e69527138b.png";
-import imgCaseStudy014 from "figma:asset/11b361bacb50536b84df46e5894758718b5246e3.png";
-import imgCaseStudy015 from "figma:asset/d37947853992e2332c09bd2e81c9342d4773005a.png";
-
-export type ProjectType = 'power-quality' | 'demand-response' | 'case-study';
+export type ProjectType = 'tableau-scale' | 'pii-reduction' | 'vendor-analytics' | 'data-culture' | 'metric-trees' | 'modern-stack';
 
 interface WorkDetailPanelProps {
   type: ProjectType;
@@ -37,9 +10,8 @@ interface WorkDetailPanelProps {
 }
 
 export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPanelProps) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     container: scrollContainerRef
   });
@@ -51,39 +23,108 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
   });
 
   const content = {
-    'power-quality': {
-      title: 'Power Quality Management',
-      problem: 'Our clients didn’t have a simple way to see where power quality issues were occuring in there electrical systems. These issues lead to unplanned costs in the form of inefficient operations, damaged equipment, and high utility bills.',
-      outcome: 'A graphical interface that resembles the electrical diagrams these users are accustomed to referencing that allows users to see real time and trending data about system performance, as well as AI generated analysis and recommendations.',
-      images: [imgPowerQuality11, imgPowerQuality21]
+    'tableau-scale': {
+      title: 'Tableau @ Scale',
+      company: 'Chewy',
+      challenge: 'When I joined Chewy in 2017, Tableau adoption had grown organically to around 100 users but lacked governance, standards, or compliance controls necessary for SOX requirements. The company was rapidly scaling toward its June 2019 IPO.',
+      approach: [
+        'Implemented Dev/Prod environment separation ensuring content was tested before production deployment',
+        'Designed granular role-based access controls with audit logging for compliance',
+        'Established content certification processes, data source standards, and publishing workflows',
+        'Scaled to 8-node cluster architecture supporting 3,500+ concurrent users',
+        'Created comprehensive training programs, office hours, and tiered support'
+      ],
+      outcome: 'The platform scaled from 100 to 3,500+ users (35x growth) while maintaining SOX compliance through multiple audit cycles. Self-service analytics became a competitive advantage, enabling faster decision-making across all business functions.',
+      keyInsight: 'The counterintuitive lesson was that stronger governance actually accelerated adoption. When users trust the data and know where to find certified content, they engage more confidently.',
+      technologies: ['Tableau Server', 'Amazon Redshift', 'Snowflake', 'dbt', 'Apache Airflow', 'AWS']
     },
-    'demand-response': {
-      title: 'Demand Response Dashboard',
-      problem: 'Our industrial clients didn’t have a simple way to view the performance of energy curtailment actions across facilities. Adherence to these programs can save a single facility hundreds of thousands of dollars per year, so it is crucial to monitor all aspects of these porgrams in real time.',
-      outcome: 'A graphical interface that shows pertinent information like predictive analysis of peak energy use days and times, cross-facility comparisons, and performance metrics. This data can be drilled into for more detail about a specific facility’s performance, and allows regional managers to find problem facilities to address, or outstanding facilities to study.',
-      images: [imgResponseDashboard11, imgResponseDashboard21]
+    'pii-reduction': {
+      title: 'PII Reduction Initiative',
+      company: 'Chewy',
+      challenge: 'Pre-IPO security audit revealed significant PII exposure in system logs across engineering teams. This represented compliance risk for SOX and CCPA, and needed remediation before going public.',
+      approach: [
+        'Partnered with Security and Compliance to define PII categories and detection rules',
+        'Built automated scanning tools to identify PII patterns in Splunk logs',
+        'Created remediation playbooks for 30+ engineering teams',
+        'Established governance framework for ongoing PII monitoring',
+        'Implemented pre-commit hooks and CI/CD checks to prevent new PII logging'
+      ],
+      outcome: '97% reduction in PII across all monitored systems. Zero material findings in IPO security audits related to data exposure. Framework became standard practice for all new services.',
+      keyInsight: 'Cross-functional initiatives succeed when you make compliance easy. The automated detection and clear playbooks meant teams could self-remediate without constant oversight.',
+      technologies: ['Splunk', 'Python', 'Regular Expressions', 'AWS Lambda', 'Jenkins']
     },
-    'case-study': {
-      title: 'Case Study: Mfg Admin Dashboard',
-      images: [
-        imgCaseStudy001, imgCaseStudy002, imgCaseStudy003, imgCaseStudy004, imgCaseStudy005,
-        imgCaseStudy006, imgCaseStudy007, imgCaseStudy008, imgCaseStudy009, imgCaseStudy010,
-        imgCaseStudy011, imgCaseStudy012, imgCaseStudy013, imgCaseStudy014, imgCaseStudy015
-      ]
+    'vendor-analytics': {
+      title: 'Vendor Analytics Platform',
+      company: 'Chewy',
+      challenge: 'Chewy\'s vendor partners needed visibility into their product performance but had no self-service access to sales data. Manual reporting was consuming analyst time and limiting vendor relationships.',
+      approach: [
+        'Designed secure external-facing analytics platform with row-level security',
+        'Built automated data pipelines delivering daily vendor-specific metrics',
+        'Created self-service dashboards for inventory, sales, and customer insights',
+        'Scaled from vet services pilot to 3 business units',
+        'Implemented feedback loops to continuously improve vendor experience'
+      ],
+      outcome: 'Platform used by 200+ vendors generating $10M+ in annual revenue through improved vendor relationships and data-driven negotiations. Reduced analyst time on vendor reporting by 80%.',
+      keyInsight: 'External analytics platforms are products, not projects. Treating vendors as customers—with onboarding, support, and continuous improvement—drove adoption and revenue.',
+      technologies: ['Tableau Server', 'Snowflake', 'dbt', 'Airflow', 'Row-Level Security']
+    },
+    'data-culture': {
+      title: 'Data Culture Conferences',
+      company: 'Chewy',
+      challenge: 'Analytics adoption was limited by data literacy. Business users wanted to be self-sufficient but lacked training. Traditional training programs weren\'t scaling with the organization.',
+      approach: [
+        'Launched "Data Summit" - annual company-wide data conference with 50+ sessions',
+        'Created "Data Basecamp" - quarterly hands-on training workshops',
+        'Built library of 200+ recorded sessions for on-demand learning',
+        'Established certification programs for Tableau and SQL proficiency',
+        'Recruited internal speakers to share domain-specific use cases'
+      ],
+      outcome: '1,200+ employees trained across all business functions. Self-service adoption increased 60%, reducing ad-hoc analyst requests. Program became model for other internal learning initiatives.',
+      keyInsight: 'Data culture isn\'t built through mandates—it\'s built through community. Internal conferences created peer learning and celebrated data wins across the organization.',
+      technologies: ['Tableau', 'SQL', 'Zoom', 'Confluence', 'Internal LMS']
+    },
+    'metric-trees': {
+      title: 'Metric Trees Framework',
+      company: 'Babylist',
+      challenge: 'Business units had competing definitions of success metrics. OKRs weren\'t connected to operational metrics, making it hard to prioritize analytics work or measure true business impact.',
+      approach: [
+        'Mapped company objectives to metric hierarchies showing causal relationships',
+        'Defined single source of truth for each metric with clear ownership',
+        'Connected OKRs to operational metrics through explicit driver relationships',
+        'Created prioritization framework for analytics requests based on metric impact',
+        'Built executive dashboards showing metric tree health'
+      ],
+      outcome: 'Company-wide alignment on key metrics. Analytics team could prioritize work based on objective business impact. Reduced metric definition debates by 80%.',
+      keyInsight: 'Metric trees force clarity. When you have to draw the causal chain from an operational metric to a company objective, fuzzy thinking becomes visible immediately.',
+      technologies: ['Snowflake', 'dbt', 'Hex', 'Notion', 'Figjam']
+    },
+    'modern-stack': {
+      title: 'Modern Data Stack Homelab',
+      company: 'Homelab',
+      challenge: 'Staying current with rapidly evolving data and AI technologies requires hands-on experimentation. Enterprise environments move slowly; personal infrastructure enables fast iteration.',
+      approach: [
+        'Built local Kubernetes cluster running modern data stack components',
+        'Implemented Airflow for orchestration, dbt for transformations',
+        'Deployed Qdrant vector database for semantic search experiments',
+        'Set up LM Studio for local LLM inference and RAG pipelines',
+        'Created personal analytics on home automation and fitness data'
+      ],
+      outcome: 'Continuous learning environment for emerging technologies. Direct experience with tools before recommending them professionally. Content for technical discussions and interviews.',
+      keyInsight: 'The best way to evaluate technology is to use it on real problems. Homelabs provide the freedom to experiment without enterprise constraints.',
+      technologies: ['Airflow', 'dbt', 'Qdrant', 'LM Studio', 'Docker', 'Kubernetes', 'Python']
     }
   };
 
   const data = content[type];
 
   return (
-    <>
-      <motion.div
-        initial={{ y: '100%' }}
-        animate={{ y: 0 }}
-        exit={{ y: '100%' }}
-        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-        className="fixed inset-x-0 bottom-0 z-[100] flex justify-center px-4 pb-4"
-      >
+    <motion.div
+      initial={{ y: '100%' }}
+      animate={{ y: 0 }}
+      exit={{ y: '100%' }}
+      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+      className="fixed inset-x-0 bottom-0 z-[100] flex justify-center px-4 pb-4"
+    >
       <div className="bg-[#4a4a4a] w-full max-w-[650px] max-h-[90vh] overflow-y-auto rounded-[16px] shadow-[2px_-4px_30px_0px_rgba(0,0,0,0.5)] flex flex-col relative custom-scrollbar" ref={scrollContainerRef}>
         {/* Scroll Progress Bar */}
         <motion.div
@@ -91,23 +132,23 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
           style={{ scaleX, position: 'absolute' }}
         />
 
-        {/* Header - Sticky and flush to top */}
+        {/* Header */}
         <div className="sticky top-0 bg-[#4a4a4a] z-10 px-6 md:px-10 pt-6 md:pt-10 pb-4 border-b border-white/5">
           <div className="flex justify-between items-start gap-4">
-            <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] md:text-[31px] text-white leading-tight">
-              {data.title}
-            </h2>
-            <button 
+            <div>
+              <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#87b7ff] mb-2 uppercase tracking-wide">
+                {data.company}
+              </p>
+              <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] md:text-[31px] text-white leading-tight">
+                {data.title}
+              </h2>
+            </div>
+            <button
               onClick={onClose}
               className="flex items-center gap-2 group cursor-pointer shrink-0"
             >
-              <div className="w-6 h-6 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-                  <path d={svgPaths.p3f70cf00} fill="white" />
-                </svg>
-              </div>
               <span className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white group-hover:text-[#87b7ff] transition-colors">
-                Back
+                ← Back
               </span>
             </button>
           </div>
@@ -115,85 +156,86 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
 
         {/* Content Area */}
         <div className="flex flex-col p-6 md:p-10 pt-6 md:pt-6">
-          <div className="flex flex-col gap-6 mb-8">
-            {'problem' in data && data.problem && (
-              <div className="flex flex-col gap-4">
-                <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed">
-                  <span className="font-medium text-white">Problem:</span> {data.problem}
-                </p>
-                <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed">
-                  <span className="font-medium text-white">Outcome:</span> {data.outcome}
-                </p>
-              </div>
-            )}
+          <div className="flex flex-col gap-8">
+            {/* Challenge */}
+            <div>
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+                The Challenge
+              </h3>
+              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed">
+                {data.challenge}
+              </p>
+            </div>
 
-            {/* Images */}
-            <div className="flex flex-col gap-4">
-              {data.images.map((img, idx) => (
-                <div 
-                  key={idx} 
-                  onClick={() => setSelectedImage(img)}
-                  className="w-full rounded-lg overflow-hidden shadow-lg border border-white/10 cursor-zoom-in hover:border-white/30 transition-colors group relative"
-                >
-                  <ImageWithFallback src={img} alt={`${data.title} view ${idx + 1}`} className="w-full h-auto object-cover" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 bg-black/40 text-white px-3 py-1 rounded-full text-xs transition-opacity">
-                      Click to zoom
-                    </span>
-                  </div>
-                </div>
-              ))}
+            {/* Approach */}
+            <div>
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+                The Approach
+              </h3>
+              <ul className="flex flex-col gap-2">
+                {data.approach.map((item, idx) => (
+                  <li key={idx} className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed flex gap-2">
+                    <span className="text-[#87b7ff]">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Outcome */}
+            <div>
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+                The Outcome
+              </h3>
+              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed">
+                {data.outcome}
+              </p>
+            </div>
+
+            {/* Key Insight */}
+            <div className="bg-[#3a3a3a] rounded-lg p-6 border-l-4 border-[#87b7ff]">
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[16px] text-[#87b7ff] mb-2">
+                Key Insight
+              </h3>
+              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed italic">
+                {data.keyInsight}
+              </p>
+            </div>
+
+            {/* Technologies */}
+            <div>
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+                Technologies
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {data.technologies.map((tech, idx) => (
+                  <span key={idx} className="bg-[#87b7ff] text-[#1a1a1a] px-3 py-1 rounded-full text-[14px] font-medium">
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* Footer Navigation */}
-          <div className="mt-auto flex flex-col md:flex-row gap-4 pt-8 border-t border-white/10">
-            <button 
+          <div className="mt-10 flex flex-col md:flex-row gap-4 pt-8 border-t border-white/10">
+            <button
               onClick={onClose}
               className="flex-1 h-[44px] border border-white/30 rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-white text-[16px] hover:bg-white/5 transition-colors"
             >
               Close
             </button>
             {onNextProject && (
-              <button 
+              <button
                 onClick={onNextProject}
                 className="flex-1 h-[44px] border border-[#87b7ff] rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[16px] hover:bg-[#87b7ff]/10 transition-colors"
               >
-                Next Project
+                Next Project →
               </button>
             )}
           </div>
         </div>
       </div>
-      </motion.div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-full max-h-full"
-            >
-              <ImageWithFallback src={selectedImage} alt="Zoomed view" className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" />
-              <button 
-                className="absolute -top-12 right-0 text-white font-['Montserrat',sans-serif] text-lg hover:text-[#87b7ff] transition-colors"
-                onClick={() => setSelectedImage(null)}
-              >
-                Close Full View
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+    </motion.div>
   );
 }

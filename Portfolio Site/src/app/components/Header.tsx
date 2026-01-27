@@ -32,10 +32,10 @@ export function Header({ activePage, onPageChange }: HeaderProps) {
         </div>
         <div className="flex flex-col ml-1 md:ml-4">
           <h1 className="font-['Montserrat',sans-serif] font-normal text-[#87b7ff] text-[20px] md:text-[48px] leading-[0.9] whitespace-nowrap">
-            Scott Gerstl
+            Michael Gerstl
           </h1>
           <p className="hidden md:block font-['Montserrat',sans-serif] font-light text-[14px] md:text-[18px] text-white mt-1">
-            US and German Citizen | Berlin, Germany
+            South Florida
           </p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export function Header({ activePage, onPageChange }: HeaderProps) {
           ))}
         </nav>
         <p className="font-['Montserrat',sans-serif] font-light text-[16px] md:text-[20px] text-white">
-          UX Leader | Enterprise & Industrial SaaS
+          Data Leader & AI Evangelist
         </p>
       </div>
 
