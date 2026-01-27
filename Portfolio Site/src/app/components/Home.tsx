@@ -20,7 +20,7 @@ export function Home({ onNavigateToWork, onNavigateToResume }: HomeProps) {
         className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-8 md:p-12 max-w-[800px] w-full"
       >
         <h2 className="font-['Montserrat',sans-serif] font-medium text-[28px] md:text-[31px] text-white mb-6 leading-tight">
-          Building and Scaling Data Organizations That Actually Work.
+          Scaling Data Teams from Startup to Fortune 500
         </h2>
         <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-10 leading-relaxed">
           Over the past decade, I've taken teams from startup chaos to Fortune 500 scale—building trusted infrastructure, defining metrics that matter, and partnering with teams who need data to win.
