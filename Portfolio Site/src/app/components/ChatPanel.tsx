@@ -57,7 +57,7 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
 
             {/* Chat iframe */}
             <iframe
-              src="http://192.168.2.68:8001"
+              src="http://192.168.2.234:8001"
               className="w-full h-[calc(100%-100px)] border-none"
               title="AI Chat Assistant"
             />
