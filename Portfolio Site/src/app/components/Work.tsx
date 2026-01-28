@@ -42,94 +42,76 @@ export function Work() {
   const projects: Project[] = [
     // Professional Projects
     {
-      id: 'tableau-scale' as ProjectType,
-      title: "Tableau @ Scale",
-      description: "Scaled enterprise BI platform from 100 to 3,500 users through IPO with SOX-compliant governance.",
+      id: 'self-service-analytics' as ProjectType,
+      title: "Self-Service Analytics at Scale",
+      description: "Transformed analytics from organizational friction to self-service platform supporting 3,500+ users through IPO.",
       company: "Chewy",
-      metrics: "35x user growth | 8-node cluster | SOX-compliant",
+      metrics: "35x user growth | 70%→30% warehouse load | Zero SOX findings",
       category: 'professional',
-      tags: ['Tableau', 'SOX', 'Governance', 'Team Building']
+      tags: ['Self-Service', 'SOX', 'Governance', 'Data Culture']
     },
     {
       id: 'pii-reduction' as ProjectType,
-      title: "PII Reduction Initiative",
-      description: "Led cross-functional initiative to reduce PII in system logs by 97%, enabling IPO readiness.",
+      title: "Privacy Compliance at Scale",
+      description: "Led cross-functional initiative through influence, not authority—changing behavior across 30+ resistant engineering teams to achieve 97% PII reduction.",
       company: "Chewy",
-      metrics: "97% PII reduction | 30+ teams | IPO-critical",
+      metrics: "97% PII reduction | 30+ teams | Zero audit findings",
       category: 'professional',
-      tags: ['PII', 'Governance', 'CCPA', 'Python']
+      tags: ['Privacy', 'Governance', 'Cross-Functional', 'Influence']
     },
     {
       id: 'vendor-analytics' as ProjectType,
-      title: "Vendor Analytics Platform",
-      description: "Built external analytics platform used by 200+ vendors generating $10M+ annual revenue.",
+      title: "Vendor Data Services",
+      description: "Turned operational data into a revenue-generating product—partnering with vendors to build self-service analytics that strengthened relationships.",
       company: "Chewy",
-      metrics: "$10M+ revenue | 200+ vendors | 3 business units",
+      metrics: "$10M+ revenue | 90% fewer ad-hoc requests | Data as Product",
       category: 'professional',
-      tags: ['Tableau', 'Snowflake', 'dbt', 'Airflow']
+      tags: ['Data Product', 'Snowflake', 'Tableau', 'Governance']
     },
     {
       id: 'data-culture' as ProjectType,
-      title: "Data Culture Conferences",
-      description: "Launched Data Summit and Data Basecamp conferences, training 1,200+ employees.",
+      title: "Data Literacy at Scale",
+      description: "Built two complementary programs—Data Summit for showcasing work and Data Basecamp for curated training—that became part of Chewy's culture.",
       company: "Chewy",
-      metrics: "1,200+ trained | 200+ sessions | Company-wide",
+      metrics: "1,200+ trained | 10→75+ sessions | 5 years",
       category: 'professional',
-      tags: ['Culture', 'Team Building', 'Tableau']
-    },
-    {
-      id: 'event-pipeline' as ProjectType,
-      title: "Real-Time Event Pipeline",
-      description: "Built Kafka-based event streaming platform replacing third-party vendor, enabling ML/AI use cases at fraction of cost.",
-      company: "Chewy",
-      metrics: "Significant cost reduction | Real-time | ML-ready",
-      category: 'professional',
-      tags: ['Kafka', 'Real-time', 'AWS', 'Python']
+      tags: ['Data Culture', 'Training', 'Community']
     },
     {
       id: 'instrumentation-audit' as ProjectType,
-      title: "Mobile Instrumentation Audit",
-      description: "Conducted 4-month audit across 30 teams exposing iOS/Android schema misalignment, driving mobile re-architecture.",
+      title: "Product Analytics Audit",
+      description: "Conducted 80+ interviews across 30 teams to map the complete instrumentation workflow, exposing why measurement was broken and informing strategic decisions.",
       company: "Chewy",
-      metrics: "30 teams audited | C-suite decision | $8B+ impact",
+      metrics: "80+ interviews | 124-step process mapped | C-suite presentation",
       category: 'professional',
-      tags: ['Governance', 'Real-time', 'Python']
+      tags: ['Governance', 'Cross-Functional', 'Data Quality']
     },
     {
       id: 'data-platform-babylist' as ProjectType,
       title: "Data Platform Optimization",
-      description: "Architected Snowflake platform with dbt transformations, significantly reducing costs while improving P95 latency 50%.",
+      description: "Hands-on optimization of Snowflake platform—audited queries, refactored dbt, implemented cost governance—turning hypergrowth chaos into disciplined performance.",
       company: "Babylist",
-      metrics: "Major cost savings | 50% faster | 50% more users",
+      metrics: "30% cost reduction (~$145K) | 50% faster P95 | 50% more users",
       category: 'professional',
       tags: ['Snowflake', 'dbt', 'Airflow', 'Hex']
     },
     {
-      id: 'metric-trees' as ProjectType,
-      title: "Metric Trees Framework",
-      description: "Implemented metric trees as core measurement framework aligning business units to company objectives.",
-      company: "Babylist",
-      metrics: "Company-wide alignment | Clear prioritization",
-      category: 'professional',
-      tags: ['Snowflake', 'dbt', 'Governance']
-    },
-    {
       id: 'team-scaling' as ProjectType,
-      title: "Analytics Org 0→30",
-      description: "Built Chewy's analytics function from solo contributor to 30-person org across 4 locations through IPO.",
+      title: "Building an Analytics Organization",
+      description: "Started as staff engineer, became a trusted leader given teams as I proved myself—growing from solo contributor to leading ~30 people across BI, Governance, Splunk, and GRC.",
       company: "Chewy",
-      metrics: "0→30 people | 4 locations | IPO-ready",
+      metrics: "0→30 people | BI + Governance + Splunk + GRC | IPO-ready",
       category: 'professional',
-      tags: ['Team Building', 'Culture', 'Governance']
+      tags: ['Team Building', 'Culture', 'Leadership']
     },
     {
       id: 'data-governance' as ProjectType,
       title: "Enterprise Data Governance",
-      description: "Launched enterprise governance program with Alation catalog and OneTrust privacy, supporting CCPA/GDPR compliance.",
+      description: "Built governance capability from scratch—data catalog rollout, CCPA/GDPR compliance, SOX controls, and automated path-to-production processes.",
       company: "Chewy",
-      metrics: "CCPA compliant | GDPR ready | SOX controls",
+      metrics: "CCPA compliant | GDPR ready | SOX validated",
       category: 'professional',
-      tags: ['Governance', 'CCPA', 'GDPR', 'SOX', 'PII']
+      tags: ['Governance', 'CCPA', 'GDPR', 'SOX', 'Alation']
     },
     // Personal Projects
     {
@@ -141,30 +123,31 @@ export function Work() {
       category: 'personal',
       tags: ['RAG', 'LLM', 'Qdrant', 'Gemini', 'Python']
     },
-    {
-      id: 'modern-stack' as ProjectType,
-      title: "Modern Data Stack Homelab",
-      description: "Personal infrastructure running Airflow, dbt, Qdrant, and LLM inference for continuous learning.",
-      company: "Homelab",
-      metrics: "Airflow | dbt | Qdrant | LM Studio",
-      category: 'personal',
-      tags: ['Airflow', 'dbt', 'DuckDB', 'PostgreSQL', 'Proxmox', 'Qdrant']
-    },
+    // TODO: Uncomment when Palm Beach County real estate project is ready
+    // {
+    //   id: 'modern-stack' as ProjectType,
+    //   title: "Modern Data Stack Homelab",
+    //   description: "Personal infrastructure running Airflow, dbt, Qdrant, and LLM inference for continuous learning.",
+    //   company: "Homelab",
+    //   metrics: "Airflow | dbt | Qdrant | LM Studio",
+    //   category: 'personal',
+    //   tags: ['Airflow', 'dbt', 'DuckDB', 'PostgreSQL', 'Proxmox', 'Qdrant']
+    // },
     {
       id: 'voice-clone' as ProjectType,
       title: "Voice Clone Studio",
-      description: "Privacy-first voice cloning with Qwen3-TTS, real-time effects, and multi-language support running entirely local.",
+      description: "Weekend build: saw Qwen3-TTS release, shipped a working voice cloning app by Sunday. From 'interesting new model' to functional product in 48 hours.",
       company: "Personal Project",
-      metrics: "Qwen3-TTS | mlx-Whisper | 7 voice effects | Apple Silicon",
+      metrics: "48-hour build | Qwen3-TTS + mlx-Whisper | 7 voice effects",
       category: 'personal',
       tags: ['LLM', 'Whisper', 'Python']
     },
     {
       id: 'whisper-notes' as ProjectType,
       title: "WhisperNotes",
-      description: "Local-first dictation and AI journaling with global hotkeys, Whisper transcription, and Ollama summarization.",
+      description: "Built to fix my own workflow: Cmd+Shift+J captures voice, transcribes locally, summarizes with Ollama, and drops it into my Obsidian vault. I use it daily.",
       company: "Personal Project",
-      metrics: "Whisper | Ollama | Global hotkeys | Privacy-first",
+      metrics: "Daily driver | Cmd+Shift+R/J hotkeys | Zero cloud dependencies",
       category: 'personal',
       tags: ['Whisper', 'Ollama', 'LLM', 'Python']
     },
@@ -307,7 +290,7 @@ export function Work() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="flex flex-col items-center gap-8 w-full"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-[1200px]"
         >
           {filteredProjects.map((project, index) => (
             <motion.div
@@ -315,7 +298,7 @@ export function Work() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-8 md:p-12 max-w-[800px] w-full"
+              className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-6 md:p-8 flex flex-col"
             >
               <div className="flex items-center gap-3 mb-2">
                 <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#87b7ff] uppercase tracking-wide">
@@ -350,13 +333,13 @@ export function Work() {
                 ))}
               </div>
 
-              <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#999] mb-8 italic">
+              <p className="font-['Montserrat',sans-serif] font-light text-[13px] text-[#999] mb-6 italic">
                 {project.metrics}
               </p>
-              <div className="flex justify-end">
+              <div className="flex justify-end mt-auto">
                 <button
                   onClick={() => setActiveProject(project.id)}
-                  className="w-full md:w-[257px] h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[16px] hover:bg-white/5 transition-colors cursor-pointer"
+                  className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer"
                 >
                   View Details
                 </button>

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
 
-export type ProjectType = 'tableau-scale' | 'pii-reduction' | 'vendor-analytics' | 'data-culture' | 'metric-trees' | 'modern-stack' | 'ai-resume' | 'voice-clone' | 'whisper-notes' | 'obsidian-rag' | 'event-pipeline' | 'instrumentation-audit' | 'data-platform-babylist' | 'team-scaling' | 'data-governance';
+export type ProjectType = 'self-service-analytics' | 'pii-reduction' | 'vendor-analytics' | 'data-culture' | 'modern-stack' | 'ai-resume' | 'voice-clone' | 'whisper-notes' | 'obsidian-rag' | 'instrumentation-audit' | 'data-platform-babylist' | 'team-scaling' | 'data-governance';
 
 interface WorkDetailPanelProps {
   type: ProjectType;
@@ -50,154 +50,120 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
   });
 
   const content: Record<ProjectType, ProjectContent> = {
-    'tableau-scale': {
-      title: 'Tableau @ Scale',
+    'self-service-analytics': {
+      title: 'Self-Service Analytics at Scale',
       company: 'Chewy',
-      challenge: 'When I joined Chewy in 2017, Tableau adoption had grown organically to around 100 users but lacked governance, standards, or compliance controls necessary for SOX requirements. The company was rapidly scaling toward its June 2019 IPO.',
+      challenge: 'Pre-IPO, Chewy\'s analytics environment was creating more problems than it solved: teams were rebuilding the same content independently, metrics didn\'t match across departments, nothing was discoverable, and duplicate work was rampant. There was no dev/prod separation, so SOX-sensitive reporting had zero protections or auditability. Meanwhile, 70% of our on-prem Vertica warehouse capacity was consumed by sandbox tables and ad-hoc analytics workloads, leaving minimal headroom for critical ETL processes. As Associate Director, I was accountable for transforming this into a governed, scalable self-service platform before IPO.',
       approach: [
-        'Implemented Dev/Prod environment separation ensuring content was tested before production deployment',
-        'Designed granular role-based access controls with audit logging for compliance',
-        'Established content certification processes, data source standards, and publishing workflows',
-        'Scaled to 8-node cluster architecture supporting 3,500+ concurrent users',
-        'Created comprehensive training programs, office hours, and tiered support'
+        'Met each team where they were in their analytics journey—some needed hands-on optimization support, others just needed guardrails and autonomy',
+        'Designed dev/prod separation that created SOX auditability while improving content quality and discoverability',
+        'Focused on building valuable analytics that surfaced business drivers, not just dashboards that displayed metrics',
+        'Established content certification so teams could find and trust existing assets instead of rebuilding from scratch'
       ],
-      outcome: 'The platform scaled from 100 to 3,500+ users (35x growth) while maintaining SOX compliance through multiple audit cycles. Self-service analytics became a competitive advantage, enabling faster decision-making across all business functions.',
-      keyInsight: 'The counterintuitive lesson was that stronger governance actually accelerated adoption. When users trust the data and know where to find certified content, they engage more confidently.',
-      technologies: ['Tableau Server', 'Amazon Redshift', 'Snowflake', 'dbt', 'Apache Airflow', 'AWS']
+      outcome: '35x user growth (100 to 3,500+) with maintained performance. Warehouse load reduced from 70% to 30% for analytics workloads, freeing capacity for ETL. Zero SOX audit findings through IPO and beyond. Platform team efficiency improved 7x—grew only 3 to 5 FTE despite 35x user growth.',
+      keyInsight: 'Governance works when you meet people where they are. By supporting each team\'s unique analytics maturity rather than imposing one-size-fits-all rules, users became partners in quality rather than resistors of process.',
+      technologies: ['Tableau Server', 'Vertica', 'Snowflake', 'AWS']
     },
     'pii-reduction': {
-      title: 'PII Reduction Initiative',
+      title: 'Privacy Compliance at Scale',
       company: 'Chewy',
-      challenge: 'Pre-IPO security audit revealed significant PII exposure in system logs across engineering teams. This represented compliance risk for SOX and CCPA, and needed remediation before going public.',
+      challenge: 'Pre-IPO security audit revealed significant customer PII exposure in Splunk system logs—a compliance risk for SOX and CCPA that needed remediation before going public. As Director, I was accountable for eliminating this exposure, but engineering teams didn\'t want anything to do with it. They argued they needed the data for debugging, it slowed them down, and they pushed back constantly. I had no direct authority over the 30+ teams who needed to change their behavior.',
       approach: [
-        'Partnered with Security and Compliance to define PII categories and detection rules',
-        'Built automated scanning tools to identify PII patterns in Splunk logs',
-        'Created remediation playbooks for 30+ engineering teams',
-        'Established governance framework for ongoing PII monitoring',
-        'Implemented pre-commit hooks and CI/CD checks to prevent new PII logging'
+        'Led through influence, not authority—partnered directly with each engineering team to explain the "why" rather than mandating compliance',
+        'Made the case that PII in logs was unnecessary, a privacy risk, and simply not best practice—winning over resistant teams by explaining business rationale',
+        'Built automated PII detection in Splunk to identify patterns and track remediation progress across all applications',
+        'Established sustainable governance mechanisms and trained 200+ engineers on privacy-safe logging practices'
       ],
-      outcome: '97% reduction in PII across all monitored systems. Zero material findings in IPO security audits related to data exposure. Framework became standard practice for all new services.',
-      keyInsight: 'Cross-functional initiatives succeed when you make compliance easy. The automated detection and clear playbooks meant teams could self-remediate without constant oversight.',
-      technologies: ['Splunk', 'Python', 'Regular Expressions', 'AWS Lambda', 'Jenkins']
+      outcome: '97% reduction in PII across all system logs. Zero audit findings related to data exposure in IPO security reviews. Framework became standard practice for all new services, shifting engineering culture toward privacy-safe logging.',
+      keyInsight: 'Cross-functional initiatives succeed when you lead with "why." Engineers resisted because they saw it as overhead—winning them over required explaining that PII in logs was unnecessary and risky, not just citing compliance rules.',
+      technologies: ['Splunk', 'Tableau', 'Vertica', 'Snowflake', 'AWS']
     },
     'vendor-analytics': {
-      title: 'Vendor Analytics Platform',
+      title: 'Vendor Data Services',
       company: 'Chewy',
-      challenge: 'Chewy\'s vendor partners needed visibility into their product performance but had no self-service access to sales data. Manual reporting was consuming analyst time and limiting vendor relationships.',
+      challenge: 'Chewy\'s vendor partners had no self-service access to their own performance data. Without an official conduit, account managers faced constant pressure to share ad-hoc reports—putting Chewy at risk of sharing unvalidated data or exposing competitive information. As Director of BI & Data Governance, I saw an opportunity to treat data as a product: turn operational data into a revenue stream while establishing proper governance.',
       approach: [
-        'Designed secure external-facing analytics platform with row-level security',
-        'Built automated data pipelines delivering daily vendor-specific metrics',
-        'Created self-service dashboards for inventory, sales, and customer insights',
-        'Scaled from vet services pilot to 3 business units',
-        'Implemented feedback loops to continuously improve vendor experience'
+        'Partnered directly with vendors during development to understand what they actually needed—their feedback shaped the product and built stronger relationships',
+        'Designed secure external-facing platform with row-level security ensuring vendors only saw their own data',
+        'Established an official, sanctioned channel for vendor data—replacing risky ad-hoc sharing with auditable, validated information',
+        'Started with veterinary practice rebate tracking, then expanded to additional business units as the platform proved value'
       ],
-      outcome: 'Platform used by 200+ vendors generating $10M+ in annual revenue through improved vendor relationships and data-driven negotiations. Reduced analyst time on vendor reporting by 80%.',
-      keyInsight: 'External analytics platforms are products, not projects. Treating vendors as customers—with onboarding, support, and continuous improvement—drove adoption and revenue.',
-      technologies: ['Tableau Server', 'Snowflake', 'dbt', 'Airflow', 'Row-Level Security']
+      outcome: 'Generated $10M+ annual revenue from data that was previously just operational overhead. Eliminated 90% of ad-hoc vendor data requests. Platform eventually rolled into Vendor 360 portal. Strengthened vendor relationships by weaving Chewy more tightly into their data ecosystem.',
+      keyInsight: 'Data teams should think like product teams. By partnering with vendors to build what they actually needed—not what we assumed—we created a product that deepened relationships while generating revenue. The official platform also served as a governance mechanism, protecting Chewy from the risks of ad-hoc data sharing.',
+      technologies: ['Snowflake', 'Tableau']
     },
     'data-culture': {
-      title: 'Data Culture Conferences',
+      title: 'Data Literacy at Scale',
       company: 'Chewy',
-      challenge: 'Analytics adoption was limited by data literacy. Business users wanted to be self-sufficient but lacked training. Traditional training programs weren\'t scaling with the organization.',
+      challenge: 'Chewy had invested in robust analytics infrastructure, but adoption was concentrated within the central BI team. Teams were solving similar problems in isolation with no way to share knowledge. Traditional training didn\'t stick because it wasn\'t based in our data environment. As Director of BI & Data Governance, I needed to build data literacy and community to enable the self-service analytics strategy.',
       approach: [
-        'Launched "Data Summit" - annual company-wide data conference with 50+ sessions',
-        'Created "Data Basecamp" - quarterly hands-on training workshops',
-        'Built library of 200+ recorded sessions for on-demand learning',
-        'Established certification programs for Tableau and SQL proficiency',
-        'Recruited internal speakers to share domain-specific use cases'
+        'Created Data Summit—a platform for team members to showcase their data products and get recognition, building community and discoverability across departments',
+        'Created Data Basecamp—vendor-led training curated specifically to Chewy\'s environment, with beginner/intermediate/advanced tracks based on topics users wanted to learn',
+        'Leveraged vendor relationships to deliver high-quality content (vendors wanted to be more deeply embedded in our usage)',
+        'Built a learning library of recorded sessions based in our actual data stack—not generic examples'
       ],
-      outcome: '1,200+ employees trained across all business functions. Self-service adoption increased 60%, reducing ad-hoc analyst requests. Program became model for other internal learning initiatives.',
-      keyInsight: 'Data culture isn\'t built through mandates—it\'s built through community. Internal conferences created peer learning and celebrated data wins across the organization.',
-      technologies: ['Tableau', 'SQL', 'Zoom', 'Confluence', 'Internal LMS']
-    },
-    'metric-trees': {
-      title: 'Metric Trees Framework',
-      company: 'Babylist',
-      challenge: 'Business units had competing definitions of success metrics. OKRs weren\'t connected to operational metrics, making it hard to prioritize analytics work or measure true business impact.',
-      approach: [
-        'Mapped company objectives to metric hierarchies showing causal relationships',
-        'Defined single source of truth for each metric with clear ownership',
-        'Connected OKRs to operational metrics through explicit driver relationships',
-        'Created prioritization framework for analytics requests based on metric impact',
-        'Built executive dashboards showing metric tree health'
-      ],
-      outcome: 'Company-wide alignment on key metrics. Analytics team could prioritize work based on objective business impact. Reduced metric definition debates by 80%.',
-      keyInsight: 'Metric trees force clarity. When you have to draw the causal chain from an operational metric to a company objective, fuzzy thinking becomes visible immediately.',
-      technologies: ['Snowflake', 'dbt', 'Hex', 'Notion', 'Figjam']
-    },
-    'event-pipeline': {
-      title: 'Real-Time Event Pipeline',
-      company: 'Chewy',
-      challenge: 'Chewy was using a third-party event collection platform at significant cost, with latency issues limiting ML/AI use cases. The vendor dependency created data quality blind spots and inflexible schemas.',
-      approach: [
-        'Designed internal event streaming architecture using Kafka and AWS Kinesis',
-        'Built custom ingestion framework with schema validation and quality checks',
-        'Migrated critical event streams from vendor platform with zero data loss',
-        'Enabled real-time data access for ML/AI personalization pipelines',
-        'Implemented comprehensive monitoring and alerting for stream health'
-      ],
-      outcome: 'Replaced vendor platform at a fraction of the cost with significantly reduced latency. Reduced event latency from minutes to seconds. Enabled real-time ML/AI use cases including personalization and recommendations.',
-      keyInsight: 'Build vs. buy isn\'t just about cost—it\'s about control. Owning the event pipeline enabled schema governance and quality that third-party tools couldn\'t provide.',
-      technologies: ['Kafka', 'AWS Kinesis', 'Python', 'AWS Lambda', 'S3', 'Redshift']
+      outcome: 'Grew from a half-day pilot (10 sessions) to a multi-day event (75+ sessions over 4 days). Trained 1,200+ employees over five years. Built learning library of Chewy-specific content. Programs became something people looked forward to—part of Chewy\'s culture.',
+      keyInsight: 'Meet people where they are. Not everyone learns the same way—some want office hours, some want videos. But training curated to your environment, using your data, is far more impactful than generic content.',
+      technologies: ['Tableau', 'Snowflake', 'Alation', 'SQL', 'Zoom']
     },
     'instrumentation-audit': {
-      title: 'Mobile Instrumentation Audit',
+      title: 'Product Analytics Audit',
       company: 'Chewy',
-      challenge: 'Chewy\'s mobile analytics showed inconsistencies between iOS and Android data. Years of independent development had created divergent schemas, duplicated events, and misaligned tracking—impacting ML models and business decisions.',
+      challenge: 'Product teams struggled to measure feature performance because user interaction data was inconsistent across platforms. iOS, Android, and web had evolved independently for years—different schemas, different event names, different properties for the same actions. No one understood the full picture, and people blamed bots for the measurement inconsistencies. As Director, I was asked to figure out what was actually going on.',
       approach: [
-        'Conducted 4-month comprehensive audit across 30 product and engineering teams',
-        'Documented complete event taxonomy across web, iOS, and Android platforms',
-        'Identified schema misalignments, excessive tracking, and organizational gaps',
-        'Created impact analysis showing data integrity issues affecting $8B+ operations',
-        'Presented findings to C-suite with architectural recommendations'
+        'Conducted 80+ interviews across 30 product and engineering teams to map the complete instrumentation workflow',
+        'Discovered it took 124 discrete steps across multiple teams to instrument a new feature—creating months-long delays',
+        'Documented how iOS/Android schema divergence made cross-platform customer journey analysis impossible',
+        'Quantified business impact: ML models trained on inconsistent data, A/B tests confounded by platform differences',
+        'Presented findings to C-suite with three options ranging from incremental fixes to full mobile re-architecture'
       ],
-      outcome: 'Audit exposed critical mobile data integrity issues that had impacted ML models and business metrics for years. Findings drove C-suite decision to consolidate mobile architecture—a transformation that resolved systemic data quality issues.',
-      keyInsight: 'Sometimes the highest-impact work is making invisible problems visible. The audit didn\'t fix anything directly—it gave leadership the evidence they needed to prioritize a multi-year fix.',
-      technologies: ['SQL', 'Python', 'Snowflake', 'Splunk', 'Amplitude']
+      outcome: 'The audit painted a clear picture of how broken things were—something no one had fully understood before. Findings informed roadmap planning for the following year. After my departure, iOS and Android teams were dissolved in favor of a unified web-flexible architecture.',
+      keyInsight: 'Sometimes the highest-impact work is making invisible problems visible. The audit didn\'t fix anything directly—it gave leadership the evidence and options they needed to make a strategic decision.',
+      technologies: ['SQL', 'Snowflake', 'Splunk']
     },
     'data-platform-babylist': {
       title: 'Data Platform Optimization',
       company: 'Babylist',
-      challenge: 'Babylist\'s Snowflake platform had grown organically with performance issues and escalating costs. Query latency was impacting analyst productivity, and rapid business growth was outpacing platform efficiency.',
+      challenge: 'Babylist\'s Snowflake platform had grown organically during hypergrowth—costs were escalating faster than business value, P95 query latency was hurting analyst productivity, and the transformation layer was full of anti-patterns. As Director of BI & Data Engineering, I inherited a platform that needed modernization before it became a bottleneck for both daily operations and IPO readiness.',
       approach: [
-        'Audited Snowflake usage patterns, identifying expensive queries and anti-patterns',
-        'Implemented dbt transformation layer with proper materialization strategies',
-        'Redesigned data mart architecture for performance-optimized structures',
-        'Established query governance and resource monitoring',
-        'Partnered with engineering to optimize Airflow orchestration'
+        'Conducted hands-on audit of query logs, dbt code, and warehouse metrics—didn\'t delegate the investigation work',
+        'Optimized dbt transformation layer: converted expensive tables to incremental models, refactored anti-patterns, added comprehensive testing',
+        'Redesigned data mart architecture with proper clustering and flattened, analysis-ready structures',
+        'Implemented cost governance with query tagging and team-level attribution dashboards',
+        'Partnered with engineering to optimize Airflow orchestration and reduce redundant runs'
       ],
-      outcome: 'Significant annual savings through architectural optimization. Improved P95 query latency by 50%. Increased monthly active data users by 50% through better performance.',
-      keyInsight: 'Platform optimization is often about discipline, not technology. The same tools that were underperforming delivered significant improvements with proper governance and materialization strategies.',
+      outcome: '30% cost reduction (~$145K annual savings) through architectural optimization. 50% P95 query latency improvement enabling faster interactive analytics. 50% increase in active data users through better performance and self-service enablement.',
+      keyInsight: 'Platform optimization is about discipline, not technology. The biggest wins came from simple changes done consistently—proper incremental models, right-sized warehouses, query tagging. No fancy technology, just fundamentals that had been skipped during hypergrowth.',
       technologies: ['Snowflake', 'dbt', 'Airflow', 'Hex', 'Monte Carlo']
     },
     'team-scaling': {
-      title: 'Analytics Org 0→30',
+      title: 'Building an Analytics Organization',
       company: 'Chewy',
-      challenge: 'When I joined Chewy in 2017, there was no formal analytics function. The company was scaling rapidly toward its 2019 IPO and needed enterprise-grade analytics, governance, and compliance capabilities.',
+      challenge: 'When I joined Chewy in 2017 as a staff engineer building dashboards, there was no formal analytics function. The company was scaling rapidly toward its 2019 IPO and needed enterprise-grade analytics capabilities. I quickly became the platform owner as we moved to self-service, and over six years was given increasing responsibility as I proved myself—eventually leading multiple teams across BI, data governance, Splunk, and GRC.',
       approach: [
-        'Founded the BI and analytics function as the first dedicated hire',
-        'Built hiring frameworks, interview processes, and onboarding programs',
-        'Scaled team from 1 to 30 people across Seattle, Minneapolis, Boston, and Plantation',
-        'Established team charters, development standards, and career ladders',
-        'Created hub-and-spoke model embedding analysts in business units while maintaining central governance'
+        'Started as staff engineer, became Associate Director, then Director as I took on more responsibility',
+        'Grew the BI team to 5-6 people focused on platform support and self-service enablement',
+        'Took on Data Governance team (4-5 people) as the function matured',
+        'Inherited and grew Splunk team from 2 to 6 engineers',
+        'Was given GRC (governance, risk, compliance) team when they needed stronger leadership'
       ],
-      outcome: 'Built 30-person organization that supported Chewy through IPO and beyond. Team included data engineers, analytics engineers, BI developers, and governance specialists across 4 locations.',
-      keyInsight: 'Building a function from scratch requires equal parts technical vision and organizational design. The processes, culture, and standards you establish early become the foundation for everything that follows.',
-      technologies: ['Tableau', 'Snowflake', 'dbt', 'Airflow', 'Python']
+      outcome: 'Built and absorbed teams totaling ~30 people across BI, Data Governance, Splunk, and GRC. Supported Chewy through IPO and continued scaling. Became a trusted leader who was given teams as the organization needed them.',
+      keyInsight: 'Career growth isn\'t always about building one team from scratch—sometimes it\'s about being the trusted leader who gets given teams as you prove yourself. The common thread was governance, compliance, and enabling the organization to use data effectively.',
+      technologies: ['Tableau', 'Snowflake', 'Splunk', 'Alation']
     },
     'data-governance': {
       title: 'Enterprise Data Governance',
       company: 'Chewy',
-      challenge: 'Pre-IPO, Chewy lacked formal data governance. There was no data catalog, inconsistent metric definitions across teams, and growing regulatory requirements (CCPA, GDPR, SOX) without systematic controls.',
+      challenge: 'Pre-IPO, Chewy lacked formal data governance. There was no data catalog, inconsistent metric definitions across teams, and growing regulatory requirements (CCPA, GDPR, SOX) without systematic controls. As Director of BI & Data Governance, I owned building this capability from scratch.',
       approach: [
-        'Launched enterprise governance program with executive sponsorship',
-        'Implemented Alation as centralized data catalog with lineage tracking',
-        'Deployed OneTrust for privacy compliance and consent management',
-        'Established data classification framework and retention policies',
-        'Created governance council with cross-functional stakeholder representation'
+        'Ran POCs and rolled out Alation as the data catalog—even during the pandemic, got teams to fill it out',
+        'Implemented OneTrust for CCPA compliance, mapping all our data and building consent management',
+        'Prepared for GDPR with comprehensive data mapping for international expansion',
+        'Built SOX-compliant path-to-production process with dev/prod separation for Tableau',
+        'Created automated migration process that ran explain plans to keep compute costs low'
       ],
-      outcome: 'CCPA compliant at launch. GDPR-ready for international expansion. SOX controls validated through multiple audit cycles. Improved data trust scores from 45% to 85% in stakeholder surveys.',
-      keyInsight: 'Governance succeeds when it enables rather than restricts. The data catalog and standardized metrics made people\'s jobs easier—compliance was the byproduct of better tooling.',
+      outcome: 'CCPA compliant at launch. GDPR-ready for international expansion. SOX controls validated through multiple audit cycles. The catalog and governance tooling made compliance a byproduct of better infrastructure.',
+      keyInsight: 'Governance succeeds when it enables rather than restricts. When you make it easier for people to find and trust data, compliance follows naturally.',
       technologies: ['Alation', 'OneTrust', 'Snowflake', 'Tableau', 'Splunk']
     },
     'modern-stack': {
@@ -260,17 +226,16 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
     'voice-clone': {
       title: 'Voice Clone Studio',
       company: 'Personal Project',
-      challenge: 'Commercial voice cloning services are expensive, require uploading audio to third parties, and lack customization. I wanted a privacy-first solution running entirely on local hardware with advanced voice effects and multi-language support.',
+      challenge: 'Qwen3-TTS dropped on a Friday. I wanted to know: how fast can I go from "interesting new model" to a working application? This was a test of rapid prototyping—taking a new AI capability and shipping something functional before the weekend was over.',
       approach: [
-        'Implemented Qwen3-TTS for high-quality voice cloning from short audio samples',
-        'Integrated mlx-Whisper for Apple Silicon optimized speech-to-text transcription',
-        'Built Gradio interface with real-time audio preview and processing',
-        'Added 7 voice effects: pitch shift, tempo, reverb, echo, distortion, chorus, and robot',
-        'Created 4-step workflow: upload reference → transcribe/enter text → generate → apply effects',
-        'Optimized for Apple Silicon MPS acceleration for fast local inference'
+        'Friday evening: discovered Qwen3-TTS release, started experimenting with the model',
+        'Saturday: integrated mlx-Whisper for transcription, built Gradio interface with real-time preview',
+        'Sunday: added 7 voice effects (pitch, tempo, reverb, echo, distortion, chorus, robot) and polished the workflow',
+        'Optimized for Apple Silicon MPS—no cloud dependencies, runs entirely local',
+        'Created 4-step workflow: upload reference → transcribe/enter text → generate → apply effects'
       ],
-      outcome: 'Fully functional voice cloning application running 100% locally. Can clone any voice from a short audio sample and generate speech in multiple languages with real-time effect processing.',
-      keyInsight: 'Apple Silicon MPS acceleration makes sophisticated AI applications viable on consumer hardware. What required cloud GPUs two years ago now runs on a MacBook.',
+      outcome: 'Shipped a fully functional voice cloning app in 48 hours. Can clone any voice from a short sample, generate speech in multiple languages, and apply real-time effects. The speed matters—AI moves fast, and being able to quickly evaluate and productize new capabilities is a competitive advantage.',
+      keyInsight: 'The ability to rapidly prototype AI applications is increasingly valuable. New models drop constantly; the question is how fast you can turn "interesting" into "useful."',
       technologies: ['Python', 'Qwen3-TTS', 'mlx-Whisper', 'Gradio', 'PyTorch', 'SoX', 'Apple Silicon MPS'],
       architecture: {
         title: 'System Architecture',
@@ -286,17 +251,16 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
     'whisper-notes': {
       title: 'WhisperNotes',
       company: 'Personal Project',
-      challenge: 'Commercial transcription services send audio to the cloud, raising privacy concerns for personal notes and journaling. I needed a privacy-first dictation tool that works entirely offline with AI-powered summarization.',
+      challenge: 'My journaling workflow was friction-heavy: record audio, transcribe it, summarize it, create a file, move it to Obsidian, link the audio. Too many steps meant I didn\'t do it consistently. I also wanted voice input for AI interfaces that don\'t natively support it—talk to the AI without having it talk back.',
       approach: [
-        'Built global hotkey system (Cmd+Shift+R for dictation, Cmd+Shift+J for journaling)',
-        'Integrated Whisper for local speech-to-text transcription',
-        'Connected Ollama for local LLM summarization and insight extraction',
-        'Designed automatic markdown note generation with linked audio files',
-        'Created journal mode with daily entries, mood tracking, and AI summaries',
-        'Implemented menu bar integration for quick access and status display'
+        'Built global hotkeys: Cmd+Shift+J for journaling, Cmd+Shift+R for on-the-fly transcription in any app',
+        'Integrated Whisper for local transcription—already running on my homelab, so leveraged existing services',
+        'Connected Ollama for automatic summarization and insight extraction',
+        'Automated the full workflow: record → transcribe → summarize → template → save to Obsidian vault',
+        'Added menu bar integration for status and quick access'
       ],
-      outcome: 'Privacy-first dictation and journaling app processing everything locally. Global hotkeys enable instant capture from any application. AI-generated summaries help review and reflect on entries.',
-      keyInsight: 'Privacy-preserving AI is possible today with local models. Combining Whisper transcription with Ollama summarization creates a powerful personal knowledge capture system without cloud dependencies.',
+      outcome: 'I use this daily. Journal entries now take one hotkey press instead of a 6-step process. The Cmd+Shift+R dictation is particularly useful for AI chat interfaces—Claude and other LLMs are excellent at understanding flowing speech, and sometimes you want to talk without the AI speaking back.',
+      keyInsight: 'The best tools solve your own problems first. Building for myself meant I could be honest about what friction actually existed—and now I use it every day.',
       technologies: ['Python', 'Whisper', 'Ollama', 'PyObjC', 'Markdown', 'Apple Silicon'],
       architecture: {
         title: 'System Architecture',
