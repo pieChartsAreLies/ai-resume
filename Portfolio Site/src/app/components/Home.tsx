@@ -1,141 +1,70 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { WhatIDoPanel } from '@/app/components/WhatIDoPanel';
-import { downloadResumeAsPdf } from '@/app/utils/downloadResume';
+import React from 'react';
+import { motion } from 'motion/react';
 
 interface HomeProps {
-  onNavigateToWork: () => void;
-  onNavigateToResume: () => void;
+  onScrollToWork: () => void;
+  onScrollToResume: () => void;
+  onOpenChat: () => void;
 }
 
-export function Home({ onNavigateToWork, onNavigateToResume }: HomeProps) {
-  const [activePanel, setActivePanel] = useState<'strategy' | 'leadership' | 'solutioning' | null>(null);
-
+export function Home({ onScrollToWork, onScrollToResume, onOpenChat }: HomeProps) {
   return (
-    <div className="flex flex-col items-center pt-[112px] md:pt-[132px] pb-20 px-4 gap-8">
-      {/* Hero Section */}
-      <motion.div 
+    <div className="flex flex-col items-center pt-[112px] md:pt-[132px] pb-8 px-4">
+      {/* Combined Hero + Who I Am Section */}
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-8 md:p-12 max-w-[800px] w-full"
+        className="bg-[#4A4440] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-8 md:p-12 max-w-[800px] w-full"
       >
-        <h2 className="font-['Montserrat',sans-serif] font-medium text-[28px] md:text-[31px] text-white mb-6 leading-tight">
-          Scaling Data Teams from Startup to Fortune 500
+        <h2 className="font-['Montserrat',sans-serif] font-medium text-[28px] md:text-[36px] text-[#FAF7F2] mb-2">
+          Who I Am
         </h2>
-        <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-10 leading-relaxed">
-          Over the past decade, I've taken teams from startup chaos to Fortune 500 scale—building trusted infrastructure, defining metrics that matter, and partnering with teams who need data to win.
+        <p className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#D4A853] mb-6">
+          Father. Husband. Data Nerd. AI Enthusiast. Leader.
         </p>
-        
-        <div className="flex flex-col md:flex-row gap-6">
-          <button 
-            onClick={downloadResumeAsPdf}
-            className="flex-1 h-[44px] border border-white rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[16px] hover:bg-white/5 transition-colors cursor-pointer"
+        <div className="flex flex-col gap-5 mb-8">
+          <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed">
+            When at work, I'm a data team leader who's learned that strong teams don't happen by accident. They're built deliberately by investing in people, removing friction, and creating the conditions for good work to happen. A lot of my career has been spent helping organizations make sense of their data in ways that are sustainable, not heroic.
+          </p>
+
+          <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed">
+            Outside of work, I'm a dad to a 12-year-old and a 7-year-old, which puts everything else in perspective. I run, tinker, read constantly, and on weekends I'm usually slow-smoking something on my Big Green Egg.
+          </p>
+
+          <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed">
+            My homelab is a personal space to build things that are actually useful, mostly for my family, sometimes just to satisfy curiosity. It's also how I stay close to the rapidly changing AI and infrastructure landscape. The projects you'll see here reflect how I tend to work: practical systems, built with care, that help people and teams operate a little more smoothly.
+          </p>
+        </div>
+
+        {/* AI Chat Button - Primary CTA */}
+        <button
+          onClick={onOpenChat}
+          className="w-full h-[52px] bg-gradient-to-r from-[#C4785C] to-[#8B5A3C] rounded-[50px] flex items-center justify-center gap-3 font-['Montserrat',sans-serif] font-medium text-[#FAF7F2] text-[16px] hover:opacity-90 transition-opacity cursor-pointer mb-6 shadow-lg"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Ask My AI About Me
+        </button>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-[#FAF7F2]/10 mb-6" />
+
+        <div className="flex flex-col md:flex-row gap-4">
+          <button
+            onClick={onScrollToResume}
+            className="flex-1 h-[44px] border border-[#FAF7F2]/40 rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#D4A853] text-[15px] hover:bg-[#FAF7F2]/5 hover:border-[#FAF7F2]/60 transition-all cursor-pointer"
           >
-            Download Resume (pdf)
+            View Resume
           </button>
-          <button 
-            onClick={onNavigateToWork}
-            className="flex-1 h-[44px] border border-white rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[16px] hover:bg-white/5 transition-colors cursor-pointer"
+          <button
+            onClick={onScrollToWork}
+            className="flex-1 h-[44px] border border-[#FAF7F2]/40 rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#D4A853] text-[15px] hover:bg-[#FAF7F2]/5 hover:border-[#FAF7F2]/60 transition-all cursor-pointer"
           >
             View Work
           </button>
         </div>
       </motion.div>
-
-      {/* What I Do Section */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-8 md:p-12 max-w-[800px] w-full"
-      >
-        <h2 className="font-['Montserrat',sans-serif] font-medium text-[28px] md:text-[31px] text-white mb-4">
-          What I Do...
-        </h2>
-        <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-12 leading-relaxed">
-          I build data platforms, scale analytics teams, and create the governance frameworks that let organizations trust their data at enterprise scale.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-stretch">
-          {/* Data Platform Strategy */}
-          <div className="flex flex-col items-center text-center">
-            <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Data Platforms</h3>
-            <div className="bg-[#4a4a4a] rounded-[8px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.25),-2px_-2px_10px_3px_rgba(204,204,204,0.25)] w-[42px] h-[42px] flex items-center justify-center mb-6">
-              <span className="text-xl">📊</span>
-            </div>
-            <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] mb-6 flex-grow">
-              Lakehouse architecture, Snowflake, dbt, and enterprise BI at scale
-            </p>
-            <button
-              onClick={() => setActivePanel('strategy')}
-              className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer mt-auto"
-            >
-              View More
-            </button>
-          </div>
-
-          {/* Team Leadership */}
-          <div className="flex flex-col items-center text-center">
-            <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Team Leadership</h3>
-            <div className="bg-[#4a4a4a] rounded-[8px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.25),-2px_-2px_10px_3px_rgba(204,204,204,0.25)] w-[42px] h-[42px] flex items-center justify-center mb-6">
-              <span className="text-xl">👥</span>
-            </div>
-            <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] mb-6 flex-grow">
-              Servant leadership, hub-and-spoke models, and scaling teams 0→30
-            </p>
-            <button
-              onClick={() => setActivePanel('leadership')}
-              className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer mt-auto"
-            >
-              View More
-            </button>
-          </div>
-
-          {/* Governance & Compliance */}
-          <div className="flex flex-col items-center text-center">
-            <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-6">Governance</h3>
-            <div className="bg-[#4a4a4a] rounded-[8px] shadow-[2px_2px_10px_3px_rgba(0,0,0,0.25),-2px_-2px_10px_3px_rgba(204,204,204,0.25)] w-[42px] h-[42px] flex items-center justify-center mb-6">
-              <span className="text-xl">🔒</span>
-            </div>
-            <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] mb-6 flex-grow">
-              SOX compliance, PII reduction, and data trust frameworks
-            </p>
-            <button
-              onClick={() => setActivePanel('solutioning')}
-              className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer mt-auto"
-            >
-              View More
-            </button>
-          </div>
-        </div>
-      </motion.div>
-
-      <AnimatePresence>
-        {activePanel && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActivePanel(null)}
-              className="fixed inset-0 bg-black/60 z-[90] backdrop-blur-sm"
-            />
-            <WhatIDoPanel 
-              type={activePanel} 
-              onClose={() => setActivePanel(null)} 
-              onNavigateToWork={() => {
-                setActivePanel(null);
-                onNavigateToWork();
-              }}
-              onNavigateToResume={() => {
-                setActivePanel(null);
-                onNavigateToResume();
-              }}
-            />
-          </>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

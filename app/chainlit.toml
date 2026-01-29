@@ -1,0 +1,14 @@
+[project]
+# Disable the readme link in the sidebar
+enable_readme = false
+
+[UI]
+# App name
+name = "Michael Gerstl AI"
+
+# Hide Chainlit branding elements
+hide_cot = true
+
+[features]
+# Disable features we don't need
+prompt_playground = false

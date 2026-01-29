@@ -14,8 +14,13 @@ interface Project {
   tags: string[];
 }
 
+// Domain-level tags (shown first)
+const DOMAIN_TAGS = ['Analytics', 'Data Engineering', 'Product'] as const;
+
 // All unique tags across projects
 const ALL_TAGS = [
+  // Domains (first row)
+  ...DOMAIN_TAGS,
   // Data Platforms
   'Snowflake', 'Redshift', 'DuckDB', 'PostgreSQL',
   // Orchestration & Transform
@@ -48,7 +53,7 @@ export function Work() {
       company: "Chewy",
       metrics: "35x user growth | 70%→30% warehouse load | Zero SOX findings",
       category: 'professional',
-      tags: ['Self-Service', 'SOX', 'Governance', 'Data Culture']
+      tags: ['Analytics', 'Product', 'SOX', 'Governance']
     },
     {
       id: 'pii-reduction' as ProjectType,
@@ -57,7 +62,7 @@ export function Work() {
       company: "Chewy",
       metrics: "97% PII reduction | 30+ teams | Zero audit findings",
       category: 'professional',
-      tags: ['Privacy', 'Governance', 'Cross-Functional', 'Influence']
+      tags: ['Data Engineering', 'Governance', 'GDPR', 'CCPA']
     },
     {
       id: 'vendor-analytics' as ProjectType,
@@ -66,7 +71,7 @@ export function Work() {
       company: "Chewy",
       metrics: "$10M+ revenue | 90% fewer ad-hoc requests | Data as Product",
       category: 'professional',
-      tags: ['Data Product', 'Snowflake', 'Tableau', 'Governance']
+      tags: ['Analytics', 'Product', 'Snowflake', 'Tableau']
     },
     {
       id: 'data-culture' as ProjectType,
@@ -75,7 +80,7 @@ export function Work() {
       company: "Chewy",
       metrics: "1,200+ trained | 10→75+ sessions | 5 years",
       category: 'professional',
-      tags: ['Data Culture', 'Training', 'Community']
+      tags: ['Analytics', 'Team Building', 'Culture']
     },
     {
       id: 'instrumentation-audit' as ProjectType,
@@ -84,7 +89,7 @@ export function Work() {
       company: "Chewy",
       metrics: "80+ interviews | 124-step process mapped | C-suite presentation",
       category: 'professional',
-      tags: ['Governance', 'Cross-Functional', 'Data Quality']
+      tags: ['Analytics', 'Product', 'Governance']
     },
     {
       id: 'data-platform-babylist' as ProjectType,
@@ -93,7 +98,7 @@ export function Work() {
       company: "Babylist",
       metrics: "30% cost reduction (~$145K) | 50% faster P95 | 50% more users",
       category: 'professional',
-      tags: ['Snowflake', 'dbt', 'Airflow', 'Hex']
+      tags: ['Data Engineering', 'Snowflake', 'dbt', 'Airflow']
     },
     {
       id: 'team-scaling' as ProjectType,
@@ -102,7 +107,7 @@ export function Work() {
       company: "Chewy",
       metrics: "0→30 people | BI + Governance + Splunk + GRC | IPO-ready",
       category: 'professional',
-      tags: ['Team Building', 'Culture', 'Leadership']
+      tags: ['Analytics', 'Team Building', 'Culture']
     },
     {
       id: 'data-governance' as ProjectType,
@@ -111,7 +116,7 @@ export function Work() {
       company: "Chewy",
       metrics: "CCPA compliant | GDPR ready | SOX validated",
       category: 'professional',
-      tags: ['Governance', 'CCPA', 'GDPR', 'SOX', 'Alation']
+      tags: ['Data Engineering', 'Governance', 'CCPA', 'GDPR', 'SOX']
     },
     // Personal Projects
     {
@@ -206,13 +211,13 @@ export function Work() {
   return (
     <div className="flex flex-col items-center pt-[112px] md:pt-[132px] pb-20 px-4 gap-6">
       {/* Category Toggle */}
-      <div className="flex gap-2 bg-[#3a3a3a] p-1 rounded-full">
+      <div className="flex gap-2 bg-[#332F2B] p-1 rounded-full">
         <button
           onClick={() => handleCategoryChange('professional')}
           className={`px-6 py-2 rounded-full font-['Montserrat',sans-serif] font-medium text-[14px] transition-all ${
             activeCategory === 'professional'
-              ? 'bg-[#87b7ff] text-[#1a1a1a]'
-              : 'text-white hover:bg-white/10'
+              ? 'bg-[#D4A853] text-[#2A2622]'
+              : 'text-[#FAF7F2] hover:bg-[#FAF7F2]/10'
           }`}
         >
           Professional
@@ -221,8 +226,8 @@ export function Work() {
           onClick={() => handleCategoryChange('personal')}
           className={`px-6 py-2 rounded-full font-['Montserrat',sans-serif] font-medium text-[14px] transition-all ${
             activeCategory === 'personal'
-              ? 'bg-[#87b7ff] text-[#1a1a1a]'
-              : 'text-white hover:bg-white/10'
+              ? 'bg-[#D4A853] text-[#2A2622]'
+              : 'text-[#FAF7F2] hover:bg-[#FAF7F2]/10'
           }`}
         >
           Personal / AI
@@ -234,7 +239,7 @@ export function Work() {
         key={activeCategory}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#999] text-center max-w-[600px]"
+        className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#9C9489] text-center max-w-[600px]"
       >
         {activeCategory === 'professional'
           ? 'Enterprise data platform and analytics leadership projects'
@@ -247,29 +252,49 @@ export function Work() {
         key={`tags-${activeCategory}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex flex-wrap justify-center gap-2 max-w-[800px]"
+        className="flex flex-col items-center gap-3 max-w-[800px]"
       >
-        {categoryTags.map(tag => (
-          <button
-            key={tag}
-            onClick={() => handleTagClick(tag)}
-            className={`px-3 py-1 rounded-full text-[12px] font-['Montserrat',sans-serif] font-medium transition-all ${
-              selectedTags.includes(tag)
-                ? 'bg-[#87b7ff] text-[#1a1a1a]'
-                : 'bg-[#3a3a3a] text-[#999] hover:text-white hover:bg-[#4a4a4a]'
-            }`}
-          >
-            {tag}
-          </button>
-        ))}
-        {selectedTags.length > 0 && (
-          <button
-            onClick={clearTags}
-            className="px-3 py-1 rounded-full text-[12px] font-['Montserrat',sans-serif] font-medium bg-transparent text-[#ff8787] hover:text-[#ff6b6b] transition-all"
-          >
-            Clear filters
-          </button>
-        )}
+        {/* Domain Tags - Top Row */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {DOMAIN_TAGS.filter(tag => categoryTags.includes(tag)).map(tag => (
+            <button
+              key={tag}
+              onClick={() => handleTagClick(tag)}
+              className={`px-4 py-1.5 rounded-full text-[13px] font-['Montserrat',sans-serif] font-semibold transition-all ${
+                selectedTags.includes(tag)
+                  ? 'bg-[#D4A853] text-[#2A2622]'
+                  : 'bg-[#4A4440] text-[#FAF7F2] hover:bg-[#D4A853] hover:text-[#2A2622]'
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
+        {/* Other Tags - Second Row */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {categoryTags.filter(tag => !DOMAIN_TAGS.includes(tag as typeof DOMAIN_TAGS[number])).map(tag => (
+            <button
+              key={tag}
+              onClick={() => handleTagClick(tag)}
+              className={`px-3 py-1 rounded-full text-[12px] font-['Montserrat',sans-serif] font-medium transition-all ${
+                selectedTags.includes(tag)
+                  ? 'bg-[#D4A853] text-[#2A2622]'
+                  : 'bg-[#332F2B] text-[#9C9489] hover:text-[#FAF7F2] hover:bg-[#4A4440]'
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+          {selectedTags.length > 0 && (
+            <button
+              onClick={clearTags}
+              className="px-3 py-1 rounded-full text-[12px] font-['Montserrat',sans-serif] font-medium bg-transparent text-[#C4785C] hover:text-[#D4A853] transition-all"
+            >
+              Clear filters
+            </button>
+          )}
+        </div>
       </motion.div>
 
       {/* Project Count */}
@@ -277,11 +302,16 @@ export function Work() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="font-['Montserrat',sans-serif] font-light text-[12px] text-[#666]"
+          className="font-['Montserrat',sans-serif] font-light text-[12px] text-[#7A7368]"
         >
           Showing {filteredProjects.length} of {projects.filter(p => p.category === activeCategory).length} projects
         </motion.p>
       )}
+
+      {/* Projects Header */}
+      <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] md:text-[28px] text-[#FAF7F2] mt-4">
+        Projects
+      </h2>
 
       {/* Projects */}
       <AnimatePresence mode="wait">
@@ -298,22 +328,22 @@ export function Work() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-[#4a4a4a] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-6 md:p-8 flex flex-col"
+              className="bg-[#4A4440] rounded-[16px] shadow-[2px_4px_11px_0px_rgba(0,0,0,0.25)] p-6 md:p-8 flex flex-col"
             >
               <div className="flex items-center gap-3 mb-2">
-                <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#87b7ff] uppercase tracking-wide">
+                <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#D4A853] uppercase tracking-wide">
                   {project.company}
                 </p>
                 {project.category === 'personal' && (
-                  <span className="bg-[#667eea] text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">
+                  <span className="bg-[#8B5A3C] text-[#FAF7F2] text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">
                     AI/ML
                   </span>
                 )}
               </div>
-              <h3 className="font-['Montserrat',sans-serif] font-medium text-[20px] md:text-[23px] text-white mb-4 leading-tight">
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[20px] md:text-[23px] text-[#FAF7F2] mb-4 leading-tight">
                 {project.title}
               </h3>
-              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] mb-4 leading-relaxed">
+              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] mb-4 leading-relaxed">
                 {project.description}
               </p>
 
@@ -324,8 +354,8 @@ export function Work() {
                     key={tag}
                     className={`px-2 py-0.5 rounded text-[11px] font-['Montserrat',sans-serif] ${
                       selectedTags.includes(tag)
-                        ? 'bg-[#87b7ff]/30 text-[#87b7ff]'
-                        : 'bg-[#3a3a3a] text-[#888]'
+                        ? 'bg-[#D4A853]/30 text-[#D4A853]'
+                        : 'bg-[#332F2B] text-[#9C9489]'
                     }`}
                   >
                     {tag}
@@ -333,13 +363,13 @@ export function Work() {
                 ))}
               </div>
 
-              <p className="font-['Montserrat',sans-serif] font-light text-[13px] text-[#999] mb-6 italic">
+              <p className="font-['Montserrat',sans-serif] font-light text-[13px] text-[#9C9489] mb-6 italic">
                 {project.metrics}
               </p>
               <div className="flex justify-end mt-auto">
                 <button
                   onClick={() => setActiveProject(project.id)}
-                  className="w-full h-[33px] border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[14px] hover:bg-white/5 transition-colors cursor-pointer"
+                  className="w-full h-[33px] border border-[#FAF7F2] rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#D4A853] text-[14px] hover:bg-[#FAF7F2]/5 transition-colors cursor-pointer"
                 >
                   View Details
                 </button>

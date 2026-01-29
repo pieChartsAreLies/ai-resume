@@ -61,12 +61,12 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
             </button>
 
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white p-6 text-center shrink-0">
+            <div className="bg-gradient-to-r from-[#C4785C] to-[#8B5A3C] text-white px-6 py-4 shrink-0">
               <h2 className="font-['Montserrat',sans-serif] font-semibold text-lg">
-                Ask My AI Assistant
+                Ask Me Anything
               </h2>
-              <p className="font-['Montserrat',sans-serif] font-light text-sm mt-1 opacity-90">
-                Ask about my projects, experience, or leadership philosophy
+              <p className="font-['Montserrat',sans-serif] font-light text-xs mt-1 opacity-80">
+                RAG-powered AI assistant
               </p>
             </div>
 
@@ -76,7 +76,7 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
               {!iframeLoaded && !iframeError && (
                 <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#667eea] mx-auto mb-4"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C4785C] mx-auto mb-4"></div>
                     <p className="text-gray-600 font-['Montserrat',sans-serif]">Loading AI Assistant...</p>
                   </div>
                 </div>

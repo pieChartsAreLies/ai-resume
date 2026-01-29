@@ -58,21 +58,21 @@ export function Resume() {
         className="max-w-[800px] w-full"
       >
         {/* Resume Header */}
-        <div className="bg-[#4a4a4a] rounded-t-[16px] p-8 md:p-12 text-center">
-          <h1 className="font-['Montserrat',sans-serif] font-medium text-[32px] md:text-[40px] text-white mb-2">
+        <div className="bg-[#4A4440] rounded-t-[16px] p-8 md:p-12 text-center">
+          <h1 className="font-['Montserrat',sans-serif] font-medium text-[32px] md:text-[40px] text-[#FAF7F2] mb-2">
             Michael Gerstl
           </h1>
-          <p className="font-['Montserrat',sans-serif] font-light text-[18px] text-[#87b7ff] mb-4">
+          <p className="font-['Montserrat',sans-serif] font-light text-[18px] text-[#D4A853] mb-4">
             Data Leader & AI Evangelist
           </p>
-          <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9]">
+          <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8]">
             South Florida
           </p>
         </div>
 
         {/* Experience Section */}
-        <div className="bg-[#3a3a3a] rounded-b-[16px] p-8 md:p-12">
-          <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] text-white mb-8 border-b border-white/10 pb-4">
+        <div className="bg-[#332F2B] rounded-b-[16px] p-8 md:p-12">
+          <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] text-[#FAF7F2] mb-8 border-b border-[#FAF7F2]/10 pb-4">
             Experience
           </h2>
 
@@ -80,21 +80,21 @@ export function Resume() {
             {experience.map((job, idx) => (
               <div key={idx} className="flex flex-col md:flex-row gap-4 md:gap-8">
                 <div className="md:w-[140px] shrink-0">
-                  <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#87b7ff]">
+                  <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#D4A853]">
                     {job.period}
                   </p>
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-1">
+                  <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-1">
                     {job.role}
                   </h3>
-                  <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#87b7ff] mb-4">
+                  <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4A853] mb-4">
                     {job.company}
                   </p>
                   <ul className="flex flex-col gap-2">
                     {job.highlights.map((highlight, hidx) => (
-                      <li key={hidx} className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] flex gap-2">
-                        <span className="text-[#87b7ff]">•</span>
+                      <li key={hidx} className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#D4CFC8] flex gap-2">
+                        <span className="text-[#D4A853]">•</span>
                         <span>{highlight}</span>
                       </li>
                     ))}
@@ -111,7 +111,7 @@ export function Resume() {
           href="https://linkedin.com/in/michael-gerstl"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-8 py-3 border border-white rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[16px] hover:bg-white/5 transition-colors inline-block"
+          className="px-8 py-3 border border-[#FAF7F2] rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#D4A853] text-[16px] hover:bg-[#FAF7F2]/5 transition-colors inline-block"
         >
           View Full Profile on LinkedIn
         </a>

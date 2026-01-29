@@ -312,28 +312,28 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
       transition={{ type: 'spring', damping: 25, stiffness: 200 }}
       className="fixed inset-x-0 bottom-0 z-[100] flex justify-center px-4 pb-4"
     >
-      <div className="bg-[#4a4a4a] w-full max-w-[650px] max-h-[90vh] overflow-y-auto rounded-[16px] shadow-[2px_-4px_30px_0px_rgba(0,0,0,0.5)] flex flex-col relative custom-scrollbar" ref={scrollContainerRef}>
+      <div className="bg-[#4A4440] w-full max-w-[650px] max-h-[90vh] overflow-y-auto rounded-[16px] shadow-[2px_-4px_30px_0px_rgba(0,0,0,0.5)] flex flex-col relative custom-scrollbar" ref={scrollContainerRef}>
         {/* Scroll Progress Bar */}
         <motion.div
-          className="fixed top-0 left-0 right-0 h-1 bg-[#87b7ff] origin-left z-[110]"
+          className="fixed top-0 left-0 right-0 h-1 bg-[#D4A853] origin-left z-[110]"
           style={{ scaleX, position: 'absolute' }}
         />
 
         {/* Header */}
-        <div className="sticky top-0 bg-[#4a4a4a] z-10 px-6 md:px-10 pt-6 md:pt-10 pb-4 border-b border-white/5">
+        <div className="sticky top-0 bg-[#4A4440] z-10 px-6 md:px-10 pt-6 md:pt-10 pb-4 border-b border-[#FAF7F2]/5">
           <div className="flex justify-between items-start gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#87b7ff] uppercase tracking-wide">
+                <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#D4A853] uppercase tracking-wide">
                   {data.company}
                 </p>
                 {(type === 'ai-resume' || type === 'modern-stack') && (
-                  <span className="bg-[#667eea] text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">
+                  <span className="bg-[#8B5A3C] text-[#FAF7F2] text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">
                     AI/ML
                   </span>
                 )}
               </div>
-              <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] md:text-[31px] text-white leading-tight">
+              <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] md:text-[31px] text-[#FAF7F2] leading-tight">
                 {data.title}
               </h2>
             </div>
@@ -341,7 +341,7 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
               onClick={onClose}
               className="flex items-center gap-2 group cursor-pointer shrink-0"
             >
-              <span className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white group-hover:text-[#87b7ff] transition-colors">
+              <span className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] group-hover:text-[#D4A853] transition-colors">
                 ← Back
               </span>
             </button>
@@ -353,23 +353,23 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
           <div className="flex flex-col gap-8">
             {/* Challenge */}
             <div>
-              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-3">
                 The Challenge
               </h3>
-              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed">
+              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed">
                 {data.challenge}
               </p>
             </div>
 
             {/* Approach */}
             <div>
-              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-3">
                 The Approach
               </h3>
               <ul className="flex flex-col gap-2">
                 {data.approach.map((item, idx) => (
-                  <li key={idx} className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed flex gap-2">
-                    <span className="text-[#87b7ff]">•</span>
+                  <li key={idx} className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed flex gap-2">
+                    <span className="text-[#D4A853]">•</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -379,16 +379,16 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
             {/* Architecture (AI projects only) */}
             {data.architecture && (
               <div>
-                <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+                <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-3">
                   {data.architecture.title}
                 </h3>
                 <div className="grid gap-3">
                   {data.architecture.components.map((component, idx) => (
-                    <div key={idx} className="bg-[#3a3a3a] rounded-lg p-4">
-                      <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#87b7ff] mb-1">
+                    <div key={idx} className="bg-[#332F2B] rounded-lg p-4">
+                      <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#D4A853] mb-1">
                         {component.name}
                       </p>
-                      <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9]">
+                      <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#D4CFC8]">
                         {component.description}
                       </p>
                     </div>
@@ -400,17 +400,17 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
             {/* Security (AI projects only) */}
             {data.security && (
               <div>
-                <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+                <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-3">
                   {data.security.title}
                 </h3>
-                <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#d9d9d9] mb-4">
+                <p className="font-['Montserrat',sans-serif] font-light text-[14px] text-[#D4CFC8] mb-4">
                   {data.security.description}
                 </p>
-                <div className="bg-[#2a2a2a] rounded-lg overflow-hidden">
+                <div className="bg-[#2A2622] rounded-lg overflow-hidden">
                   <div className="grid grid-cols-[auto_1fr] text-[12px]">
                     {data.security.tests.map((test, idx) => (
                       <React.Fragment key={idx}>
-                        <div className={`px-3 py-2 flex items-center justify-center border-b border-[#3a3a3a] ${
+                        <div className={`px-3 py-2 flex items-center justify-center border-b border-[#332F2B] ${
                           test.status === 'blocked' ? 'bg-green-900/30' : 'bg-blue-900/30'
                         }`}>
                           <span className={`font-medium ${
@@ -419,11 +419,11 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
                             {test.status === 'blocked' ? '🛡️' : '✓'}
                           </span>
                         </div>
-                        <div className="px-3 py-2 border-b border-[#3a3a3a]">
-                          <p className="font-['Montserrat',sans-serif] font-medium text-white text-[13px]">
+                        <div className="px-3 py-2 border-b border-[#332F2B]">
+                          <p className="font-['Montserrat',sans-serif] font-medium text-[#FAF7F2] text-[13px]">
                             {test.name}
                           </p>
-                          <p className="font-['Montserrat',sans-serif] font-light text-[#999] text-[11px]">
+                          <p className="font-['Montserrat',sans-serif] font-light text-[#9C9489] text-[11px]">
                             {test.description}
                           </p>
                         </div>
@@ -431,7 +431,7 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
                     ))}
                   </div>
                 </div>
-                <p className="font-['Montserrat',sans-serif] font-light text-[12px] text-[#666] mt-3 italic">
+                <p className="font-['Montserrat',sans-serif] font-light text-[12px] text-[#7A7368] mt-3 italic">
                   25+ unique prompt injection techniques tested. All blocked or handled appropriately.
                 </p>
               </div>
@@ -439,32 +439,32 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
 
             {/* Outcome */}
             <div>
-              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-3">
                 The Outcome
               </h3>
-              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed">
+              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed">
                 {data.outcome}
               </p>
             </div>
 
             {/* Key Insight */}
-            <div className="bg-[#3a3a3a] rounded-lg p-6 border-l-4 border-[#87b7ff]">
-              <h3 className="font-['Montserrat',sans-serif] font-medium text-[16px] text-[#87b7ff] mb-2">
+            <div className="bg-[#332F2B] rounded-lg p-6 border-l-4 border-[#D4A853]">
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[16px] text-[#D4A853] mb-2">
                 Key Insight
               </h3>
-              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#d9d9d9] leading-relaxed italic">
+              <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed italic">
                 {data.keyInsight}
               </p>
             </div>
 
             {/* Technologies */}
             <div>
-              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-white mb-3">
+              <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-3">
                 Technologies
               </h3>
               <div className="flex flex-wrap gap-2">
                 {data.technologies.map((tech, idx) => (
-                  <span key={idx} className="bg-[#87b7ff] text-[#1a1a1a] px-3 py-1 rounded-full text-[14px] font-medium">
+                  <span key={idx} className="bg-[#D4A853] text-[#2A2622] px-3 py-1 rounded-full text-[14px] font-medium">
                     {tech}
                   </span>
                 ))}
@@ -473,17 +473,17 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
           </div>
 
           {/* Footer Navigation */}
-          <div className="mt-10 flex flex-col md:flex-row gap-4 pt-8 border-t border-white/10">
+          <div className="mt-10 flex flex-col md:flex-row gap-4 pt-8 border-t border-[#FAF7F2]/10">
             <button
               onClick={onClose}
-              className="flex-1 h-[44px] border border-white/30 rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-white text-[16px] hover:bg-white/5 transition-colors"
+              className="flex-1 h-[44px] border border-[#FAF7F2]/30 rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#FAF7F2] text-[16px] hover:bg-[#FAF7F2]/5 transition-colors"
             >
               Close
             </button>
             {onNextProject && (
               <button
                 onClick={onNextProject}
-                className="flex-1 h-[44px] border border-[#87b7ff] rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#87b7ff] text-[16px] hover:bg-[#87b7ff]/10 transition-colors"
+                className="flex-1 h-[44px] border border-[#D4A853] rounded-[50px] flex items-center justify-center font-['Montserrat',sans-serif] font-medium text-[#D4A853] text-[16px] hover:bg-[#D4A853]/10 transition-colors"
               >
                 Next Project →
               </button>
