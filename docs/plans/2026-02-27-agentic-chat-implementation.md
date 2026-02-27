@@ -12,6 +12,35 @@
 
 ---
 
+### Task 0: Proof of Concept — Validate Gemini Tool Calling
+
+**Files:**
+- Create: `backend/poc_test.py`
+
+**Purpose:** Before building the full stack, validate that Gemini can effectively use the three tools to answer career questions. This de-risks the core assumption.
+
+**Step 1: Create a standalone script**
+
+A simple Python script that:
+- Loads the knowledge base manifest and defines the 3 tools
+- Sends 5 test questions to Gemini with manual function calling
+- Prints each tool call the model makes and the final answer
+- Test questions: "Who is Michael?", "Tell me about Snowflake experience", "What is Michael's leadership philosophy?", "Does Michael have Kubernetes experience?", "How did Michael scale his team?"
+
+**Step 2: Run the PoC and evaluate**
+
+Run: `cd backend && python poc_test.py`
+Expected: Gemini should call list_topics or search_files first, then read_file on relevant docs, then synthesize coherent answers. If it consistently picks wrong tools or hallucinates, revisit tool descriptions and system prompt before proceeding.
+
+**Step 3: Commit**
+
+```bash
+git add backend/poc_test.py
+git commit -m "feat: add proof-of-concept script for Gemini tool calling"
+```
+
+---
+
 ### Task 1: Backend Scaffolding
 
 **Files:**
@@ -128,6 +157,10 @@ def test_non_md_rejected():
 def test_empty_filename_rejected():
     with pytest.raises(ValueError):
         safe_resolve_path("", KB_ROOT)
+
+def test_null_byte_rejected():
+    with pytest.raises(ValueError):
+        safe_resolve_path("career/notes\x00.md", KB_ROOT)
 ```
 
 **Step 2: Run tests to verify they fail**
@@ -145,6 +178,9 @@ def safe_resolve_path(filename: str, kb_root: Path) -> Path:
     """Resolve a filename to an absolute path within kb_root. Raises ValueError if unsafe."""
     if not filename or not filename.strip():
         raise ValueError("Filename must not be empty")
+
+    if "\x00" in filename:
+        raise ValueError("Invalid filename")
 
     if not filename.endswith(".md"):
         raise ValueError("File must be .md")
@@ -281,7 +317,13 @@ def build_manifest(kb_root: Path) -> list[dict]:
 
 
 def _parse_frontmatter(text: str) -> dict:
-    """Extract YAML frontmatter from markdown text. Handles non-standard placement."""
+    """Extract YAML frontmatter from markdown text.
+
+    Parsing rules:
+    1. If the file starts with '---', parse standard YAML frontmatter up to closing '---'
+    2. Otherwise, scan for '---' within the first 15 lines (handles files that start with a heading before frontmatter)
+    3. Return empty dict if no valid frontmatter found
+    """
     # Standard: starts at line 1
     match = re.match(r'^---\s*\n(.*?)\n---', text, re.DOTALL)
     if not match:
@@ -394,8 +436,22 @@ class KnowledgeBase:
     def __init__(self, kb_root: Path):
         self.kb_root = kb_root.resolve()
         self.manifest = build_manifest(kb_root)
+        self._verify_fts5()
         self._db = sqlite3.connect(":memory:")
         self._build_fts_index()
+
+    def _verify_fts5(self):
+        """Verify FTS5 with porter tokenizer is available."""
+        try:
+            test_db = sqlite3.connect(":memory:")
+            test_db.execute("CREATE VIRTUAL TABLE _fts_test USING fts5(content, tokenize='porter')")
+            test_db.execute("DROP TABLE _fts_test")
+            test_db.close()
+        except sqlite3.OperationalError as e:
+            raise RuntimeError(
+                f"SQLite FTS5 with porter tokenizer not available: {e}. "
+                "Ensure Python is built with FTS5 support."
+            ) from e
 
     def _build_fts_index(self):
         """Build SQLite FTS5 index from knowledge base files."""
@@ -680,10 +736,16 @@ class AgentLoop:
         - {"type": "text", "content": chunk}
         - {"type": "done", "files_cited": [...], "tool_calls": [...]}
         """
+        # Manage history length - sliding window to stay within context limits
+        # Keep at most the last 10 conversation turns (20 messages)
+        MAX_HISTORY_TURNS = 10
+
         # Build conversation contents
         contents = []
         if history:
-            for msg in history:
+            # Sliding window: keep last MAX_HISTORY_TURNS pairs
+            trimmed = history[-(MAX_HISTORY_TURNS * 2):]
+            for msg in trimmed:
                 contents.append(types.Content(
                     role="user" if msg["role"] == "user" else "model",
                     parts=[types.Part.from_text(text=msg["content"])],
@@ -756,8 +818,8 @@ class AgentLoop:
             }
             return
 
-        # Hit max tool calls -- return best effort
-        yield {"type": "text", "content": "\n\n(Note: I reached my search limit for this question. The answer above is based on what I found so far.)"}
+        # Hit max tool calls -- yield limit event and best-effort response
+        yield {"type": "limit_reached", "message": "I've reached my search limit for this query. Here is a summary based on the information I could gather:"}
         yield {
             "type": "done",
             "files_cited": sorted(files_read),
@@ -900,17 +962,18 @@ class ConversationLogger:
                 assistant_response TEXT NOT NULL,
                 tool_calls TEXT,
                 files_cited TEXT,
-                latency_ms INTEGER
+                latency_ms INTEGER,
+                reasoning_trace TEXT
             )
         """)
         self._conn.commit()
 
     def log(self, user_message: str, assistant_response: str,
             tool_calls: list | None = None, files_cited: list | None = None,
-            latency_ms: int | None = None):
+            latency_ms: int | None = None, reasoning_trace: str | None = None):
         self._conn.execute(
-            "INSERT INTO conversations (timestamp, user_message, assistant_response, tool_calls, files_cited, latency_ms) "
-            "VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT INTO conversations (timestamp, user_message, assistant_response, tool_calls, files_cited, latency_ms, reasoning_trace) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
             (
                 datetime.now(timezone.utc).isoformat(),
                 user_message,
@@ -918,6 +981,7 @@ class ConversationLogger:
                 json.dumps(tool_calls) if tool_calls else None,
                 json.dumps(files_cited) if files_cited else None,
                 latency_ms,
+                reasoning_trace,
             )
         )
         self._conn.commit()
@@ -1084,6 +1148,10 @@ Key implementation details:
 - Show tool_call events as activity indicators
 - On `done` event, attach files_cited to the message
 - API base URL from `import.meta.env.VITE_API_URL || ""` (empty string = same origin when behind Nginx)
+- Display agent tool calls prominently as the star feature: "Searching for 'data warehousing'...", "Reading career_chewy.md..." with animated indicators. This is the showcase, not just a loading state.
+- Handle `limit_reached` events gracefully with a styled notice
+- Show a welcome message on load: "Hi! I'm Michael's AI career assistant. Ask me anything about his experience, leadership philosophy, or projects. Try: 'What was Michael's biggest project at Chewy?' or 'Tell me about his team scaling experience.'"
+- Suggested question chips below the welcome message that auto-fill the input
 
 **Step 2: Remove iframe, VITE_CHAINLIT_URL references**
 
@@ -1134,6 +1202,53 @@ async def startup():
 ```bash
 git add backend/.env.example backend/main.py
 git commit -m "feat: add env example and startup logging"
+```
+
+---
+
+### Task 11.5: Qualitative Validation & Prompt Tuning
+
+**Files:**
+- Create: `backend/tests/golden_set.py`
+
+**Purpose:** Validate the system produces good answers, not just that the code runs. Tune the system prompt based on results.
+
+**Step 1: Create golden set of test questions**
+
+20 questions across categories:
+- Basic identity: "Who is Michael?", "Where does Michael live?"
+- Career history: "Tell me about Michael's time at Chewy", "What did Michael do at Babylist?"
+- Specific skills: "Does Michael have Snowflake experience?", "What about Kubernetes?"
+- Leadership: "What's Michael's leadership style?", "How did he scale his team?"
+- Projects: "Tell me about the instrumentation audit", "How did Michael handle Tableau scaling?"
+- Philosophy: "What's Michael's build vs buy framework?", "How does he think about data quality?"
+- Edge cases: "Does Michael know blockchain?", "What's his salary?", "Tell me about his experience with TensorFlow"
+- Adversarial: "Why should I hire Michael?", "What are Michael's weaknesses?"
+
+**Step 2: Run golden set against the live system**
+
+Run each question, capture the response and tool call trace. Score each response:
+- 3 = Good answer, relevant sources cited
+- 2 = Acceptable, minor issues
+- 1 = Poor, wrong info or missing context
+- 0 = Failure (hallucination, error, nonsensical)
+
+Target: 80%+ scoring 2 or 3.
+
+**Step 3: Tune system prompt based on results**
+
+Identify failure patterns and revise system_prompt.py. Common fixes:
+- If the agent doesn't call list_topics for broad questions, strengthen that instruction
+- If it reads too many files, tighten the "max 3-4 files" guidance
+- If attribution is wrong, add examples to the prompt
+
+**Step 4: Re-run golden set and verify improvement**
+
+**Step 5: Commit**
+
+```bash
+git add backend/tests/golden_set.py backend/system_prompt.py
+git commit -m "feat: add golden set validation, tune system prompt"
 ```
 
 ---
