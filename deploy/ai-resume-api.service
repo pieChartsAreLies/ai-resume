@@ -1,0 +1,15 @@
+[Unit]
+Description=AI Resume FastAPI Backend
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ai-resume/backend
+ExecStart=/opt/ai-resume/venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=/opt/ai-resume/backend/.env
+
+[Install]
+WantedBy=multi-user.target
