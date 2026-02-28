@@ -1,32 +1,34 @@
 # AI Resume State
 
 ## Current Focus
-Portfolio and AI assistant operational in production. Knowledge base maintained with 15+ documents.
+Agentic chat redesign complete. Ready for deployment to CT 202.
 
 ## Status
 
 ### Done
 - React portfolio: Home, Work (6 featured projects), Resume (timeline), Contact
-- Sliding AI chat panel (Chainlit iframe)
-- Chainlit app with Gemini LLM + Qdrant RAG
-- Job description matching with source attribution
-- Knowledge base: career (Chewy, Babylist), philosophy, 15+ project case studies, skills
-- Deployed to 192.168.2.68 (Chainlit on :8000)
-- Portfolio redesigned with warm colors, single-scroll layout, STAR-format project content
+- Agentic AI chat: FastAPI + Gemini function calling + SQLite FTS5
+- Native React chat panel (replaced Chainlit iframe)
+- Three agent tools: list_topics, search_files, read_file
+- Path containment security on file reads
+- SSE streaming with agent activity indicator
+- Conversation logging with agent traces
+- Deployment config: systemd service, Nginx config, deploy script
+- 21 backend tests passing
 
-### Production
-- Chainlit: /opt/ai-resume-app/ on 192.168.2.68:8000
-- Qdrant: 192.168.2.68:6333 (collection: gerstl_career)
-- Embeddings: Nomic Embed Text on LM Studio (192.168.2.234:1234)
-- PostgreSQL logging: 192.168.2.67:5432
+### Pending Deployment
+- Deploy to CT 202 via deploy/deploy.sh
+- Set GOOGLE_API_KEY in /opt/ai-resume/backend/.env (from Bitwarden)
+- Qualitative validation with golden set of questions
+- Decommission old stack (Chainlit, Qdrant, LM Studio embedding)
 
 ## Known Issues
 - Legacy landing-page folder still in repo (deprecated)
+- Porter stemmer limitation: "warehousing" does not stem to match "warehouse"
 
 ## Next Steps
-- AI project showcase section
-- Project filtering by category
-- "Side Projects" tab
-- Dark/light theme toggle
-- PDF resume generation from content
-- Analytics dashboard for chat interactions
+- Deploy to CT 202
+- Run qualitative validation (golden set of 20 questions)
+- Decommission old services (Chainlit, Qdrant, Nomic embeddings)
+- Update homelab documentation
+- System prompt tuning based on validation results
