@@ -1,4 +1,5 @@
 import re
+import sqlite3
 import yaml
 from pathlib import Path
 
@@ -86,3 +87,82 @@ def _extract_summary(text: str) -> str:
             sentence = line.split(".")[0].strip()
             return sentence[:150]
     return ""
+
+
+class KnowledgeBase:
+    """Knowledge base with manifest and FTS5 search index."""
+
+    def __init__(self, kb_root: Path):
+        self.kb_root = kb_root.resolve()
+        self.manifest = build_manifest(kb_root)
+        self._verify_fts5()
+        self._db = sqlite3.connect(":memory:")
+        self._build_fts_index()
+
+    def _verify_fts5(self):
+        """Verify FTS5 with porter tokenizer is available."""
+        try:
+            test_db = sqlite3.connect(":memory:")
+            test_db.execute("CREATE VIRTUAL TABLE _fts_test USING fts5(content, tokenize='porter')")
+            test_db.execute("DROP TABLE _fts_test")
+            test_db.close()
+        except sqlite3.OperationalError as e:
+            raise RuntimeError(
+                f"SQLite FTS5 with porter tokenizer not available: {e}. "
+                "Ensure Python is built with FTS5 support."
+            ) from e
+
+    def _build_fts_index(self):
+        self._db.execute(
+            "CREATE VIRTUAL TABLE IF NOT EXISTS kb_search USING fts5(filename, content, tokenize='porter')"
+        )
+        for entry in self.manifest:
+            filepath = self.kb_root / entry["filename"]
+            if filepath.exists():
+                content = filepath.read_text(encoding="utf-8")
+                self._db.execute(
+                    "INSERT INTO kb_search (filename, content) VALUES (?, ?)",
+                    (entry["filename"], content)
+                )
+        self._db.commit()
+
+    def search(self, query: str, limit: int = 5) -> list[dict]:
+        if not query.strip():
+            return []
+        safe_query = query.replace('"', '""')
+        try:
+            rows = self._db.execute(
+                'SELECT filename, snippet(kb_search, 1, "**", "**", "...", 40), '
+                'bm25(kb_search) as rank '
+                'FROM kb_search WHERE kb_search MATCH ? '
+                'ORDER BY rank LIMIT ?',
+                (f'"{safe_query}"', limit)
+            ).fetchall()
+        except sqlite3.OperationalError:
+            words = query.strip().split()
+            fts_query = " OR ".join(f'"{w}"' for w in words if w)
+            try:
+                rows = self._db.execute(
+                    'SELECT filename, snippet(kb_search, 1, "**", "**", "...", 40), '
+                    'bm25(kb_search) as rank '
+                    'FROM kb_search WHERE kb_search MATCH ? '
+                    'ORDER BY rank LIMIT ?',
+                    (fts_query, limit)
+                ).fetchall()
+            except sqlite3.OperationalError:
+                return []
+
+        return [
+            {"filename": row[0], "excerpt": row[1], "score": row[2]}
+            for row in rows
+        ]
+
+    def read_file(self, filename: str) -> str:
+        from security import safe_resolve_path
+        resolved = safe_resolve_path(filename, self.kb_root)
+        if not resolved.exists():
+            raise FileNotFoundError(f"File not found: {filename}")
+        return resolved.read_text(encoding="utf-8")
+
+    def list_topics(self) -> list[dict]:
+        return self.manifest
