@@ -11,7 +11,7 @@ echo "=== Building frontend ==="
 cd "Portfolio Site" && npm run build && cd ..
 
 echo "=== Packaging backend ==="
-tar czf /tmp/ai-resume-backend.tar.gz --exclude='__pycache__' --exclude='.pytest_cache' --exclude='data' backend/
+tar czf /tmp/ai-resume-backend.tar.gz --exclude='__pycache__' --exclude='.pytest_cache' --exclude='data' --exclude='._*' --exclude='.DS_Store' backend/
 
 echo "=== Packaging frontend ==="
 tar czf /tmp/ai-resume-frontend.tar.gz -C "Portfolio Site/dist" .

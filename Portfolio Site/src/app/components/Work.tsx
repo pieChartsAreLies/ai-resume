@@ -24,11 +24,11 @@ const ALL_TAGS = [
   // Data Platforms
   'Snowflake', 'Redshift', 'DuckDB', 'PostgreSQL',
   // Orchestration & Transform
-  'Airflow', 'dbt', 'n8n',
+  'Airflow', 'dbt',
   // BI & Analytics
   'Tableau', 'Hex',
   // AI/ML
-  'RAG', 'LLM', 'Qdrant', 'Ollama', 'Whisper', 'Gemini',
+  'LLM', 'Ollama', 'Whisper', 'Gemini', 'Telegram', 'FastAPI',
   // Streaming & Events
   'Kafka', 'Real-time',
   // Governance & Security
@@ -122,11 +122,11 @@ export function Work() {
     {
       id: 'ai-resume' as ProjectType,
       title: "AI Career Assistant",
-      description: "RAG-powered portfolio with conversational AI, job matching, and security hardening against prompt injection.",
+      description: "Agentic AI career assistant that searches and reads a curated knowledge base using Gemini function calling, then synthesizes answers with source attribution.",
       company: "Personal Project",
-      metrics: "25+ security tests | Gemini + Qdrant | React + Chainlit",
+      metrics: "3 agent tools | Gemini 2.5 Flash | SQLite FTS5 | SSE streaming",
       category: 'personal',
-      tags: ['RAG', 'LLM', 'Qdrant', 'Gemini', 'Python']
+      tags: ['LLM', 'Gemini', 'Python', 'FastAPI']
     },
     // TODO: Uncomment when Palm Beach County real estate project is ready
     // {
@@ -157,13 +157,13 @@ export function Work() {
       tags: ['Whisper', 'Ollama', 'LLM', 'Python']
     },
     {
-      id: 'obsidian-rag' as ProjectType,
-      title: "Obsidian Knowledge RAG",
-      description: "Semantic search across 3,000+ notes using n8n workflows, Qdrant vectors, and local Ollama embeddings.",
+      id: 'nanoclaw' as ProjectType,
+      title: "NanoClaw (Bob)",
+      description: "Telegram-based homelab agent with two personas sharing one platform. Bob manages 30+ containers; Tim coaches fitness from Garmin and Strava data. LLM reasoning with 30+ tool integrations.",
       company: "Personal Project",
-      metrics: "3,000+ files | n8n | Qdrant | Batch ETL pipeline",
+      metrics: "2 personas | 30+ tools | Daily operational use",
       category: 'personal',
-      tags: ['RAG', 'Qdrant', 'Ollama', 'n8n', 'Proxmox']
+      tags: ['LLM', 'Python', 'PostgreSQL', 'Telegram']
     },
   ];
 
