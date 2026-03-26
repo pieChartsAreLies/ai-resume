@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Header } from '@/app/components/Header';
 import { Home } from '@/app/components/Home';
 import { Work } from '@/app/components/Work';
+import { AIApproach } from '@/app/components/AIApproach';
 import { Resume } from '@/app/components/Resume';
 import { Contact } from '@/app/components/Contact';
-import { ChatPanel } from '@/app/components/ChatPanel';
 import { useActiveSection } from '@/app/hooks/useActiveSection';
 
-const SECTION_IDS = ['home', 'work', 'resume', 'contact'];
+const SECTION_IDS = ['home', 'work', 'ai', 'resume', 'contact'];
 
 export default function App() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const activeSection = useActiveSection({
     sectionIds: SECTION_IDS,
     offset: 120
@@ -27,11 +26,15 @@ export default function App() {
 
       <main className="flex flex-col">
         <section id="home" className="scroll-mt-[80px] md:scroll-mt-[110px]">
-          <Home onScrollToWork={() => scrollToSection('work')} onScrollToResume={() => scrollToSection('resume')} onOpenChat={() => setIsChatOpen(true)} />
+          <Home onScrollToWork={() => scrollToSection('work')} onScrollToResume={() => scrollToSection('resume')} onScrollToAI={() => scrollToSection('ai')} />
         </section>
 
         <section id="work" className="scroll-mt-[80px] md:scroll-mt-[110px]">
           <Work />
+        </section>
+
+        <section id="ai" className="scroll-mt-[80px] md:scroll-mt-[110px]">
+          <AIApproach />
         </section>
 
         <section id="resume" className="scroll-mt-[80px] md:scroll-mt-[110px]">
@@ -47,18 +50,6 @@ export default function App() {
       <div className="fixed inset-0 pointer-events-none opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#D4A853,transparent_70%)]" />
       </div>
-
-      {/* Chat Toggle Button */}
-      <button
-        onClick={() => setIsChatOpen(true)}
-        className="fixed right-0 top-1/2 -translate-y-1/2 bg-gradient-to-b from-[#C4785C] to-[#8B5A3C] text-white py-6 px-4 rounded-l-lg shadow-lg z-50 hover:px-5 transition-all duration-200 font-['Montserrat',sans-serif] font-bold text-[14px] tracking-widest"
-        style={{ writingMode: 'vertical-rl' }}
-      >
-        ASK MY AI
-      </button>
-
-      {/* Chat Panel */}
-      <ChatPanel isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }

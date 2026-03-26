@@ -1,7 +1,13 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useSpring } from 'motion/react';
+import React, { useRef, useState } from 'react';
+import { motion, useScroll, useSpring, AnimatePresence } from 'motion/react';
 
-export type ProjectType = 'self-service-analytics' | 'pii-reduction' | 'vendor-analytics' | 'data-culture' | 'modern-stack' | 'ai-resume' | 'voice-clone' | 'whisper-notes' | 'nanoclaw' | 'instrumentation-audit' | 'data-platform-babylist' | 'team-scaling' | 'data-governance';
+// Screenshot imports
+import reflectionRecord from '@/assets/screenshots/reflection-record.webp';
+import reflectionTags from '@/assets/screenshots/reflection-tags.webp';
+import hoaAnalytics from '@/assets/screenshots/hoa-analytics.webp';
+import hoaLeaderboards from '@/assets/screenshots/hoa-leaderboards.webp';
+
+export type ProjectType = 'self-service-analytics' | 'pii-reduction' | 'vendor-analytics' | 'data-culture' | 'modern-stack' | 'gearsift' | 'jobkit' | 'reflection' | 'hoa-dashboard' | 'tautulli-pipeline' | 'whisper-notes' | 'nanoclaw' | 'instrumentation-audit' | 'data-platform-babylist' | 'team-scaling' | 'data-governance';
 
 interface WorkDetailPanelProps {
   type: ProjectType;
@@ -34,10 +40,12 @@ interface ProjectContent {
     tests: SecurityTest[];
   };
   github?: string;
+  screenshots?: { label: string; src: string }[];
 }
 
 export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPanelProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeScreenshot, setActiveScreenshot] = useState(0);
 
   const { scrollYProgress } = useScroll({
     container: scrollContainerRef
@@ -181,55 +189,140 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
       keyInsight: 'The best way to evaluate technology is to use it on real problems. Homelabs provide the freedom to experiment without enterprise constraints.',
       technologies: ['Airflow', 'dbt', 'Qdrant', 'LM Studio', 'Docker', 'Kubernetes', 'Python']
     },
-    'ai-resume': {
-      title: 'AI Career Assistant',
+    'gearsift': {
+      title: 'GearSift',
       company: 'Personal Project',
-      challenge: 'Traditional resumes are static documents that can\'t answer follow-up questions or demonstrate technical depth. Recruiters often schedule calls just to understand if there\'s a fit. I built an initial version using RAG with Qdrant vectors and a Chainlit iframe, but chunked retrieval lost context and the iframe felt bolted-on. So I rebuilt from scratch with an agentic architecture that lets the model decide what to search and read.',
+      challenge: 'Outdoor gear research is fragmented: reviews scattered across YouTube, retailer sites, and Reddit with no way to compare products objectively. Affiliate sites rank products by commission rate, not quality. I wanted a data-driven approach that aggregates expert opinions, normalizes specifications, and scores products by category-specific criteria.',
       approach: [
-        'Replaced the Chainlit iframe with a native React chat panel integrated directly into the portfolio site',
-        'Built a FastAPI backend with Gemini 2.5 Flash function calling instead of traditional RAG retrieval',
-        'Implemented 3 agent tools: list_topics (browse categories), search_files (FTS5 full-text search), and read_file (whole-file retrieval with path containment)',
-        'Created a SQLite FTS5 index with Porter stemming and BM25 ranking over a curated markdown knowledge base',
-        'Added SSE streaming with real-time tool-call activity indicators so users see the agent reasoning',
-        'Designed the knowledge base for whole-file reads: each file is self-contained and optimized for the model to consume in full rather than as chunks'
+        'Built multi-source ingestion pipelines: Amazon product data via ScrapingDog, YouTube reviews from 20 monitored channels, web scraping from REI/Outdoor Gear Lab/Switchback Travel, AvantLink affiliate feeds, and Reddit trend analysis from 6 subreddits',
+        'Designed 9 category-specific scoring engines (tents, backpacks, sleeping bags, pads, headlamps, stoves, water filtration, cookware, bottles) with percentile-based competitive ranking',
+        'Built enrichment layer using Ollama for spec normalization and Gemini for Reddit structured analysis',
+        'Created Astro 5 static site with React components for interactive radar charts and product comparisons',
+        'Implemented admin dashboard (FastAPI + HTMX) for pipeline orchestration, product CRUD, and review fact extraction',
+        'Baked affiliate URLs into static HTML at build time so revenue generation is independent of API uptime'
       ],
-      outcome: 'Agentic assistant that reasons about what to search and read, producing grounded answers with source attribution. Working live on michaelgerstl.com. The agent decides its own retrieval strategy rather than relying on similarity matching.',
-      keyInsight: 'Agentic search over curated content beats vector RAG for focused domains. Reading whole files preserves context that chunking destroys, and letting the model decide what to search produces better results than similarity matching.',
-      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'Google Gemini', 'SQLite FTS5', 'Python', 'Cloudflare'],
+      outcome: '396 active products across 9 categories with normalized specs and aggregated expert scores. 97 test files, 59 database migrations, 32 uptime monitors. Dual revenue model: AvantLink affiliate commissions (REI, Backcountry) and display advertising.',
+      keyInsight: 'Static-first architecture with baked-in affiliate links means the revenue-generating pages run on a CDN and survive any homelab outage. The API and PostgreSQL are self-hosted dependencies, but affiliate revenue is decoupled from infrastructure availability by design.',
+      technologies: ['Python', 'FastAPI', 'PostgreSQL', 'Astro', 'React', 'Cloudflare', 'Ollama', 'HTMX'],
       architecture: {
-        title: 'System Architecture',
+        title: 'Data Pipeline Architecture',
         components: [
-          { name: 'React Chat Panel', description: 'Native chat component built into the portfolio site with SSE streaming and agent activity indicators.' },
-          { name: 'FastAPI Backend', description: 'Python API handling conversation management, tool orchestration, and SSE response streaming.' },
-          { name: 'Gemini Agent', description: 'Gemini 2.5 Flash with function calling, deciding autonomously which tools to invoke for each query.' },
-          { name: 'SQLite FTS5 Index', description: 'Full-text search with Porter stemming and BM25 ranking over curated markdown knowledge base.' },
-          { name: 'Knowledge Base', description: 'Structured markdown files designed for whole-file reads, covering career history, projects, skills, and philosophy.' },
-          { name: 'Cloudflare Delivery', description: 'Cloudflare Pages for the frontend, Cloudflare Tunnel for secure API access to homelab backend.' }
+          { name: 'Ingestion Layer', description: 'Multi-source data collection: ScrapingDog (Amazon), YouTube API, web scrapers (REI, OGL, Switchback), AvantLink feeds, Reddit via Gemini.' },
+          { name: 'Enrichment Engine', description: 'Ollama-powered spec normalization, YouTube video classification, and review fact extraction.' },
+          { name: 'Scoring Engine', description: '9 category-specific scorers with percentile ranking and radar chart visualization.' },
+          { name: 'Admin Dashboard', description: 'FastAPI + HTMX interface for pipeline control, product management, and data quality monitoring.' },
+          { name: 'Static Site', description: 'Astro 5 with React islands, deployed to Cloudflare Pages. 380+ pre-rendered pages with baked affiliate links.' },
+          { name: 'Infrastructure', description: 'CT 260 (API) and CT 201 (PostgreSQL) on Proxmox, Cloudflare R2 for images, 32 uptime monitors.' }
         ]
       }
     },
-    'voice-clone': {
-      title: 'Voice Clone Studio',
+    'jobkit': {
+      title: 'JobKit',
       company: 'Personal Project',
-      challenge: 'Qwen3-TTS dropped on a Friday. I wanted to know: how fast can I go from "interesting new model" to a working application? This was a test of rapid prototyping—taking a new AI capability and shipping something functional before the weekend was over.',
+      challenge: 'VP/Director-level job searching is tedious: manually checking multiple boards, evaluating fit against a complex set of criteria, and customizing resumes for each application. I wanted to automate the pipeline from discovery through application materials while keeping everything local and private.',
       approach: [
-        'Friday evening: discovered Qwen3-TTS release, started experimenting with the model',
-        'Saturday: integrated mlx-Whisper for transcription, built Gradio interface with real-time preview',
-        'Sunday: added 7 voice effects (pitch, tempo, reverb, echo, distortion, chorus, robot) and polished the workflow',
-        'Optimized for Apple Silicon MPS—no cloud dependencies, runs entirely local',
-        'Created 4-step workflow: upload reference → transcribe/enter text → generate → apply effects'
+        'Built multi-board scraping (Indeed, LinkedIn, ZipRecruiter) with deduplication and smart title filtering',
+        'Designed AI scoring with enforced distribution targets: only 2-4 of every 20 roles score 8+, preventing score inflation',
+        'Implemented two-pass resume generation: LLM writes a custom resume, then a second LLM call audits it for fabrication, passive voice, and banned words',
+        'Created Obsidian Bases integration for live dashboards with pipeline views, apply queue, and outcome tracking',
+        'Made everything privacy-first: all processing local, CV and profiles never leave the device'
       ],
-      outcome: 'Shipped a fully functional voice cloning app in 48 hours. Can clone any voice from a short sample, generate speech in multiple languages, and apply real-time effects. The speed matters—AI moves fast, and being able to quickly evaluate and productize new capabilities is a competitive advantage.',
-      keyInsight: 'The ability to rapidly prototype AI applications is increasingly valuable. New models drop constantly; the question is how fast you can turn "interesting" into "useful."',
-      technologies: ['Python', 'Qwen3-TTS', 'mlx-Whisper', 'Gradio', 'PyTorch', 'SoX', 'Apple Silicon MPS'],
+      outcome: 'End-to-end job search automation: scrape, score, filter, generate tailored resumes and cover letters, track outcomes. 72 tests covering the full pipeline. Obsidian integration turns job search data into a personal CRM.',
+      keyInsight: 'AI scoring without distribution constraints is useless because everything scores 8+. Forcing realistic distributions (most roles score 4-6, few score 8+) makes the signal meaningful.',
+      technologies: ['Python', 'SQLite', 'Docker', 'LLM', 'Typer', 'WeasyPrint'],
+      github: 'https://github.com/pieChartsAreLies/JobKit',
       architecture: {
         title: 'System Architecture',
         components: [
-          { name: 'Voice Cloning', description: 'Qwen3-TTS model for zero-shot voice cloning from reference audio samples.' },
-          { name: 'Transcription', description: 'mlx-Whisper optimized for Apple Silicon, handling audio-to-text conversion.' },
-          { name: 'Audio Effects', description: 'SoX-based effect chain with 7 customizable voice transformations.' },
-          { name: 'Interface', description: 'Gradio web UI with real-time preview, progress tracking, and audio playback.' },
-          { name: 'Processing', description: 'Apple Silicon MPS acceleration for fast local inference without cloud dependencies.' }
+          { name: 'Scraper Engine', description: 'Multi-board collection via JobSpy with deduplication, title filtering, and rate-limited queuing.' },
+          { name: 'AI Scorer', description: 'LLM-based role evaluation with enforced distribution targets and customizable rubrics.' },
+          { name: 'Resume Generator', description: 'Two-pass system: generation then audit. Checks for fabrication, style violations, and JD alignment.' },
+          { name: 'Obsidian Integration', description: 'Live Bases dashboards with pipeline views, apply queue, and outcome tracking.' },
+          { name: 'CLI Interface', description: 'Typer + Rich terminal UI with 8 commands covering the full job search workflow.' }
+        ]
+      }
+    },
+    'reflection': {
+      title: 'Reflection',
+      company: 'Personal Project',
+      challenge: 'Voice journaling tools either require cloud subscriptions or lack the intelligence to surface patterns over time. I wanted a local-first app where I could speak freely, have entries automatically tagged by emotion and topic, and visualize patterns through an interactive knowledge graph.',
+      approach: [
+        'Built browser-based recording with guided templates and free-form modes',
+        'Integrated faster-whisper for local transcription with configurable model sizes (tiny to large-v3)',
+        'Added LLM-powered auto-tagging: emotion tags (anxious, grateful) and topic tags (work, family) from a structured vocabulary',
+        'Created interactive force-directed knowledge graph with Barnes-Hut quadtree simulation (custom SVG, no D3)',
+        'Built Obsidian sync with entries saved as markdown with [[wikilinks]] and embedded audio players',
+        'Added LLM chat: ask questions about journal history, get summaries and pattern analysis'
+      ],
+      outcome: 'Complete voice journaling platform that runs in 5 minutes via Docker Compose. All data stays local under ~/.reflection/. The knowledge graph reveals connections between emotions, topics, and time periods that text-only journaling misses.',
+      keyInsight: 'Voice captures what typing filters out. People self-edit when they type but speak more honestly. Pairing that raw input with automated tagging and graph visualization surfaces patterns that structured journaling never would.',
+      technologies: ['Next.js', 'Python', 'Whisper', 'Ollama', 'SQLite'],
+      screenshots: [
+        { label: 'Recording', src: reflectionRecord },
+        { label: 'Tags', src: reflectionTags },
+      ],
+      architecture: {
+        title: 'System Architecture',
+        components: [
+          { name: 'Recording UI', description: 'Browser-based audio capture with guided templates, pacing prompts, and real-time status.' },
+          { name: 'Transcription Worker', description: 'Python worker with faster-whisper, polling for new recordings and processing locally.' },
+          { name: 'AI Tagger', description: 'Local LLM extracts emotion and topic tags from transcribed entries using structured vocabulary.' },
+          { name: 'Knowledge Graph', description: 'Custom force-directed SVG visualization with Barnes-Hut optimization showing entry connections.' },
+          { name: 'Obsidian Sync', description: 'Entries exported as markdown with [[wikilinks]], frontmatter tags, and embedded audio players.' }
+        ]
+      }
+    },
+    'hoa-dashboard': {
+      title: 'HOA Dashboard',
+      company: 'Personal Project',
+      challenge: 'Our HOA board makes decisions about community investments with no data on property values, equity positions, or market trends. Public records exist but are scattered across county GIS systems and require manual lookup. I wanted an interactive tool that makes neighborhood-level real estate analytics accessible to non-technical board members.',
+      approach: [
+        'Built data pipeline pulling from Palm Beach County PAPA ArcGIS API and Freddie Mac mortgage rate feeds',
+        'Created interactive Mapbox parcel map with color-coded overlays for estimated equity, appreciation, and sale history',
+        'Designed equity calculator modeling current positions based on purchase price, estimated value, and amortization schedules',
+        'Built leaderboards ranking properties by appreciation, equity percentage, and value per square foot',
+        'Added sell scenario modeler and flip detection badges for investment analysis',
+        'Packaged as Docker container for homelab deployment with embedded SQLite'
+      ],
+      outcome: 'Interactive dashboard covering 122 properties with 723 sale records. Parcel map, equity calculator, value leaderboards, and 8 analytical chart types. Board members can explore data without technical skills.',
+      keyInsight: 'Local government data is surprisingly rich but locked behind clunky GIS interfaces. A weekend of Python scripting turns public records into a genuinely useful analytical tool.',
+      technologies: ['Next.js', 'Mapbox', 'Recharts', 'SQLite', 'Python', 'Docker'],
+      screenshots: [
+        { label: 'Analytics', src: hoaAnalytics },
+        { label: 'Leaderboards', src: hoaLeaderboards },
+      ],
+      github: 'https://github.com/pieChartsAreLies/hoa-dashboard',
+      architecture: {
+        title: 'System Architecture',
+        components: [
+          { name: 'Data Pipeline', description: 'Python scripts pulling from PAPA ArcGIS REST API and Freddie Mac PMMS for property and rate data.' },
+          { name: 'Interactive Map', description: 'Mapbox GL JS with parcel overlays, metric-based coloring, and property detail tooltips.' },
+          { name: 'Analytics Engine', description: '8 chart types via Recharts: appreciation curves, equity distribution, bedroom analysis, holding period scatter.' },
+          { name: 'Equity Calculator', description: 'Amortization modeling with current rate assumptions and sell scenario projections.' },
+          { name: 'Deployment', description: 'Dockerized Next.js with standalone build, embedded SQLite, homelab hosting via Cloudflare Tunnel.' }
+        ]
+      }
+    },
+    'tautulli-pipeline': {
+      title: 'Tautulli Pipeline',
+      company: 'Personal Project',
+      challenge: 'Tautulli provides basic Plex watch history, but no way to do deeper analysis: viewing patterns over time, library utilization, user behavior trends. I wanted a proper data warehouse pipeline as both a practical analytics tool and a hands-on exercise with the modern data stack.',
+      approach: [
+        'Built extraction DAGs in Airflow: hourly watch history, daily metadata refresh, and 5-minute real-time activity polling',
+        'Designed dbt transformation layer with staging, intermediate, and mart models following analytics engineering best practices',
+        'Deployed dual dashboarding: Evidence.dev for code-driven analytics and Metabase for self-service exploration',
+        'Distributed across 4 homelab containers: Airflow (CT 203), dbt (CT 202), PostgreSQL (CT 201), Evidence (CT 185)'
+      ],
+      outcome: 'Production data warehouse with ~3,920 watch history records, 4 operational DAGs, and dual dashboard layers. Runs continuously on homelab infrastructure with minimal maintenance.',
+      keyInsight: 'Running a full modern data stack on personal infrastructure teaches you things enterprise environments hide: resource constraints force thoughtful architecture, and operating your own Airflow/dbt/warehouse builds real debugging intuition.',
+      technologies: ['Airflow', 'dbt', 'PostgreSQL', 'Python', 'Evidence', 'Metabase'],
+      architecture: {
+        title: 'Pipeline Architecture',
+        components: [
+          { name: 'Extraction (Airflow)', description: '4 DAGs: hourly history, daily metadata, 5-min realtime polling, daily dbt transform trigger.' },
+          { name: 'Transformation (dbt)', description: 'Staging → intermediate → mart models with tests and documentation following analytics engineering patterns.' },
+          { name: 'Storage (PostgreSQL)', description: 'Dedicated database on CT 201 with structured schema for watch events, media metadata, and user activity.' },
+          { name: 'Dashboards', description: 'Evidence.dev for code-driven reports, Metabase for interactive self-service exploration.' }
         ]
       }
     },
@@ -247,6 +340,7 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
       outcome: 'I use this daily. Journal entries now take one hotkey press instead of a 6-step process. The Cmd+Shift+R dictation is particularly useful for AI chat interfaces—Claude and other LLMs are excellent at understanding flowing speech, and sometimes you want to talk without the AI speaking back.',
       keyInsight: 'The best tools solve your own problems first. Building for myself meant I could be honest about what friction actually existed—and now I use it every day.',
       technologies: ['Python', 'Whisper', 'Ollama', 'PyObjC', 'Markdown', 'Apple Silicon'],
+      github: 'https://github.com/pieChartsAreLies/WhisperNotes',
       architecture: {
         title: 'System Architecture',
         components: [
@@ -261,27 +355,27 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
     'nanoclaw': {
       title: 'NanoClaw (Bob)',
       company: 'Personal Project',
-      challenge: 'Managing a 30+ container homelab requires constant context switching: checking services, reading logs, running queries, cross-referencing documentation. Wanted an always-available agent that understands the full infrastructure and can act on it through natural conversation.',
+      challenge: 'I wanted a personal Claude assistant that lives where my conversations already happen (WhatsApp, Discord) but runs securely in containers with proper isolation. Most chat-based AI wrappers are single-user toys. I needed group-aware isolation, scheduled tasks, and skills-based extensibility without a bloated codebase.',
       approach: [
-        'Built multi-bot Telegram architecture with two personas on shared infrastructure (Bob for homelab ops, Tim for fitness coaching)',
-        'Integrated LLM reasoning engine with tool-calling capabilities via MCP (Model Context Protocol)',
-        'Connected 30+ tools: Obsidian vault read/write, PostgreSQL queries, infrastructure commands, Garmin/Strava fitness data',
-        'Added conversation persistence in PostgreSQL with full message history',
-        'Built voice API endpoint for Home Assistant smart home integration',
-        'Implemented remote session spawning for complex multi-step infrastructure tasks'
+        'Built a lightweight Node.js process that bridges WhatsApp (baileys) or Discord (discord.js) to Claude Agent SDK',
+        'Designed per-group isolation: each conversation gets its own container sandbox, filesystem mount, and CLAUDE.md memory file',
+        'Implemented scheduled tasks with natural language parsing ("send a briefing every Monday at 8am")',
+        'Created skills-based extensibility: Gmail, Twitter/X, and other integrations added as transformation skills, not hard-coded features',
+        'Used Apple Container (macOS) or Docker (Linux) for true OS-level sandboxing of agent execution',
+        'Kept the codebase intentionally small and understandable, opposite of framework-heavy approaches'
       ],
-      outcome: 'Daily operational tool. Bob answers infrastructure questions, runs diagnostics, and manages services through natural conversation. Tim tracks workouts, analyzes fitness trends from synced Garmin/Strava data, and provides coaching grounded in a curated training philosophy.',
-      keyInsight: 'The best agent architectures are thin orchestration layers over capable tools. The LLM handles reasoning; MCP tools handle actions; Telegram handles the interface. Each layer does one thing well and is independently replaceable.',
-      technologies: ['Python', 'Telegram', 'MCP', 'PostgreSQL', 'Airflow', 'Ollama', 'Proxmox'],
+      outcome: 'Daily-use Claude assistant accessible from any WhatsApp or Discord group. Per-group memory persistence means context carries across conversations. Scheduled tasks handle recurring briefings and monitoring. The small codebase is easy to extend and debug.',
+      keyInsight: 'Agent platforms should be thin orchestration layers, not frameworks. Claude handles reasoning, containers handle isolation, chat platforms handle delivery. Each layer does one thing and is independently replaceable. The result is a system you can actually understand and maintain.',
+      technologies: ['Node.js', 'Claude SDK', 'WhatsApp', 'Discord', 'Docker', 'SQLite'],
       architecture: {
         title: 'System Architecture',
         components: [
-          { name: 'Telegram Interface', description: 'PTB long-polling with multi-bot routing and persona isolation.' },
-          { name: 'Reasoning Engine', description: 'LLM with tool-calling capabilities via Model Context Protocol.' },
-          { name: 'Tool Ecosystem', description: '30+ MCP tools spanning Obsidian, PostgreSQL, infrastructure, and fitness data.' },
-          { name: 'Data Layer', description: 'PostgreSQL for conversation history; Garmin/Strava sync via Airflow DAGs.' },
-          { name: 'Voice API', description: 'HTTP endpoint for Home Assistant voice integration.' },
-          { name: 'Remote Sessions', description: 'On-demand spawning for complex multi-step infrastructure tasks.' }
+          { name: 'Chat Bridge', description: 'WhatsApp (baileys) or Discord (discord.js) message polling with platform-agnostic routing.' },
+          { name: 'Agent Execution', description: 'Claude Agent SDK running in isolated containers (Apple Container on macOS, Docker on Linux).' },
+          { name: 'Group Isolation', description: 'Per-group directories with mounted CLAUDE.md files for persistent, sandboxed memory.' },
+          { name: 'Scheduler', description: 'Cron-like task system with natural language parsing for recurring automated actions.' },
+          { name: 'Skills System', description: 'Extensible integrations (Gmail, X/Twitter, Telegram) added as transformation skills.' },
+          { name: 'Data Layer', description: 'SQLite for message history and group state with rolling context window.' }
         ]
       }
     }
@@ -312,7 +406,7 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
                 <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#D4A853] uppercase tracking-wide">
                   {data.company}
                 </p>
-                {(type === 'ai-resume' || type === 'modern-stack' || type === 'nanoclaw') && (
+                {(type === 'gearsift' || type === 'jobkit' || type === 'reflection' || type === 'hoa-dashboard' || type === 'tautulli-pipeline' || type === 'modern-stack' || type === 'nanoclaw' || type === 'whisper-notes') && (
                   <span className="bg-[#8B5A3C] text-[#FAF7F2] text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">
                     AI/ML
                   </span>
@@ -321,6 +415,17 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
               <h2 className="font-['Montserrat',sans-serif] font-medium text-[24px] md:text-[31px] text-[#FAF7F2] leading-tight">
                 {data.title}
               </h2>
+              {data.github && (
+                <a
+                  href={data.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 mt-2 font-['Montserrat',sans-serif] font-medium text-[13px] text-[#9C9489] hover:text-[#D4A853] transition-colors"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  View on GitHub
+                </a>
+              )}
             </div>
             <button
               onClick={onClose}
@@ -378,6 +483,46 @@ export function WorkDetailPanel({ type, onClose, onNextProject }: WorkDetailPane
                       </p>
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Screenshots */}
+            {data.screenshots && data.screenshots.length > 0 && (
+              <div>
+                <h3 className="font-['Montserrat',sans-serif] font-medium text-[18px] text-[#FAF7F2] mb-3">
+                  Screenshots
+                </h3>
+                {data.screenshots.length > 1 && (
+                  <div className="flex gap-2 mb-3">
+                    {data.screenshots.map((shot, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveScreenshot(idx)}
+                        className={`px-3 py-1.5 rounded-full text-[13px] font-['Montserrat',sans-serif] font-medium transition-colors cursor-pointer ${
+                          activeScreenshot === idx
+                            ? 'bg-[#D4A853] text-[#2A2622]'
+                            : 'bg-[#332F2B] text-[#9C9489] hover:text-[#FAF7F2]'
+                        }`}
+                      >
+                        {shot.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div className="rounded-lg overflow-hidden bg-[#2A2622]">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={activeScreenshot}
+                      src={data.screenshots[activeScreenshot].src}
+                      alt={data.screenshots[activeScreenshot].label}
+                      className="w-full h-auto"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    />
+                  </AnimatePresence>
                 </div>
               </div>
             )}

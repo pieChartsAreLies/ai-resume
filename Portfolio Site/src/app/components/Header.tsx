@@ -14,6 +14,7 @@ export function Header({ activeSection, onSectionClick }: HeaderProps) {
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'work', label: 'Work' },
+    { id: 'ai', label: 'AI in Practice' },
     { id: 'resume', label: 'Resume' },
     { id: 'contact', label: 'Contact' },
   ] as const;
@@ -35,7 +36,7 @@ export function Header({ activeSection, onSectionClick }: HeaderProps) {
             Michael Gerstl
           </span>
           <span className="hidden md:block font-['Montserrat',sans-serif] font-light text-[#D4A853] text-[13px] md:text-[14px] tracking-widest uppercase">
-            Data Leader
+            Data Leader & AI Practitioner
           </span>
         </div>
       </div>

@@ -1,6 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { WorkDetailPanel, ProjectType } from '@/app/components/WorkDetailPanel';
+
+const GearSiftShowcase = lazy(() => import('@/app/components/GearSiftShowcase').then(m => ({ default: m.GearSiftShowcase })));
 
 type ProjectCategory = 'professional' | 'personal';
 
@@ -12,6 +14,8 @@ interface Project {
   metrics: string;
   category: ProjectCategory;
   tags: string[];
+  github?: string;
+  featured?: boolean;
 }
 
 // Domain-level tags (shown first)
@@ -22,19 +26,23 @@ const ALL_TAGS = [
   // Domains (first row)
   ...DOMAIN_TAGS,
   // Data Platforms
-  'Snowflake', 'Redshift', 'DuckDB', 'PostgreSQL',
+  'Snowflake', 'Redshift', 'DuckDB', 'PostgreSQL', 'SQLite',
   // Orchestration & Transform
   'Airflow', 'dbt',
   // BI & Analytics
-  'Tableau', 'Hex',
+  'Tableau', 'Hex', 'Recharts', 'Mapbox', 'Evidence', 'Metabase',
   // AI/ML
-  'LLM', 'Ollama', 'Whisper', 'Gemini', 'Telegram', 'FastAPI',
+  'LLM', 'Ollama', 'Whisper', 'Gemini', 'Claude SDK', 'FastAPI',
   // Streaming & Events
   'Kafka', 'Real-time',
   // Governance & Security
   'SOX', 'GDPR', 'CCPA', 'PII', 'Governance',
   // Cloud & Infra
-  'AWS', 'Proxmox', 'Python',
+  'AWS', 'Proxmox', 'Python', 'Docker', 'Cloudflare', 'Astro',
+  // Frontend
+  'Next.js', 'Node.js',
+  // Communication
+  'WhatsApp', 'Discord',
   // Leadership
   'Team Building', 'Culture',
 ] as const;
@@ -43,6 +51,7 @@ export function Work() {
   const [activeProject, setActiveProject] = useState<ProjectType | null>(null);
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('professional');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [showGearSift, setShowGearSift] = useState(false);
 
   const projects: Project[] = [
     // Professional Projects
@@ -120,32 +129,52 @@ export function Work() {
     },
     // Personal Projects
     {
-      id: 'ai-resume' as ProjectType,
-      title: "AI Career Assistant",
-      description: "Agentic AI career assistant that searches and reads a curated knowledge base using Gemini function calling, then synthesizes answers with source attribution.",
+      id: 'gearsift' as ProjectType,
+      title: "GearSift",
+      description: "Outdoor gear advisor that aggregates expert reviews from YouTube, retailers, and Reddit, then scores products with category-specific algorithms. Static site with baked affiliate links for CDN-independent revenue.",
       company: "Personal Project",
-      metrics: "3 agent tools | Gemini 2.5 Flash | SQLite FTS5 | SSE streaming",
+      metrics: "396 products | 9 scoring engines | 97 tests | 59 migrations",
       category: 'personal',
-      tags: ['LLM', 'Gemini', 'Python', 'FastAPI']
+      tags: ['LLM', 'Python', 'PostgreSQL', 'Astro', 'Cloudflare', 'FastAPI'],
+      featured: true
     },
-    // TODO: Uncomment when Palm Beach County real estate project is ready
-    // {
-    //   id: 'modern-stack' as ProjectType,
-    //   title: "Modern Data Stack Homelab",
-    //   description: "Personal infrastructure running Airflow, dbt, Qdrant, and LLM inference for continuous learning.",
-    //   company: "Homelab",
-    //   metrics: "Airflow | dbt | Qdrant | LM Studio",
-    //   category: 'personal',
-    //   tags: ['Airflow', 'dbt', 'DuckDB', 'PostgreSQL', 'Proxmox', 'Qdrant']
-    // },
     {
-      id: 'voice-clone' as ProjectType,
-      title: "Voice Clone Studio",
-      description: "Weekend build: saw Qwen3-TTS release, shipped a working voice cloning app by Sunday. From 'interesting new model' to functional product in 48 hours.",
+      id: 'jobkit' as ProjectType,
+      title: "JobKit",
+      description: "Automated job search toolkit: scrapes multiple boards, AI-scores roles with enforced distribution targets, generates two-pass audited resumes, and tracks outcomes in Obsidian dashboards.",
       company: "Personal Project",
-      metrics: "48-hour build | Qwen3-TTS + mlx-Whisper | 7 voice effects",
+      metrics: "72 tests | 8 CLI commands | Two-pass resume audit",
       category: 'personal',
-      tags: ['LLM', 'Whisper', 'Python']
+      tags: ['Python', 'LLM', 'SQLite', 'Docker'],
+      github: 'https://github.com/pieChartsAreLies/JobKit'
+    },
+    {
+      id: 'reflection' as ProjectType,
+      title: "Reflection",
+      description: "Local-first voice journaling app with automatic emotion/topic tagging and an interactive knowledge graph that reveals patterns across entries. All processing stays on-device.",
+      company: "Personal Project",
+      metrics: "5-min Docker setup | Knowledge graph | Obsidian sync",
+      category: 'personal',
+      tags: ['Next.js', 'Python', 'Whisper', 'Ollama', 'SQLite'],
+    },
+    {
+      id: 'hoa-dashboard' as ProjectType,
+      title: "HOA Dashboard",
+      description: "Interactive neighborhood analytics dashboard: Mapbox parcel map, equity calculator, value leaderboards, and sell scenario modeler built from public county records.",
+      company: "Personal Project",
+      metrics: "122 properties | 723 sales | 8 chart types | Mapbox",
+      category: 'personal',
+      tags: ['Next.js', 'Mapbox', 'Recharts', 'SQLite', 'Docker'],
+      github: 'https://github.com/pieChartsAreLies/hoa-dashboard'
+    },
+    {
+      id: 'tautulli-pipeline' as ProjectType,
+      title: "Tautulli Pipeline",
+      description: "End-to-end data warehouse for Plex media analytics: Airflow extraction, dbt transformation, PostgreSQL storage, dual dashboards (Evidence + Metabase). Full modern data stack on homelab.",
+      company: "Personal Project",
+      metrics: "4 DAGs | dbt models | Dual dashboards | ~3,920 records",
+      category: 'personal',
+      tags: ['Airflow', 'dbt', 'PostgreSQL', 'Evidence', 'Metabase']
     },
     {
       id: 'whisper-notes' as ProjectType,
@@ -154,16 +183,17 @@ export function Work() {
       company: "Personal Project",
       metrics: "Daily driver | Cmd+Shift+R/J hotkeys | Zero cloud dependencies",
       category: 'personal',
-      tags: ['Whisper', 'Ollama', 'LLM', 'Python']
+      tags: ['Whisper', 'Ollama', 'LLM', 'Python'],
+      github: 'https://github.com/pieChartsAreLies/WhisperNotes'
     },
     {
       id: 'nanoclaw' as ProjectType,
       title: "NanoClaw (Bob)",
-      description: "Telegram-based homelab agent with two personas sharing one platform. Bob manages 30+ containers; Tim coaches fitness from Garmin and Strava data. LLM reasoning with 30+ tool integrations.",
+      description: "Claude assistant in containers with WhatsApp/Discord I/O. Per-group isolation, scheduled tasks, and skills-based extensibility. Small, understandable codebase by design.",
       company: "Personal Project",
-      metrics: "2 personas | 30+ tools | Daily operational use",
+      metrics: "Per-group isolation | Scheduled tasks | Skills system",
       category: 'personal',
-      tags: ['LLM', 'Python', 'PostgreSQL', 'Telegram']
+      tags: ['Claude SDK', 'Node.js', 'WhatsApp', 'Discord', 'Docker'],
     },
   ];
 
@@ -185,6 +215,9 @@ export function Work() {
     }
     return filtered;
   }, [activeCategory, selectedTags]);
+
+  const featuredProjects = filteredProjects.filter(p => p.featured);
+  const regularProjects = filteredProjects.filter(p => !p.featured);
 
   const handleTagClick = (tag: string) => {
     setSelectedTags(prev =>
@@ -243,7 +276,7 @@ export function Work() {
       >
         {activeCategory === 'professional'
           ? 'Enterprise data platform and analytics leadership projects'
-          : 'AI experiments, homelab infrastructure, and side projects'
+          : 'Hands-on AI builds that demonstrate working methods, not just ideas'
         }
       </motion.p>
 
@@ -313,7 +346,82 @@ export function Work() {
         Projects
       </h2>
 
-      {/* Projects */}
+      {/* Featured Projects */}
+      {featuredProjects.length > 0 && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`featured-${activeCategory}-${selectedTags.join(',')}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="w-full max-w-[1200px]"
+          >
+            {featuredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-[#4A4440] to-[#3A3632] rounded-[16px] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.35)] p-8 md:p-10 flex flex-col border border-[#D4A853]/20"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <p className="font-['Montserrat',sans-serif] font-medium text-[14px] text-[#D4A853] uppercase tracking-wide">
+                    {project.company}
+                  </p>
+                  <span className="bg-[#D4A853]/20 text-[#D4A853] text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-['Montserrat',sans-serif] font-semibold">
+                    Featured
+                  </span>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="font-['Montserrat',sans-serif] font-medium text-[24px] md:text-[28px] text-[#FAF7F2] mb-4 leading-tight">
+                    {project.title}
+                  </h3>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#9C9489] hover:text-[#D4A853] transition-colors shrink-0 mt-1"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+                  )}
+                </div>
+                <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] mb-4 leading-relaxed">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {project.tags.map(tag => (
+                    <span
+                      key={tag}
+                      className={`px-2 py-0.5 rounded text-[11px] font-['Montserrat',sans-serif] ${
+                        selectedTags.includes(tag)
+                          ? 'bg-[#D4A853]/30 text-[#D4A853]'
+                          : 'bg-[#332F2B] text-[#9C9489]'
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="font-['Montserrat',sans-serif] font-light text-[13px] text-[#9C9489] mb-6 italic">
+                  {project.metrics}
+                </p>
+                <div className="flex gap-3 mt-auto">
+                  <button
+                    onClick={() => project.id === 'gearsift' ? setShowGearSift(true) : setActiveProject(project.id)}
+                    className="flex-1 h-[40px] bg-[#D4A853] rounded-[50px] font-['Montserrat',sans-serif] font-medium text-[#2A2622] text-[14px] hover:bg-[#E0B864] transition-colors cursor-pointer"
+                  >
+                    {project.id === 'gearsift' ? 'Explore GearSift' : 'View Details'}
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      )}
+
+      {/* Regular Projects Grid */}
       <AnimatePresence mode="wait">
         <motion.div
           key={`${activeCategory}-${selectedTags.join(',')}`}
@@ -322,7 +430,7 @@ export function Work() {
           exit={{ opacity: 0, y: -20 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-[1200px]"
         >
-          {filteredProjects.map((project, index) => (
+          {regularProjects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
@@ -340,9 +448,22 @@ export function Work() {
                   </span>
                 )}
               </div>
-              <h3 className="font-['Montserrat',sans-serif] font-medium text-[20px] md:text-[23px] text-[#FAF7F2] mb-4 leading-tight">
-                {project.title}
-              </h3>
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="font-['Montserrat',sans-serif] font-medium text-[20px] md:text-[23px] text-[#FAF7F2] mb-4 leading-tight">
+                  {project.title}
+                </h3>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#9C9489] hover:text-[#D4A853] transition-colors shrink-0 mt-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  </a>
+                )}
+              </div>
               <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] mb-4 leading-relaxed">
                 {project.description}
               </p>
@@ -379,6 +500,7 @@ export function Work() {
         </motion.div>
       </AnimatePresence>
 
+      {/* Detail Panel Overlay */}
       <AnimatePresence mode="wait">
         {activeProject && (
           <motion.div key={activeProject} className="fixed inset-0 z-[90]">
@@ -395,6 +517,15 @@ export function Work() {
               onNextProject={handleNextProject}
             />
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* GearSift Showcase Overlay */}
+      <AnimatePresence>
+        {showGearSift && (
+          <Suspense fallback={null}>
+            <GearSiftShowcase onClose={() => setShowGearSift(false)} />
+          </Suspense>
         )}
       </AnimatePresence>
     </div>

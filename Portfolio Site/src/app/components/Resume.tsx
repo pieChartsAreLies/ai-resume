@@ -10,10 +10,13 @@ export function Resume() {
       role: 'Director of Business Intelligence and Data Engineering',
       company: 'Babylist',
       highlights: [
-        'Led data platform strategy for registry and e-commerce platform',
-        'Modernized Snowflake architecture achieving 30% cost reduction and 50% query performance improvement',
-        'Implemented metric trees as core measurement framework',
-        'Established PHI governance for health data partnerships'
+        'Owned BI and data engineering for registry and e-commerce platform serving millions of families',
+        'Modernized Snowflake architecture: 30% cost reduction (~$145K annual savings) and 50% P95 query performance improvement',
+        'Reimagined self-service analytics roadmap, reducing ad-hoc data requests and team dependency by redesigning how business users interact with data tools',
+        'Revamped work intake, on-call triage, and data project shaping processes for the data and analytics engineering team',
+        'Implemented metric trees as core measurement framework tying product KPIs to business outcomes',
+        'Established PHI governance framework for health data partnerships, documenting data ownership across the organization',
+        'Championed AI adoption company-wide with hands-on workshops demonstrating practical applications for day-to-day work'
       ]
     },
     {
@@ -21,9 +24,12 @@ export function Resume() {
       role: 'Director of Software Engineering — Analytic Platforms',
       company: 'Chewy',
       highlights: [
-        'Owned platform engineering for Fortune 500 analytics infrastructure',
-        'Led enterprise data instrumentation audit influencing C-suite mobile architecture consolidation',
-        'Architected real-time event pipeline replacing Segment, saving $35K annually'
+        'Led 7 teams spanning software engineering, data governance, analytics, GRC, and pricing within IT',
+        'Conducted company-wide analytics audit: 80+ interviews across 40 teams, mapping a 124-step instrumentation process that influenced C-suite mobile architecture consolidation',
+        'Onboarded 5 applications from POC through full rollout impacting thousands of users across analytics, governance, and compliance',
+        'Led PCI compliance audit as a cross-functional governance initiative',
+        'Architected real-time event pipeline replacing Segment, saving $35K annually',
+        'Named to HotTopics Global CDO/Data Leaders Top 100'
       ]
     },
     {
@@ -31,10 +37,12 @@ export function Resume() {
       role: 'Director, Business Intelligence',
       company: 'Chewy',
       highlights: [
-        'Scaled team from 14 to 30 people across distributed locations',
-        'Established enterprise data governance program supporting SOX compliance',
-        'Scaled Tableau from 100 to 3,500+ users',
-        'Reduced PII exposure by 97% across all data systems'
+        'Scaled organization from 14 to 30 people across BI, Data Governance, Splunk, and GRC teams',
+        'Grew Tableau platform from 100 to 3,500+ users (35x) while maintaining performance and SOX compliance',
+        'Reduced PII exposure by 97% across all system logs through cross-functional initiative influencing 30+ engineering teams',
+        'Rolled out Alation data catalog and built SOX-compliant path-to-production process with automated migration testing',
+        'Implemented OneTrust for CCPA compliance at launch and GDPR readiness for international expansion',
+        'Built Data Summit (75+ sessions) and Data Basecamp programs, training 1,200+ employees over multiple years'
       ]
     },
     {
@@ -42,10 +50,12 @@ export function Resume() {
       role: 'Associate Director, Business Intelligence',
       company: 'Chewy',
       highlights: [
-        'First BI hire. Built analytics function from 0 to 14 people supporting IPO readiness',
-        'Architected lakehouse data platform on AWS',
-        'Launched data governance program and hub-and-spoke analytics model',
-        'Founded company data conference'
+        'First BI hire. Built analytics function from zero to 14 people supporting IPO readiness across the full data lifecycle',
+        'Architected self-service analytics platform on AWS (Vertica to Snowflake), reducing analytics warehouse load from 70% to 30%',
+        'Created vendor data services platform generating $10M+ annual revenue from operational data',
+        'Founded Data Summit conference and Data Basecamp training program that became recurring company traditions',
+        'Established hub-and-spoke analytics model enabling business units to self-serve while maintaining governance standards',
+        'Delivered zero SOX audit findings through IPO and beyond with team growing from 3 to 5 FTE (7x efficiency improvement)'
       ]
     }
   ];

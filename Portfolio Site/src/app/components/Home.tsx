@@ -4,10 +4,10 @@ import { motion } from 'motion/react';
 interface HomeProps {
   onScrollToWork: () => void;
   onScrollToResume: () => void;
-  onOpenChat: () => void;
+  onScrollToAI: () => void;
 }
 
-export function Home({ onScrollToWork, onScrollToResume, onOpenChat }: HomeProps) {
+export function Home({ onScrollToWork, onScrollToResume, onScrollToAI }: HomeProps) {
   return (
     <div className="flex flex-col items-center pt-[112px] md:pt-[132px] pb-8 px-4">
       {/* Combined Hero + Who I Am Section */}
@@ -32,19 +32,21 @@ export function Home({ onScrollToWork, onScrollToResume, onOpenChat }: HomeProps
           </p>
 
           <p className="font-['Montserrat',sans-serif] font-light text-[16px] text-[#D4CFC8] leading-relaxed">
-            My homelab is a personal space to build things that are actually useful, mostly for my family, sometimes just to satisfy curiosity. It's also how I stay close to the rapidly changing AI and infrastructure landscape. The projects you'll see here reflect how I tend to work: practical systems, built with care, that help people and teams operate a little more smoothly.
+            My homelab is where I stay hands-on with AI and infrastructure. It's a space to build practical systems, test new models, and develop the working methods I write about in the AI section below. The projects here reflect how I work: build it, use it daily, refine it.
           </p>
         </div>
 
-        {/* AI Chat Button - Primary CTA */}
+        {/* AI Section CTA - Primary */}
         <button
-          onClick={onOpenChat}
+          onClick={onScrollToAI}
           className="w-full h-[52px] bg-gradient-to-r from-[#C4785C] to-[#8B5A3C] rounded-[50px] flex items-center justify-center gap-3 font-['Montserrat',sans-serif] font-medium text-[#FAF7F2] text-[16px] hover:opacity-90 transition-opacity cursor-pointer mb-6 shadow-lg"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
           </svg>
-          Ask My AI About Me
+          How I Work with AI
         </button>
 
         {/* Divider */}
