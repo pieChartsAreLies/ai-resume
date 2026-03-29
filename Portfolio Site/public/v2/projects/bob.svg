@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <rect width="800" height="400" fill="#1a1612"/>
+  <rect x="30" y="30" width="740" height="340" rx="12" fill="#2a2520" stroke="#3a3530" stroke-width="1"/>
+  <text x="400" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#6b665f">Screenshot placeholder</text>
+</svg>
