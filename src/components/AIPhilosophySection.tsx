@@ -86,7 +86,7 @@ export default function AIPhilosophySection() {
   useEffect(() => {
     autoRef.current = setInterval(() => {
       setActiveQuote((q) => (q === pullQuotes.length - 1 ? 0 : q + 1));
-    }, 6000);
+    }, 8000);
     return () => {
       if (autoRef.current) clearInterval(autoRef.current);
     };
@@ -97,7 +97,7 @@ export default function AIPhilosophySection() {
     if (autoRef.current) clearInterval(autoRef.current);
     autoRef.current = setInterval(() => {
       setActiveQuote((q) => (q === pullQuotes.length - 1 ? 0 : q + 1));
-    }, 6000);
+    }, 8000);
   };
 
   return (
