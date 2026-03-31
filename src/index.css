@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme (coffee off-white) */
+  :root {
+    --background: 36 40% 92%;
+    --foreground: 18 16% 15%;
+
+    --card: 36 38% 95%;
+    --card-foreground: 18 16% 15%;
+
+    --popover: 36 38% 95%;
+    --popover-foreground: 18 16% 15%;
+
+    --primary: 18 85% 45%;
+    --primary-foreground: 36 40% 95%;
+
+    --secondary: 165 35% 32%;
+    --secondary-foreground: 165 30% 12%;
+
+    --muted: 30 20% 86%;
+    --muted-foreground: 22 10% 40%;
+
+    --accent: 35 60% 45%;
+    --accent-foreground: 18 16% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 25 15% 82%;
+    --input: 25 15% 82%;
+    --ring: 18 85% 45%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --highlight: 18 85% 45%;
+    --highlight-glow: 18 85% 45% / 0.15;
+    --teal: 165 45% 35%;
+    --teal-foreground: 165 30% 12%;
+    --warm-gray: 25 10% 40%;
+    --cream: 38 30% 88%;
+    --surface-elevated: 36 30% 93%;
+
+    --sidebar-background: 36 40% 92%;
+    --sidebar-foreground: 18 16% 15%;
+    --sidebar-primary: 18 85% 45%;
+    --sidebar-primary-foreground: 36 40% 95%;
+    --sidebar-accent: 36 30% 93%;
+    --sidebar-accent-foreground: 18 16% 15%;
+    --sidebar-border: 25 15% 82%;
+    --sidebar-ring: 18 85% 45%;
+  }
+
+  /* Dark theme */
+  .dark {
+    --background: 20 12% 7%;
+    --foreground: 38 30% 88%;
+
+    --card: 20 10% 11%;
+    --card-foreground: 38 30% 88%;
+
+    --popover: 20 10% 11%;
+    --popover-foreground: 38 30% 88%;
+
+    --primary: 18 85% 52%;
+    --primary-foreground: 20 12% 7%;
+
+    --secondary: 165 35% 32%;
+    --secondary-foreground: 165 30% 92%;
+
+    --muted: 20 8% 16%;
+    --muted-foreground: 25 15% 55%;
+
+    --accent: 35 60% 50%;
+    --accent-foreground: 20 12% 7%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 20 10% 18%;
+    --input: 20 10% 18%;
+    --ring: 18 85% 52%;
+
+    /* Custom tokens */
+    --highlight: 18 85% 52%;
+    --highlight-glow: 18 85% 52% / 0.25;
+    --teal: 165 45% 45%;
+    --teal-foreground: 165 30% 92%;
+    --warm-gray: 25 10% 40%;
+    --cream: 38 30% 88%;
+    --surface-elevated: 20 10% 13%;
+
+    --sidebar-background: 20 12% 7%;
+    --sidebar-foreground: 38 30% 88%;
+    --sidebar-primary: 18 85% 52%;
+    --sidebar-primary-foreground: 20 12% 7%;
+    --sidebar-accent: 20 10% 13%;
+    --sidebar-accent-foreground: 38 30% 88%;
+    --sidebar-border: 20 10% 18%;
+    --sidebar-ring: 18 85% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-6 md:px-8 lg:px-12;
+  }
+
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out hover:translate-y-[-4px] hover:shadow-[0_20px_40px_-12px_hsl(var(--highlight-glow))];
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .grid-texture {
+    background-image: 
+      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .stat-number {
+    @apply font-display font-bold text-4xl md:text-5xl text-primary;
+  }
+
+  .section-heading {
+    @apply font-display font-bold text-3xl md:text-4xl lg:text-5xl tracking-tight;
+  }
+
+  .section-subheading {
+    @apply font-body text-lg md:text-xl text-muted-foreground max-w-2xl;
+  }
+
+  .highlight-text {
+    @apply relative inline-block;
+  }
+  .highlight-text::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-[0.35em] bg-primary/20 -z-10;
+  }
+
+  .quote-accent {
+    @apply font-serif italic text-xl md:text-2xl leading-relaxed text-foreground/90;
+  }
+
+  /* Light section theme — scoped CSS variable overrides */
+  .section-light {
+    --background: 36 38% 88%;
+    --foreground: 18 16% 15%;
+    --card: 36 33% 91%;
+    --card-foreground: 18 16% 15%;
+    --border: 25 12% 80%;
+    --muted: 30 15% 85%;
+    --muted-foreground: 22 8% 42%;
+    --surface-elevated: 36 30% 90%;
+    --highlight-glow: 18 85% 45% / 0.15;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  .dark .section-light {
+    --background: 36 36% 95%;
+    --foreground: 18 16% 15%;
+    --card: 36 33% 97%;
+    --card-foreground: 18 16% 15%;
+    --border: 25 12% 84%;
+    --muted: 30 15% 91%;
+    --muted-foreground: 22 8% 42%;
+    --surface-elevated: 36 30% 96%;
+    --highlight-glow: 18 85% 52% / 0.15;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Mouse-following directional glow effect */
+  .card-glow {
+    --glow-ox: 0px;
+    --glow-oy: 0px;
+    --glow-opacity: 0;
+    --glow-intensity: 0.4;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  }
+  .card-glow:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      var(--glow-ox) var(--glow-oy) 30px 4px hsl(var(--highlight) / calc(var(--glow-intensity) * 0.3)),
+      0 10px 50px -8px hsl(var(--highlight) / calc(var(--glow-intensity) * 0.2));
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
